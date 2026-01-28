@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Almendra:wght@400;700&family=Cinzel:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Tela de carregamento -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="logo-container">
+                <div class="logo-icon">🏛️</div>
+                <h1 class="logo-title">Mythology Basketball Ascension</h1>
+            </div>
+            <div class="loading-progress">
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <p id="loading-progress" class="loading-text">Inicializando...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aplicação principal -->
+    <div id="app" class="app hidden">
+        <!-- Cabeçalho -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <h1 class="logo-text">ELIFOOT <span class="logo-highlight">MITOLÓGICO</span> NBA</h1>
+                </div>
+                <div class="season-info">
+                    <span class="season-year">Temporada: 2026</span>
+                    <span id="status-text" class="status-text">Época MBA iniciada!</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="phase-indicator">
+                    <span id="phase-indicator" class="phase-badge">ÉPOCA REGULAR</span>
+                </div>
+                <div class="controls">
+                    <button id="btn-simulate-next" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Simular Próximo Jogo
+                    </button>
+                    <button id="btn-refresh-standings" class="btn btn-secondary">
+                        <i class="fas fa-sync-alt"></i> Atualizar
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo principal -->
+        <main class="main-content">
+            <!-- Coluna esquerda: Classificações -->
+            <section class="column standings-column">
+                <div class="column-header">
+                    <h2><i class="fas fa-trophy"></i> CLASSIFICAÇÕES</h2>
+                </div>
+                
+                <div class="conference-standings">
+                    <div class="conference">
+                        <h3 class="conference-title conference-east">
+                            <i class="fas fa-sun"></i> CONFERÊNCIA LESTE
+                        </h3>
+                        <div id="standings-east" class="standings-container">
+                            <!-- Preenchido por JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="conference">
+                        <h3 class="conference-title conference-west">
+                            <i class="fas fa-moon"></i> CONFERÊNCIA OESTE
+                        </h3>
+                        <div id="standings-west" class="standings-container">
+                            <!-- Preenchido por JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coluna central: Jogos Recentes e Equipas -->
+            <section class="column middle-column">
+                <div class="game-section">
+                    <div class="column-header">
+                        <h2><i class="fas fa-basketball-ball"></i> JOGOS RECENTES</h2>
+                    </div>
+                    <div id="recent-games" class="games-container">
+                        <!-- Preenchido por JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="team-section">
+                    <div class="column-header">
+                        <h2><i class="fas fa-users"></i> GESTÃO DE EQUIPA</h2>
+                    </div>
+                    <div class="team-controls">
+                        <div class="team-selector">
+                            <label for="team-select">Selecionar Equipa:</label>
+                            <select id="team-select" class="team-select">
+                                <!-- Preenchido por JavaScript -->
+                            </select>
+                        </div>
+                        <div id="cap-info" class="cap-info">
+                            <!-- Preenchido por JavaScript -->
+                        </div>
+                    </div>
+                    <div id="team-roster" class="roster-container">
+                        <!-- Preenchido por JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coluna direita: Estatísticas e Transações -->
+            <section class="column stats-column">
+                <div class="column-header">
+                    <h2><i class="fas fa-chart-line"></i> INFORMAÇÕES</h2>
+                </div>
+                
+                <div class="stats-section">
+                    <h3 class="section-subtitle">Fase do Jogo</h3>
+                    <div class="phase-info">
+                        <div class="phase-card">
+                            <div class="phase-name">ÉPOCA REGULAR</div>
+                            <div class="phase-progress">
+                                <div class="progress-bar small">
+                                    <div class="progress-fill" id="regular-season-progress"></div>
+                                </div>
+                                <span id="regular-season-text">0/0 jogos</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="section-subtitle">Próximos Jogos</h3>
+                    <div id="next-games" class="next-games">
+                        <p class="empty-message">Simule jogos para ver os próximos encontros.</p>
+                    </div>
+                    
+                    <h3 class="section-subtitle">Transações Recentes</h3>
+                    <div id="transactions" class="transactions">
+                        <p class="empty-message">Nenhuma transação recente.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Rodapé -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>Mythology Basketball Ascension MBA v1.0 | Liga de Basquetebol Mitológico</p>
+                    <p>32 equipas baseadas em mitologias de todo o mundo</p>
+                </div>
+                <div class="footer-actions">
+                    <button id="btn-help" class="btn btn-small">
+                        <i class="fas fa-question-circle"></i> Ajuda
+                    </button>
+                    <button id="btn-about" class="btn btn-small">
+                        <i class="fas fa-info-circle"></i> Sobre
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal de Ajuda (oculto por padrão) -->
+    <div id="help-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-question-circle"></i> Ajuda - Mythology Basketball Ascension MBA</h3>
+                <button id="close-help" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <h4>Como Jogar</h4>
+                    <p>Clique em "Simular Próximo Jogo" para avançar na temporada. A simulação passa pela época regular, playoffs e finais automaticamente.</p>
+                </div>
+                <div class="help-section">
+                    <h4>Classificações</h4>
+                    <p>As equipas são classificadas por vitórias, depois por diferença de pontos. As 8 melhores de cada conferência avançam para os playoffs.</p>
+                </div>
+                <div class="help-section">
+                    <h4>Gestão de Equipa</h4>
+                    <p>Selecione uma equipa para ver o seu plantel e informações sobre o limite salarial (salary cap).</p>
+                </div>
+                <div class="help-section">
+                    <h4>Arquétipos Mitológicos</h4>
+                    <p>Cada jogador pertence a um arquétipo (Força, Sabedoria, Velocidade, etc.) que determina os seus atributos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="game.js"></script>
+    <script type="module" src="main.js"></script>
+    <script>
+        // Script adicional para funcionalidades extras
+        document.addEventListener('DOMContentLoaded', function() {
+            // Botões de ajuda e sobre
+            const helpBtn = document.getElementById('btn-help');
+            const aboutBtn = document.getElementById('btn-about');
+            const helpModal = document.getElementById('help-modal');
+            const closeHelp = document.getElementById('close-help');
+            
+            if (helpBtn && helpModal) {
+                helpBtn.addEventListener('click', () => {
+                    helpModal.classList.remove('hidden');
+                });
+            }
+            
+            if (closeHelp && helpModal) {
+                closeHelp.addEventListener('click', () => {
+                    helpModal.classList.add('hidden');
+                });
+            }
+            
+            if (aboutBtn) {
+                aboutBtn.addEventListener('click', () => {
+                    alert('Elifoot Mitológico NBA v1.0\n\nUm jogo de gestão de basquetebol mitológico com equipas baseadas em mitologias de todo o mundo.\n\nDesenvolvido com JavaScript puro.');
+                });
+            }
+            
+            // Fechar modal ao clicar fora
+            window.addEventListener('click', (e) => {
+                if (e.target === helpModal) {
+                    helpModal.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

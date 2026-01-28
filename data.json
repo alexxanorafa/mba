@@ -1,0 +1,795 @@
+{
+  "seasonYear": 2026,
+  "leagueName": "Elifoot Mitológico NBA",
+  "archetypes": {
+    "Força": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 },
+    "Sabedoria": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 },
+    "Velocidade": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 },
+    "Magia": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 },
+    "Proteção": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 },
+    "Natureza": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 },
+    "Luz": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 },
+    "Sombra": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 },
+    "Ordem": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 },
+    "Fogo": { "tecnica": 75, "velocidade": 85, "forca": 80, "criatividade": 70, "disciplina": 60, "aura": 90 },
+    "Caos": { "tecnica": 65, "velocidade": 90, "forca": 75, "criatividade": 95, "disciplina": 30, "aura": 70 }
+  },
+  "teams": [
+    {
+      "id": 1,
+      "name": "Olimpo Titans",
+      "mythology": "Grega",
+      "style": "Posse estratégica",
+      "dominantArchetype": "Sabedoria",
+      "conference": "EAST",
+      "division": "Olímpica",
+      "players": [
+        { "name": "Atena", "pos": "PG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 22000000, "contractYears": 4 },
+        { "name": "Apolo", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 18000000, "contractYears": 3 },
+        { "name": "Artemis", "pos": "SF", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Ares", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Poseidon", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 21000000, "contractYears": 4 },
+        { "name": "Hefesto", "pos": "SF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Hera", "pos": "PF", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Eros", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Perseu", "pos": "PG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Orfeu", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Héracles", "pos": "C", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 1500000, "contractYears": 1 },
+        { "name": "Aquiles", "pos": "SF", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 1200000, "contractYears": 1 }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Roma Legion",
+      "mythology": "Romana",
+      "style": "Disciplina e ordem",
+      "dominantArchetype": "Ordem",
+      "conference": "WEST",
+      "division": "Legião",
+      "players": [
+        { "name": "Janus", "pos": "PG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Minerva", "pos": "SG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Baco", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 15000000, "contractYears": 3 },
+        { "name": "Vulcano", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 18000000, "contractYears": 4 },
+        { "name": "Neptuno", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 19000000, "contractYears": 4 },
+        { "name": "Vesta", "pos": "PG", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Juno", "pos": "SF", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Cupido", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Fauno", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Quirino", "pos": "PF", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Rômulo", "pos": "C", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Remo", "pos": "SG", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 1100000, "contractYears": 1 }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Valhalla Vikings",
+      "mythology": "Nórdica",
+      "style": "Força e impacto",
+      "dominantArchetype": "Força",
+      "conference": "EAST",
+      "division": "Nórdica",
+      "players": [
+        { "name": "Odin", "pos": "PG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 21000000, "contractYears": 4 },
+        { "name": "Thor", "pos": "SF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 23000000, "contractYears": 4 },
+        { "name": "Freyr", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 15000000, "contractYears": 3 },
+        { "name": "Loki", "pos": "PG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Fenrir", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Vidar", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Bragi", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Idunn", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Skadi", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Balder", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Hodr", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Sif", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 1200000, "contractYears": 1 }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Faraó Pharaohs",
+      "mythology": "Egípcia",
+      "style": "Transições rápidas",
+      "dominantArchetype": "Velocidade",
+      "conference": "WEST",
+      "division": "Nilo",
+      "players": [
+        { "name": "Ra", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 20500000, "contractYears": 4 },
+        { "name": "Sekhmet", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 17500000, "contractYears": 3 },
+        { "name": "Bastet", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Thoth", "pos": "PG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 15000000, "contractYears": 3 },
+        { "name": "Anúbis", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 19500000, "contractYears": 4 },
+        { "name": "Osíris", "pos": "PF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Nephthys", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Khnum", "pos": "C", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Ma'at", "pos": "PG", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Anuket", "pos": "SF", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Amon", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Khepri", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1100000, "contractYears": 1 }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Bharata Mystics",
+      "mythology": "Hindu",
+      "style": "Criatividade e metamorfose",
+      "dominantArchetype": "Magia",
+      "conference": "EAST",
+      "division": "Cósmica",
+      "players": [
+        { "name": "Krishna", "pos": "PG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 21500000, "contractYears": 4 },
+        { "name": "Hanuman", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Agni", "pos": "SF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Vishnu", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 19000000, "contractYears": 4 },
+        { "name": "Ganesha", "pos": "C", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 18500000, "contractYears": 4 },
+        { "name": "Indra", "pos": "SG", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Parvati", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Rama", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Durga", "pos": "C", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Garuda", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Surya", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Chandra", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1100000, "contractYears": 1 }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Kami Shoguns",
+      "mythology": "Shinto",
+      "style": "Equilíbrio e fluidez",
+      "dominantArchetype": "Luz",
+      "conference": "WEST",
+      "division": "Harmonia",
+      "players": [
+        { "name": "Amaterasu", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Susanoo", "pos": "SF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 18000000, "contractYears": 3 },
+        { "name": "Kitsune", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Fujin", "pos": "SF", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 15000000, "contractYears": 3 },
+        { "name": "Oni", "pos": "C", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 19500000, "contractYears": 4 },
+        { "name": "Tanuki", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Konohanasakuya", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Sarutahiko", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Ame-no-Uzume", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Tengu", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Ame-no-Minakanushi", "pos": "C", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Omoikane", "pos": "PF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 1100000, "contractYears": 1 }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Celestial Dragons",
+      "mythology": "Chinesa",
+      "style": "Técnica e disciplina",
+      "dominantArchetype": "Sabedoria",
+      "conference": "EAST",
+      "division": "Dragão",
+      "players": [
+        { "name": "Fuxi", "pos": "PG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 19500000, "contractYears": 4 },
+        { "name": "Shennong", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16500000, "contractYears": 3 },
+        { "name": "Sun Wukong", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 18000000, "contractYears": 3 },
+        { "name": "Pangu", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 17500000, "contractYears": 4 },
+        { "name": "Longwang", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 18500000, "contractYears": 4 },
+        { "name": "Chang'e", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Houyi", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Lei Gong", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Nezha", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Shamash", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Nian", "pos": "C", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Jade Emperor", "pos": "PF", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 1100000, "contractYears": 1 }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Tuatha Druids",
+      "mythology": "Celta",
+      "style": "Natureza e magia",
+      "dominantArchetype": "Natureza",
+      "conference": "WEST",
+      "division": "Druida",
+      "players": [
+        { "name": "Ogma", "pos": "PG", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 18500000, "contractYears": 4 },
+        { "name": "Morrigan", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Aengus", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 15500000, "contractYears": 3 },
+        { "name": "Cernunnos", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16500000, "contractYears": 4 },
+        { "name": "Tailtiu", "pos": "C", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 17500000, "contractYears": 4 },
+        { "name": "Manannan", "pos": "PG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Boann", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Ogmios", "pos": "SG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Fand", "pos": "PG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Danu", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Macha", "pos": "SF", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Nemain", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1100000, "contractYears": 1 }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Orun Spirits",
+      "mythology": "Yorubá",
+      "style": "Ritmo e energia espiritual",
+      "dominantArchetype": "Velocidade",
+      "conference": "EAST",
+      "division": "Orixás",
+      "players": [
+        { "name": "Iansã", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 19000000, "contractYears": 4 },
+        { "name": "Iemanjá", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Xangô", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 18000000, "contractYears": 4 },
+        { "name": "Omulu", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 18500000, "contractYears": 4 },
+        { "name": "Obatalá", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Logunedé", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Obá", "pos": "SF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Ossaim", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Orunmilá", "pos": "PG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Ewá", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Babalu-Ayé", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Oya", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 1100000, "contractYears": 1 }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Kinich Jaguars",
+      "mythology": "Maia",
+      "style": "Pressão e velocidade",
+      "dominantArchetype": "Velocidade",
+      "conference": "WEST",
+      "division": "Jaguar",
+      "players": [
+        { "name": "Kukulkan", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 19000000, "contractYears": 4 },
+        { "name": "Xbalanque", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Tepeu", "pos": "SF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Itzamna", "pos": "PF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 17500000, "contractYears": 4 },
+        { "name": "Ah Puch", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 18000000, "contractYears": 4 },
+        { "name": "Zipacna", "pos": "PF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Vucub Caquix", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Ix Tab", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Ah Mun", "pos": "PG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Ahau Chamahez", "pos": "PF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Bolon Tiku", "pos": "C", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Cabrakan", "pos": "SF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 1100000, "contractYears": 1 }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Huitzil Eagles",
+      "mythology": "Asteca",
+      "style": "Guerra e sacrifício",
+      "dominantArchetype": "Força",
+      "conference": "EAST",
+      "division": "Sol",
+      "players": [
+        { "name": "Huitzilopochtli", "pos": "SF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Quetzalcoatl", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Tezcatlipoca", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 16500000, "contractYears": 3 },
+        { "name": "Tlaloc", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 17000000, "contractYears": 4 },
+        { "name": "Mictlantecuhtli", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 19000000, "contractYears": 4 },
+        { "name": "Coyolxauhqui", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Metztli", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Cihuacoatl", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Mixcoatl", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Xiuhtecuhtli", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Tzitzimime", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Coatlicue", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 1100000, "contractYears": 1 }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Sumer Sky",
+      "mythology": "Mesopotâmica",
+      "style": "Poder e autoridade",
+      "dominantArchetype": "Ordem",
+      "conference": "WEST",
+      "division": "Zigurate",
+      "players": [
+        { "name": "Marduk", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 19500000, "contractYears": 4 },
+        { "name": "Ishtar", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Nabu", "pos": "PG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 18000000, "contractYears": 3 },
+        { "name": "Enlil", "pos": "SF", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 17500000, "contractYears": 4 },
+        { "name": "Anu", "pos": "C", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 18500000, "contractYears": 4 },
+        { "name": "Ereshkigal", "pos": "PF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Geshtinanna", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Sin", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Adad", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Nisaba", "pos": "SG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 4500000, "contractYears": 2 },
+        { "name": "Utu", "pos": "C", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Lamashtu", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1100000, "contractYears": 1 }
+      ]
+    },
+    {
+    "id": 13,
+    "name": "Aurora Northwind",
+    "mythology": "Inuit",
+    "style": "Resiliência e precisão",
+    "dominantArchetype": "Proteção",
+    "conference": "EAST",
+    "division": "Aurora",
+    "players": [
+        { "name": "Sedna", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 19500000, "contractYears": 4 },
+        { "name": "Nanook", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 18000000, "contractYears": 3 },
+        { "name": "Tekkeitsertok", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Sila", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 15000000, "contractYears": 3 },
+        { "name": "Pinga", "pos": "PG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 17500000, "contractYears": 4 },
+
+        { "name": "Alignak", "pos": "PF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Malina", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Igaluk", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Qailertetang", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Torngarsuk", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Amarok", "pos": "C", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Nerrivik", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 14,
+    "name": "Perun Thunder",
+    "mythology": "Eslava",
+    "style": "Impacto e misticismo",
+    "dominantArchetype": "Força",
+    "conference": "WEST",
+    "division": "Tempestade",
+    "players": [
+        { "name": "Veles", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Perun", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 21000000, "contractYears": 4 },
+        { "name": "Svarog", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Mokosh", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Stribog", "pos": "PG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 15000000, "contractYears": 3 },
+
+        { "name": "Rod", "pos": "SG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Lada", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Morana", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Jarilo", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Dazhbog", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Belobog", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Kupala", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 15,
+    "name": "Mana Pacific",
+    "mythology": "Polinésia",
+    "style": "Fluidez e improviso",
+    "dominantArchetype": "Natureza",
+    "conference": "EAST",
+    "division": "Oceano",
+    "players": [
+        { "name": "Tangaroa", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Ku", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 18000000, "contractYears": 3 },
+        { "name": "Maui", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Lono", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 15000000, "contractYears": 3 },
+        { "name": "Kane", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 17500000, "contractYears": 4 },
+
+        { "name": "Rongo", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Pele", "pos": "SF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Hina", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Tane", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Tiki", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Moana", "pos": "SF", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Hi'iaka", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 16,
+    "name": "Dreamtime Wanderers",
+    "mythology": "Aborígene Australiana",
+    "style": "Ritual e território",
+    "dominantArchetype": "Natureza",
+    "conference": "WEST",
+    "division": "Sonho",
+    "players": [
+        { "name": "Baiame", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Rainbow Serpent", "pos": "PF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 18000000, "contractYears": 3 },
+        { "name": "Daramulum", "pos": "SF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Tiddalik", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 15000000, "contractYears": 3 },
+        { "name": "Wandjina", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 17500000, "contractYears": 4 },
+
+        { "name": "Altjira", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Ancestral Elder", "pos": "SF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Bunjil", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Quinkans", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Yowie", "pos": "SG", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Emu Spirit", "pos": "C", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Mimis", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 17,
+    "name": "Dreamtime Wanderers",
+    "mythology": "Aborígene Australiana",
+    "style": "Ritual e território",
+    "dominantArchetype": "Natureza",
+    "conference": "WEST",
+    "division": "Sonho",
+    "players": [
+        { "name": "Baiame", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Rainbow Serpent", "pos": "PF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 18000000, "contractYears": 3 },
+        { "name": "Daramulum", "pos": "SF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Tiddalik", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 15000000, "contractYears": 3 },
+        { "name": "Wandjina", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 17500000, "contractYears": 4 },
+
+        { "name": "Altjira", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Ancestral Elder", "pos": "SF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Bunjil", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Quinkans", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Yowie", "pos": "SG", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Emu Spirit", "pos": "C", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Mimis", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 18,
+    "name": "Serafim Guardians",
+    "mythology": "Judaica Antiga",
+    "style": "Hierarquia e proteção",
+    "dominantArchetype": "Proteção",
+    "conference": "WEST",
+    "division": "Celestial",
+    "players": [
+        { "name": "Metatron", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 21000000, "contractYears": 4 },
+        { "name": "Serafim", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 19000000, "contractYears": 3 },
+        { "name": "Querubim", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 17500000, "contractYears": 3 },
+        { "name": "Ofanim", "pos": "SG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 16500000, "contractYears": 3 },
+        { "name": "Malachim", "pos": "PG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Elohim", "pos": "SG", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Gabriel", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Uriel", "pos": "PF", "archetype": "Fogo", "attributes": { "tecnica": 75, "velocidade": 85, "forca": 80, "criatividade": 70, "disciplina": 60, "aura": 90 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Raphael", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Michael", "pos": "SG", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Sandalphon", "pos": "C", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Zadkiel", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 19,
+    "name": "Archangel Dominion",
+    "mythology": "Cristã (Arcanjos)",
+    "style": "Luz e comando",
+    "dominantArchetype": "Luz",
+    "conference": "EAST",
+    "division": "Coro Celestial",
+    "players": [
+        { "name": "Serafim Prime", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 21000000, "contractYears": 4 },
+        { "name": "Miguel", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 19000000, "contractYears": 3 },
+        { "name": "Gabriel", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 17500000, "contractYears": 3 },
+        { "name": "Rafael", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16500000, "contractYears": 3 },
+        { "name": "Uriel", "pos": "PG", "archetype": "Fogo", "attributes": { "tecnica": 75, "velocidade": 85, "forca": 80, "criatividade": 70, "disciplina": 60, "aura": 90 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Chamuel", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Jofiel", "pos": "SF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Zadkiel", "pos": "PF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Haniel", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Jeremiel", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Raguel", "pos": "C", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Barachiel", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 20,
+    "name": "Nur Crescent",
+    "mythology": "Islâmica (Anjos)",
+    "style": "Equilíbrio e devoção",
+    "dominantArchetype": "Luz",
+    "conference": "WEST",
+    "division": "Crescente",
+    "players": [
+        { "name": "Ridwan", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Jibril", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Mikail", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Israfil", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Azrail", "pos": "PG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Kiraman Katibin", "pos": "PF", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Munkar", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Nakir", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Harut", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Marut", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Ruh", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Maalik", "pos": "C", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 21,
+    "name": "Huitzilopochtli Eagles",
+    "mythology": "Asteca",
+    "style": "Guerra e sacrifício",
+    "dominantArchetype": "Força",
+    "conference": "EAST",
+    "division": "Sol Guerreiro",
+    "players": [
+        { "name": "Mictlantecuhtli", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Camaxtli", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Tonatiuh", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Ehecatl", "pos": "SG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Chalchiuhtlicue", "pos": "PG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Tlaloc", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Xipe Totec", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Quetzalcoatl", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Tezcatlipoca", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Huitzilopochtli", "pos": "SG", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Xiuhtecuhtli", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Coyolxauhqui", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 22,
+    "name": "Sumer Sky Lords",
+    "mythology": "Mesopotâmica",
+    "style": "Poder e autoridade",
+    "dominantArchetype": "Ordem",
+    "conference": "WEST",
+    "division": "Zigurate",
+    "players": [
+        { "name": "Enlil", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Anu", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Enki", "pos": "SF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Ninhursag", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Nergal", "pos": "PG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Marduk", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Ishtar", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Shamash", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Tiamat", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Nabu", "pos": "SG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Dumuzi", "pos": "C", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Ereshkigal", "pos": "PF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 23,
+    "name": "Aurora Northwind",
+    "mythology": "Inuit",
+    "style": "Resiliência e precisão",
+    "dominantArchetype": "Proteção",
+    "conference": "EAST",
+    "division": "Aurora",
+    "players": [
+        { "name": "Sedna", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Nanook", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Tekkeitsertok", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Sila", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Pinga", "pos": "PG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Alignak", "pos": "PF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Malina", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Igaluk", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Qailertetang", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Torngarsuk", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Amarok", "pos": "C", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Nerrivik", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 24,
+    "name": "Perun Thunder",
+    "mythology": "Eslava",
+    "style": "Impacto e misticismo",
+    "dominantArchetype": "Força",
+    "conference": "WEST",
+    "division": "Tempestade",
+    "players": [
+        { "name": "Veles", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Perun", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Svarog", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Mokosh", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Stribog", "pos": "PG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Rod", "pos": "PF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Lada", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Morana", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Jarilo", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Dazhbog", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Chernobog", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Belobog", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 25,
+    "name": "Mana Pacific",
+    "mythology": "Polinésia",
+    "style": "Fluidez e improviso",
+    "dominantArchetype": "Natureza",
+    "conference": "EAST",
+    "division": "Oceano",
+    "players": [
+        { "name": "Tangaroa", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Ku", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Maui", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Lono", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Kane", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Rongo", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Pele", "pos": "SF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Hina", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Tane", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Tiki", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Moana", "pos": "PG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Hi'iaka", "pos": "SF", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },  
+    {
+    "id": 26,
+    "name": "Dreamtime Wanderers II",
+    "mythology": "Aborígene Australiana",
+    "style": "Ritual e território",
+    "dominantArchetype": "Natureza",
+    "conference": "WEST",
+    "division": "Totémica",
+    "players": [
+        { "name": "Baiame’s Hawk", "pos": "PG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Goanna Spirit", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Bilby Spirit", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Marlu", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Djabugay Ancestor", "pos": "C", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Tingarri", "pos": "PF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Ngarna", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Waramurungundi", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Altjira", "pos": "PG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Ancestral Elder", "pos": "SF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Emu Spirit", "pos": "C", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Mundagudda", "pos": "PF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 27,
+    "name": "Ahura Flame",
+    "mythology": "Persa",
+    "style": "Dualidade e disciplina",
+    "dominantArchetype": "Luz",
+    "conference": "EAST",
+    "division": "Fogo Sagrado",
+    "players": [
+        { "name": "Mithra", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Ahura Mazda", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Ahriman", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Anahita", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Atar", "pos": "PG", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Rashnu", "pos": "PF", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Sraosha", "pos": "SF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Spenta Armaiti", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Tishtrya", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Verethragna", "pos": "SG", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Vayu", "pos": "PG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Haurvatat", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 28,
+    "name": "Serafim Guardians",
+    "mythology": "Judaica Antiga",
+    "style": "Hierarquia e proteção",
+    "dominantArchetype": "Proteção",
+    "conference": "WEST",
+    "division": "Muralha Celeste",
+    "players": [
+        { "name": "Metatron", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Serafim", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Querubim", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Ofanim", "pos": "SG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Malachim", "pos": "PG", "archetype": "Velocidade", "attributes": { "tecnica": 70, "velocidade": 98, "forca": 55, "criatividade": 65, "disciplina": 60, "aura": 75 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Elohim", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Gabriel", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Uriel", "pos": "SG", "archetype": "Fogo", "attributes": { "tecnica": 75, "velocidade": 85, "forca": 80, "criatividade": 70, "disciplina": 60, "aura": 90 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Raphael", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Michael", "pos": "SG", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Sandalphon", "pos": "PG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Zadkiel", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 29,
+    "name": "Archangel Dominion",
+    "mythology": "Cristã (Arcanjos)",
+    "style": "Luz e comando",
+    "dominantArchetype": "Luz",
+    "conference": "EAST",
+    "division": "Coro Celestial",
+    "players": [
+        { "name": "Serafim Prime", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Miguel", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Gabriel", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Rafael", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Uriel", "pos": "PG", "archetype": "Fogo", "attributes": { "tecnica": 75, "velocidade": 85, "forca": 80, "criatividade": 70, "disciplina": 60, "aura": 90 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Chamuel", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Jofiel", "pos": "SF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Zadkiel", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Haniel", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Jeremiel", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Raguel", "pos": "PG", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Jehudiel", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 30,
+    "name": "Nur Crescent",
+    "mythology": "Islâmica (Anjos)",
+    "style": "Equilíbrio e devoção",
+    "dominantArchetype": "Luz",
+    "conference": "WEST",
+    "division": "Crescente",
+    "players": [
+        { "name": "Ridwan", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Jibril", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Mikail", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Israfil", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Azrail", "pos": "PG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Kiraman Katibin", "pos": "PF", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Munkar", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Nakir", "pos": "SG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Harut", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Marut", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Ruh", "pos": "PG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Maalik", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 31,
+    "name": "Sumer Sky Lords",
+    "mythology": "Mesopotâmica",
+    "style": "Poder e autoridade",
+    "dominantArchetype": "Ordem",
+    "conference": "EAST",
+    "division": "Zigurate",
+    "players": [
+        { "name": "Enlil", "pos": "C", "archetype": "Proteção", "attributes": { "tecnica": 65, "velocidade": 55, "forca": 80, "criatividade": 40, "disciplina": 95, "aura": 90 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Anu", "pos": "PF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Enki", "pos": "SF", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Ninhursag", "pos": "SG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Nergal", "pos": "PG", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Marduk", "pos": "PF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Ishtar", "pos": "SF", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Shamash", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Tiamat", "pos": "SF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Nabu", "pos": "SG", "archetype": "Sabedoria", "attributes": { "tecnica": 90, "velocidade": 60, "forca": 55, "criatividade": 85, "disciplina": 95, "aura": 80 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Dumuzi", "pos": "PG", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Ereshkigal", "pos": "PF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    },
+    {
+    "id": 32,
+    "name": "Kinich Sun Serpents",
+    "mythology": "Maia (Solar)",
+    "style": "Pressão e luz",
+    "dominantArchetype": "Luz",
+    "conference": "WEST",
+    "division": "Solar",
+    "players": [
+        { "name": "Kinich Ahau", "pos": "C", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 20000000, "contractYears": 4 },
+        { "name": "Camazotz", "pos": "PF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 18500000, "contractYears": 3 },
+        { "name": "Chaac", "pos": "SF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 17000000, "contractYears": 3 },
+        { "name": "Ixchel", "pos": "SG", "archetype": "Magia", "attributes": { "tecnica": 85, "velocidade": 75, "forca": 45, "criatividade": 98, "disciplina": 40, "aura": 95 }, "salary": 16000000, "contractYears": 3 },
+        { "name": "Huracan", "pos": "PG", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 15000000, "contractYears": 4 },
+
+        { "name": "Yum Kaax", "pos": "PF", "archetype": "Natureza", "attributes": { "tecnica": 70, "velocidade": 70, "forca": 70, "criatividade": 75, "disciplina": 65, "aura": 85 }, "salary": 7000000, "contractYears": 2 },
+        { "name": "Tepeu", "pos": "SF", "archetype": "Força", "attributes": { "tecnica": 60, "velocidade": 65, "forca": 95, "criatividade": 40, "disciplina": 80, "aura": 70 }, "salary": 6500000, "contractYears": 2 },
+        { "name": "Bitol", "pos": "SG", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 6000000, "contractYears": 2 },
+        { "name": "Tzacol", "pos": "PG", "archetype": "Ordem", "attributes": { "tecnica": 80, "velocidade": 60, "forca": 70, "criatividade": 50, "disciplina": 95, "aura": 85 }, "salary": 5000000, "contractYears": 2 },
+        { "name": "Ah Kin", "pos": "SF", "archetype": "Luz", "attributes": { "tecnica": 85, "velocidade": 80, "forca": 60, "criatividade": 90, "disciplina": 85, "aura": 100 }, "salary": 4500000, "contractYears": 2 },
+
+        { "name": "Vucub Caquix", "pos": "C", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1400000, "contractYears": 1 },
+        { "name": "Zipacna", "pos": "PF", "archetype": "Sombra", "attributes": { "tecnica": 75, "velocidade": 70, "forca": 80, "criatividade": 60, "disciplina": 50, "aura": 110 }, "salary": 1100000, "contractYears": 1 }
+    ]
+    }
+  ]
+}
