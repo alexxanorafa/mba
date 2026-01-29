@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBA — Mythology Basketball Ascension</title>
+    <title>MBA</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -106,6 +106,26 @@
         <main class="app-main">
             <!-- Left Column: Navigation & Consoles -->
             <div class="column left-column">
+                <section class="console-panel" id="quick-actions-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-rocket"></i> AÇÕES RÁPIDAS</h3>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="nav-btn" onclick="window.uiManager?.handleViewRoster()">
+                            <i class="fas fa-users"></i> Gerir Plantel
+                        </button>
+                        <button class="nav-btn" onclick="window.uiManager?.handleTrainPlayerPrompt()">
+                            <i class="fas fa-dumbbell"></i> Treinar Jogador
+                        </button>
+                        <button class="nav-btn" onclick="window.uiManager?.handleSetLineupPrompt()">
+                            <i class="fas fa-chess-board"></i> Alterar Titulares
+                        </button>
+                        <button class="nav-btn" onclick="window.uiManager?.handleViewSchedule()">
+                            <i class="fas fa-calendar-alt"></i> Ver Calendário
+                        </button>
+                    </div>
+                </section>
+
                 <section class="console-panel">
                     <div class="panel-header">
                         <h3><i class="fas fa-compass"></i> NAVEÇÃO</h3>
@@ -181,6 +201,37 @@
 
             <!-- Center Column: Main Content -->
             <div class="column center-column">
+                <section class="content-panel advanced-stats-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-chart-bar"></i> ESTATÍSTICAS AVANÇADAS</h3>
+                        <button class="btn-control btn-small" id="btn-toggle-advanced">
+                            <i class="fas fa-sliders-h"></i> Detalhes
+                        </button>
+                    </div>
+                    <div class="advanced-stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+                            <div class="stat-value">112.5</div>
+                            <div class="stat-label">Rating Ofensivo</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div class="stat-value">105.3</div>
+                            <div class="stat-label">Rating Defensivo</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="stat-value">98.7</div>
+                            <div class="stat-label">Ritmo</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-percentage"></i></div>
+                            <div class="stat-value">58.2%</div>
+                            <div class="stat-label">Eficiência</div>
+                        </div>
+                    </div>
+                </section>
+
                 <section class="content-panel standings-panel">
                     <div class="panel-header">
                         <h3><i class="fas fa-trophy"></i> CLASSIFICAÇÕES</h3>
@@ -226,6 +277,31 @@
 
             <!-- Right Column: Side Panels -->
             <div class="column right-column">
+                <section class="side-panel" id="team-chemistry-section">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-atom"></i> QUÍMICA DA EQUIPA</h3>
+                    </div>
+                    <div class="chemistry-meter">
+                        <div class="chemistry-bar">
+                            <div class="chemistry-fill" id="chemistry-fill" style="width: 75%;"></div>
+                        </div>
+                        <div class="chemistry-details">
+                            <div class="chemistry-factor">
+                                <span>Rotatividade</span>
+                                <span class="factor-value positive">+15</span>
+                            </div>
+                            <div class="chemistry-factor">
+                                <span>Resultados</span>
+                                <span class="factor-value positive">+10</span>
+                            </div>
+                            <div class="chemistry-factor">
+                                <span>Moral</span>
+                                <span class="factor-value neutral">±0</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <section class="side-panel">
                     <div class="panel-header">
                         <h3><i class="fas fa-arrow-right"></i> PRÓXIMOS JOGOS</h3>
@@ -248,6 +324,24 @@
                         <div class="feed-entry">
                             <span class="feed-time">Q1 12:00</span>
                             <span>🏀 Início do jogo!</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="side-panel" id="player-development-section">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-chart-line"></i> DESENVOLVIMENTO</h3>
+                    </div>
+                    <div class="development-progress">
+                        <div class="dev-player">
+                            <div class="dev-player-name">Jogador em Destaque</div>
+                            <div class="dev-progress-bar">
+                                <div class="dev-progress-fill" style="width: 65%;"></div>
+                            </div>
+                            <div class="dev-stats">
+                                <span class="dev-stat">+3 Força</span>
+                                <span class="dev-stat">+2 Técnica</span>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -281,7 +375,7 @@
             <div class="footer-left">
                 <div class="system-status">
                     <span class="status-indicator online"></span>
-                    <span class="status-text" id="status-text-footer">Sistema online • NBA Season 2026</span>
+                    <span class="status-text" id="status-text-footer">MBA Season 2026</span>
                 </div>
             </div>
             
@@ -400,6 +494,37 @@
         </div>
     </div>
 
+    <!-- Roster Management Modal -->
+    <div class="modal modal-lg" id="roster-management-modal">
+        <div class="modal-header">
+            <h3><i class="fas fa-chess-board"></i> GESTÃO DE PLANTEL</h3>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-content">
+            <div class="roster-management">
+                <!-- Conteúdo será preenchido por JavaScript -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-control" onclick="window.uiManager?.closeModal('roster-management-modal')">
+                <i class="fas fa-times"></i> Fechar
+            </button>
+        </div>
+    </div>
+
+    <!-- Training Modal -->
+    <div class="modal" id="training-modal">
+        <div class="modal-header">
+            <h3><i class="fas fa-dumbbell"></i> TREINO DE JOGADOR</h3>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-content">
+            <div class="training-content">
+                <!-- Conteúdo será preenchido por JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script type="module" src="game.js"></script>
     <script type="module" src="main.js"></script>
@@ -443,6 +568,10 @@
                     
                 case 'HISTORY':
                     handleHistory(payload.data);
+                    break;
+                    
+                case 'OFFSEASON':
+                    handleOffseason(payload.data);
                     break;
                     
                 default:
@@ -569,6 +698,7 @@
                                 <span class="team-stat"><i class="fas fa-basketball-ball"></i> PODER: ${data.userTeam.teamPower || 70}</span>
                                 <span class="team-stat"><i class="fas fa-chart-line"></i> ${data.userTeam.stats?.wins || 0}-${data.userTeam.stats?.losses || 0}</span>
                                 <span class="team-stat"><i class="fas fa-fire"></i> STREAK: ${data.userTeam.stats?.streak || 0}</span>
+                                <span class="team-stat"><i class="fas fa-atom"></i> QUÍMICA: ${data.teamChemistry || 75}</span>
                             </div>
                         </div>
                     `;
@@ -611,6 +741,22 @@
             if (data.liveGames) {
                 updateLiveGamesUI(data.liveGames);
             }
+            
+            // 8. Atualizar química
+            if (data.teamChemistry !== undefined) {
+                updateChemistryBarUI(data.teamChemistry);
+            }
+            
+            // 9. Atualizar estatísticas avançadas
+            if (data.advancedStats) {
+                updateAdvancedStatsUI(data.advancedStats);
+            }
+        }
+
+        function handleOffseason(data) {
+            console.log('[UI] Mostrando offseason');
+            // Implementar interface de offseason
+            alert(`🏆 Temporada terminada!\n\nPrémios:\nMVP: ${data.awards?.mvp?.player || 'N/A'}\n\nFree agents disponíveis: ${data.freeAgents?.length || 0}`);
         }
 
         function handleStatusUpdate(data) {
@@ -895,6 +1041,33 @@
             container.innerHTML = html;
         }
 
+        function updateChemistryBarUI(value) {
+            const fill = document.getElementById('chemistry-fill');
+            if (fill) {
+                fill.style.width = `${value}%`;
+                
+                // Atualizar cor baseada no valor
+                if (value > 80) {
+                    fill.style.background = 'linear-gradient(90deg, #06d6a0, #0af7b6)';
+                } else if (value > 50) {
+                    fill.style.background = 'linear-gradient(90deg, #ffd166, #ffde8a)';
+                } else {
+                    fill.style.background = 'linear-gradient(90deg, #ef476f, #ff6b6b)';
+                }
+            }
+        }
+
+        function updateAdvancedStatsUI(stats) {
+            // Atualizar os valores das estatísticas avançadas
+            const statCards = document.querySelectorAll('.stat-card .stat-value');
+            if (statCards.length >= 4 && stats.team) {
+                statCards[0].textContent = stats.team.offensiveRating.toFixed(1);
+                statCards[1].textContent = stats.team.defensiveRating.toFixed(1);
+                statCards[2].textContent = stats.team.pace.toFixed(1);
+                statCards[3].textContent = stats.team.efficiency.toFixed(1) + '%';
+            }
+        }
+
         function addStatusMessageUI(message, type = 'info') {
             const consoleElement = document.getElementById('status-text');
             if (!consoleElement) return;
@@ -1021,6 +1194,9 @@
                 'PLAYOFFS': 'PLAYOFFS',
                 'FINALS': 'FINAIS',
                 'OFFSEASON': 'FORA DE ÉPOCA',
+                'OFFSEASON_ACTIVITIES': 'ATIVIDADES FORA DE ÉPOCA',
+                'DRAFT': 'DRAFT',
+                'FREE_AGENCY': 'FREE AGENCY',
                 'FINISHED': 'CONCLUÍDO'
             };
             return labels[phase] || phase;
@@ -1191,6 +1367,35 @@
                     }
                 });
             }
+            
+            // Configurar botão para mostrar/ocultar estatísticas avançadas
+            const toggleBtn = document.getElementById('btn-toggle-advanced');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function() {
+                    const statsPanel = document.querySelector('.advanced-stats-panel');
+                    const details = statsPanel.querySelector('.advanced-stats-grid');
+                    if (details.style.display === 'none') {
+                        details.style.display = 'grid';
+                        this.innerHTML = '<i class="fas fa-sliders-h"></i> Ocultar';
+                    } else {
+                        details.style.display = 'none';
+                        this.innerHTML = '<i class="fas fa-sliders-h"></i> Detalhes';
+                    }
+                });
+            }
+            
+            // Adicionar efeitos de hover aos cartões de estatísticas
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.3)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
             
             console.log('[UI] Event listeners configurados com sucesso');
         });
