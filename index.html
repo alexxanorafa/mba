@@ -1,1493 +1,292 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBA</title>
+    <title>MBA — Mythology Basketball Ascension</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
-        <div class="loading-content">
-            <div class="spiral-animation">
-                <div class="spiral"></div>
-                <div class="spiral"></div>
-                <div class="spiral"></div>
+        <div style="text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 20px;">🏀</div>
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px;">
+                Mythology Basketball Ascension
+            </h1>
+            <p style="font-size: 1rem; color: #8a8aa8; margin-bottom: 30px;">
+                A ascensão começa...
+            </p>
+            <div id="loading-progress" style="width: 300px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin: 0 auto; overflow: hidden;">
+                <div id="progress-fill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #4a1e8c, #06d6a0); transition: width 0.3s ease;"></div>
             </div>
-            <div class="loading-text">
-                <h1 class="loading-title">MYTHOLOGY BASKETBALL ASCENSION</h1>
-                <p class="loading-subtitle">Inicializando cosmos mitológico...</p>
-                <div class="loading-progress">
-                    <div class="progress-bar">
-                        <div id="progress-fill" class="progress-fill"></div>
-                    </div>
-                    <div id="loading-progress" class="progress-text">0%</div>
-                </div>
-            </div>
+            <p id="loading-message" style="margin-top: 15px; font-size: 0.9rem; color: #c8c8e0;">Inicializando...</p>
         </div>
     </div>
 
-    <!-- Main App (hidden initially) -->
+    <!-- Main App Container -->
     <div id="app" class="app-container hidden">
-        <!-- Header -->
+            <!-- Header -->
         <header class="app-header">
-            <div class="header-left">
-                <div class="logo-container">
-                    <div class="logo-symbol">⍟</div>
-                    <div class="logo-text">
-                        <h1 class="logo-title">MBA</h1>
-                        <p class="logo-subtitle">Mythology Basketball Ascension</p>
-                    </div>
+            <a href="https://alexxanorafa.github.io/ecosystem/" class="header-logo">
+                <div class="logo-symbol">🏀</div>
+                <div class="logo-text">
+        <div class="logo-title">MBA</div>
+        <div class="logo-subtitle">MYTHOLOGY ASCENSION</div>
+    </div>
+    </a>
+
+            <div class="header-game-info">
+                <div class="game-phase">
+                    <span class="phase-icon">📅</span>
+                    <span id="game-phase-text" class="phase-text">Seleção</span>
                 </div>
-                
-                <div class="season-info">
-                    <div class="season-phase" id="season-phase">
-                        <span class="phase-badge">ÉPOCA REGULAR</span>
-                    </div>
-                    <div class="season-day">
-                        <span class="day-label">DIA</span>
-                        <span class="day-number" id="day-number">1/82</span>
-                    </div>
+                <div class="game-day">
+                    <span class="day-icon">🗓️</span>
+                    <span id="current-day-text" class="day-text">Dia 1/82</span>
                 </div>
             </div>
 
-            <div class="header-center">
-                <div class="user-team-info" id="user-team-info">
-                    <div class="team-logo-large">🏛️</div>
-                    <div class="team-details">
-                        <h2 class="team-name">OLIMPO TITANS</h2>
-                        <div class="team-stats-row">
-                            <span class="team-stat"><i class="fas fa-trophy"></i> REP: 50</span>
-                            <span class="team-stat"><i class="fas fa-basketball-ball"></i> PODER: 78</span>
-                            <span class="team-stat"><i class="fas fa-chart-line"></i> 0-0</span>
-                            <span class="team-stat"><i class="fas fa-fire"></i> STREAK: 0</span>
-                        </div>
-                    </div>
+            <div class="header-user-team">
+                <div id="user-team-compact" class="user-team-compact" style="display: none;">
+                    <div class="team-icon-small">🏛️</div>
+                    <div class="team-name-compact" id="user-team-name-compact">Selecione Equipa</div>
+                    <div class="team-record" id="user-team-record">0-0</div>
                 </div>
             </div>
 
-            <div class="header-right">
-                <div class="simulation-controls">
-                    <div class="speed-controls">
-                        <button class="btn-control speed-btn active" data-speed="1" title="Velocidade 1x">
-                            <i class="fas fa-tachometer-alt"></i> 1x
-                        </button>
-                        <button class="btn-control speed-btn" data-speed="2" title="Velocidade 2x">
-                            2x
-                        </button>
-                        <button class="btn-control speed-btn" data-speed="5" title="Velocidade 5x">
-                            5x
-                        </button>
-                        <button class="btn-control speed-btn" data-speed="10" title="Velocidade 10x">
-                            10x
-                        </button>
-                    </div>
-                    
-                    <div class="play-controls">
-                        <button id="btn-play-pause" class="btn-control btn-play" title="Iniciar/Pausar simulação">
-                            <i class="fas fa-play"></i> <span>INICIAR</span>
-                        </button>
-                        <button id="btn-simulate-day" class="btn-control btn-secondary" title="Simular próximo dia">
-                            <i class="fas fa-forward"></i> <span>SIMULAR DIA</span>
-                        </button>
-                        <button id="btn-auto-toggle" class="btn-control btn-auto active" title="Alternar modo automático">
-                            <i class="fas fa-robot"></i> <span>AUTO</span>
-                        </button>
-                    </div>
+            <div class="header-controls">
+                <div class="simulation-speed">
+                    <button class="speed-btn" data-speed="1">1x</button>
+                    <button class="speed-btn active" data-speed="2">2x</button>
+                    <button class="speed-btn" data-speed="5">5x</button>
+                </div>
+                <div class="simulation-buttons">
+                    <button id="btn-simulate-day" class="btn-control btn-play" title="Simular Dia"><i class="fas fa-play"></i></button>
+                    <button id="btn-auto-toggle" class="btn-control btn-auto" title="Modo Automático"><i class="fas fa-forward"></i></button>
+                </div>
+            </div>
+
+            <div class="header-stats">
+                <div class="stat-item">
+                    <i class="fas fa-trophy"></i>
+                    <span id="user-reputation-header">50</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-fire"></i>
+                    <span id="user-chemistry-header">75</span>
                 </div>
             </div>
         </header>
 
-        <!-- Main Content (3 Columns) -->
+        <!-- Main Layout -->
         <main class="app-main">
-            <!-- Left Column: Navigation & Consoles -->
-            <div class="column left-column">
-                <section class="console-panel" id="quick-actions-panel">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-rocket"></i> AÇÕES RÁPIDAS</h3>
+            <!-- Sidebar -->
+            <aside class="app-sidebar">
+                <nav class="main-nav">
+                    <div class="nav-section">
+                        <div class="nav-title"><i class="fas fa-chess"></i> GESTÃO</div>
+                        <button class="nav-btn" data-action="view-roster"><i class="fas fa-users"></i> Plantel</button>
+                        <button class="nav-btn" data-action="view-schedule"><i class="fas fa-calendar-alt"></i> Calendário</button>
+                        <button class="nav-btn" data-action="view-history"><i class="fas fa-history"></i> Histórico</button>
                     </div>
-                    <div class="quick-actions">
-                        <button class="nav-btn" onclick="window.uiManager?.handleViewRoster()">
-                            <i class="fas fa-users"></i> Gerir Plantel
-                        </button>
-                        <button class="nav-btn" onclick="window.uiManager?.handleTrainPlayerPrompt()">
-                            <i class="fas fa-dumbbell"></i> Treinar Jogador
-                        </button>
-                        <button class="nav-btn" onclick="window.uiManager?.handleSetLineupPrompt()">
-                            <i class="fas fa-chess-board"></i> Alterar Titulares
-                        </button>
-                        <button class="nav-btn" onclick="window.uiManager?.handleViewSchedule()">
-                            <i class="fas fa-calendar-alt"></i> Ver Calendário
-                        </button>
+                    <div class="nav-section">
+                        <div class="nav-title"><i class="fas fa-exchange-alt"></i> MERCADO</div>
+                        <button class="nav-btn" data-action="free-agents"><i class="fas fa-user-plus"></i> Free Agents</button>
+                        <button class="nav-btn" data-action="trades"><i class="fas fa-handshake"></i> Trocas</button>
+                        <button class="nav-btn" data-action="draft"><i class="fas fa-clipboard-list"></i> Draft</button>
                     </div>
-                </section>
-
-                <section class="console-panel">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-compass"></i> NAVEÇÃO</h3>
-                    </div>
-                    <nav class="console-nav">
-                        <button class="nav-btn active" data-view="dashboard">
-                            <i class="fas fa-tachometer-alt"></i> Dashboard
-                        </button>
-                        <button class="nav-btn" data-view="teams" id="btn-team-select">
-                            <i class="fas fa-users"></i> Equipas
-                        </button>
-                        <button class="nav-btn" data-view="roster" id="btn-view-roster">
-                            <i class="fas fa-user-friends"></i> Plantel
-                        </button>
-                        <button class="nav-btn" data-view="schedule">
-                            <i class="fas fa-calendar-alt"></i> Calendário
-                        </button>
-                        <button class="nav-btn" data-view="transactions">
-                            <i class="fas fa-exchange-alt"></i> Transações
-                        </button>
-                        <button class="nav-btn" data-view="finances" id="btn-cap-info">
-                            <i class="fas fa-coins"></i> Finanças
-                        </button>
-                        <button class="nav-btn" data-view="history" id="btn-view-history">
-                            <i class="fas fa-history"></i> Histórico
-                        </button>
-                    </nav>
-                </section>
-
-                <section class="console-panel">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-filter"></i> FILTROS</h3>
-                    </div>
-                    <div class="filter-controls">
-                        <div class="filter-group">
-                            <label for="filter-conference">Conferência:</label>
-                            <select id="filter-conference" class="filter-select">
-                                <option value="all">Todas</option>
-                                <option value="EAST">Este</option>
-                                <option value="WEST">Oeste</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="filter-phase">Fase:</label>
-                            <select id="filter-phase" class="filter-select">
-                                <option value="all">Todas</option>
-                                <option value="regular">Época Regular</option>
-                                <option value="playoffs">Playoffs</option>
-                            </select>
-                        </div>
-                        <button id="btn-refresh-standings" class="btn-control btn-small">
-                            <i class="fas fa-sync-alt"></i> Atualizar
-                        </button>
-                    </div>
-                </section>
-
-                <section class="console-panel">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-terminal"></i> CONSOLA</h3>
-                    </div>
-                    <div class="console-output" id="status-text">
-                        <div class="console-entry info">
-                            <span class="console-time">[12:00:00]</span>
-                            <span>🏀 Bem-vindo ao MBA!</span>
-                        </div>
-                        <div class="console-entry success">
-                            <span class="console-time">[12:00:01]</span>
-                            <span>✅ Sistema inicializado com sucesso</span>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- Center Column: Main Content -->
-            <div class="column center-column">
-                <section class="content-panel advanced-stats-panel">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-chart-bar"></i> ESTATÍSTICAS AVANÇADAS</h3>
-                        <button class="btn-control btn-small" id="btn-toggle-advanced">
-                            <i class="fas fa-sliders-h"></i> Detalhes
-                        </button>
-                    </div>
-                    <div class="advanced-stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon"><i class="fas fa-bolt"></i></div>
-                            <div class="stat-value">112.5</div>
-                            <div class="stat-label">Rating Ofensivo</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
-                            <div class="stat-value">105.3</div>
-                            <div class="stat-label">Rating Defensivo</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            <div class="stat-value">98.7</div>
-                            <div class="stat-label">Ritmo</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon"><i class="fas fa-percentage"></i></div>
-                            <div class="stat-value">58.2%</div>
-                            <div class="stat-label">Eficiência</div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="content-panel standings-panel">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-trophy"></i> CLASSIFICAÇÕES</h3>
-                        <div class="conference-tabs">
-                            <button class="conf-tab active" data-conference="EAST">CONFERÊNCIA ESTE</button>
-                            <button class="conf-tab" data-conference="WEST">CONFERÊNCIA OESTE</button>
-                        </div>
-                    </div>
-                    <div class="standings-container">
-                        <div id="standings-east" class="standings-conference active">
-                            <!-- East standings will be populated by JS -->
-                            <div class="loading-standings">
-                                <div class="spiral-small"></div>
-                                <p>Carregando classificações...</p>
-                            </div>
-                        </div>
-                        <div id="standings-west" class="standings-conference">
-                            <!-- West standings will be populated by JS -->
-                            <div class="loading-standings">
-                                <div class="spiral-small"></div>
-                                <p>Carregando classificações...</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="content-panel games-panel">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-broadcast-tower"></i> JOGOS EM DIRETO</h3>
-                        <button id="btn-simulate-next" class="btn-control btn-small">
-                            <i class="fas fa-play-circle"></i> Simular Jogo
-                        </button>
-                    </div>
-                    <div class="games-container" id="recent-games">
-                        <!-- Live games will be populated by JS -->
-                        <div class="no-games">
-                            <i class="fas fa-basketball-ball"></i>
-                            <p>Aguardando início da temporada...</p>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- Right Column: Side Panels -->
-            <div class="column right-column">
-                <section class="side-panel" id="team-chemistry-section">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-atom"></i> QUÍMICA DA EQUIPA</h3>
-                    </div>
-                    <div class="chemistry-meter">
-                        <div class="chemistry-bar">
-                            <div class="chemistry-fill" id="chemistry-fill" style="width: 75%;"></div>
-                        </div>
-                        <div class="chemistry-details">
-                            <div class="chemistry-factor">
-                                <span>Rotatividade</span>
-                                <span class="factor-value positive">+15</span>
-                            </div>
-                            <div class="chemistry-factor">
-                                <span>Resultados</span>
-                                <span class="factor-value positive">+10</span>
-                            </div>
-                            <div class="chemistry-factor">
-                                <span>Moral</span>
-                                <span class="factor-value neutral">±0</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="side-panel">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-arrow-right"></i> PRÓXIMOS JOGOS</h3>
-                    </div>
-                    <div class="upcoming-games" id="upcoming-games">
-                        <!-- Upcoming games will be populated by JS -->
-                        <div class="no-upcoming">
-                            <i class="fas fa-calendar-plus"></i>
-                            <p>Sem jogos agendados</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="side-panel">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-rss"></i> FEED EM DIRETO</h3>
-                    </div>
-                    <div class="live-feed" id="live-feed">
-                        <!-- Live feed will be populated by JS -->
-                        <div class="feed-entry">
-                            <span class="feed-time">Q1 12:00</span>
-                            <span>🏀 Início do jogo!</span>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="side-panel" id="player-development-section">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-chart-line"></i> DESENVOLVIMENTO</h3>
-                    </div>
-                    <div class="development-progress">
-                        <div class="dev-player">
-                            <div class="dev-player-name">Jogador em Destaque</div>
-                            <div class="dev-progress-bar">
-                                <div class="dev-progress-fill" style="width: 65%;"></div>
-                            </div>
-                            <div class="dev-stats">
-                                <span class="dev-stat">+3 Força</span>
-                                <span class="dev-stat">+2 Técnica</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="side-panel roster-panel" id="team-roster-preview">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-user-friends"></i> PLANTEL RESUMO</h3>
-                    </div>
-                    <div class="roster-summary">
-                        <!-- Team roster preview will be populated by JS -->
-                        <div class="empty-roster">
-                            <i class="fas fa-users"></i>
-                            <p>Selecione uma equipa</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="side-panel" id="job-offers-section" style="display: none;">
-                    <div class="panel-header">
-                        <h3><i class="fas fa-briefcase"></i> OFERTAS DE EMPREGO</h3>
-                    </div>
-                    <div class="job-offers" id="job-offers">
-                        <!-- Job offers will be populated by JS -->
-                    </div>
-                </section>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="app-footer">
-            <div class="footer-left">
-                <div class="system-status">
-                    <span class="status-indicator online"></span>
-                    <span class="status-text" id="status-text-footer">MBA Season 2026</span>
+                </nav>
+                <div class="quick-actions-bar">
+                    <button class="action-btn" data-action="save-game" title="Salvar Jogo"><i class="fas fa-save"></i></button>
+                    <button class="action-btn" data-action="load-game" title="Carregar Jogo"><i class="fas fa-folder-open"></i></button>
+                    <button class="action-btn" data-action="settings" title="Configurações"><i class="fas fa-cog"></i></button>
                 </div>
-            </div>
-            
-            <div class="footer-center">
-                <div class="game-controls-footer">
-                    <button id="btn-switch-team" class="btn-footer">
-                        <i class="fas fa-exchange-alt"></i> MUDAR EQUIPA
-                    </button>
-                    <button class="btn-footer" id="btn-open-settings">
-                        <i class="fas fa-cog"></i> CONFIGURAÇÕES
-                    </button>
-                    <button class="btn-footer" id="btn-help">
-                        <i class="fas fa-question-circle"></i> AJUDA
-                    </button>
-                </div>
-            </div>
-            
-            <div class="footer-right">
-                <div class="version-info">
-                    <span class="version">v2.0.0</span>
-                    <span class="copyright">© 2026 MBA — Hilma af Klint Edition</span>
-                </div>
-            </div>
-        </footer>
-    </div>
+            </aside>
 
-    <!-- Modal System -->
-    <div class="modal-overlay" id="modal-overlay"></div>
-
-    <!-- Team Selection Modal -->
-    <div class="modal" id="team-selection-modal">
-        <div class="modal-header">
-            <h3><i class="fas fa-crown"></i> SELECIONE SUA EQUIPA MITOLÓGICA</h3>
-            <button class="modal-close"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-content">
-            <div class="teams-grid" id="team-select">
-                <!-- Teams will be populated by JS -->
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn-control" id="btn-random-team">
-                <i class="fas fa-random"></i> EQUIPA ALEATÓRIA
-            </button>
-            <button class="btn-control btn-secondary" id="btn-view-all-teams">
-                <i class="fas fa-eye"></i> VER TODAS
-            </button>
-        </div>
-    </div>
-
-    <!-- Game Details Modal -->
-    <div class="modal modal-lg" id="game-details-modal">
-        <div class="modal-header">
-            <h3><i class="fas fa-basketball-ball"></i> DETALHES DO JOGO</h3>
-            <button class="modal-close"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-content">
-            <div class="game-details-content">
-                <!-- Game details will be populated by JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Player Details Modal -->
-    <div class="modal" id="player-details-modal">
-        <div class="modal-header">
-            <h3><i class="fas fa-user"></i> DETALHES DO JOGADOR</h3>
-            <button class="modal-close"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-content">
-            <div class="player-details-content">
-                <!-- Player details will be populated by JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- History Modal -->
-    <div class="modal modal-lg" id="history-modal">
-        <div class="modal-header">
-            <h3><i class="fas fa-history"></i> HISTÓRICO COMPLETO</h3>
-            <button class="modal-close"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-content">
-            <div class="history-content">
-                <!-- History will be populated by JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Settings Modal -->
-    <div class="modal" id="settings-modal">
-        <div class="modal-header">
-            <h3><i class="fas fa-cog"></i> CONFIGURAÇÕES</h3>
-            <button class="modal-close"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-content">
-            <div class="settings-content">
-                <div class="setting-group">
-                    <label for="setting-sound">Som:</label>
-                    <input type="range" id="setting-sound" min="0" max="100" value="70">
-                </div>
-                <div class="setting-group">
-                    <label for="setting-animations">Animações:</label>
-                    <input type="checkbox" id="setting-animations" checked>
-                </div>
-                <div class="setting-group">
-                    <label for="setting-notifications">Notificações:</label>
-                    <input type="checkbox" id="setting-notifications" checked>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn-control" id="btn-save-settings">
-                <i class="fas fa-save"></i> SALVAR
-            </button>
-        </div>
-    </div>
-
-    <!-- Roster Management Modal -->
-    <div class="modal modal-lg" id="roster-management-modal">
-        <div class="modal-header">
-            <h3><i class="fas fa-chess-board"></i> GESTÃO DE PLANTEL</h3>
-            <button class="modal-close"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-content">
-            <div class="roster-management">
-                <!-- Conteúdo será preenchido por JavaScript -->
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn-control" onclick="window.uiManager?.closeModal('roster-management-modal')">
-                <i class="fas fa-times"></i> Fechar
-            </button>
-        </div>
-    </div>
-
-    <!-- Training Modal -->
-    <div class="modal" id="training-modal">
-        <div class="modal-header">
-            <h3><i class="fas fa-dumbbell"></i> TREINO DE JOGADOR</h3>
-            <button class="modal-close"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-content">
-            <div class="training-content">
-                <!-- Conteúdo será preenchido por JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script type="module" src="game.js"></script>
-    <script type="module" src="main.js"></script>
-
-    <!-- UI Integration Script (FIX CRÍTICO) -->
-    <script>
-        // ============================================================
-        // CALLBACK GLOBAL OBRIGATÓRIO - RECEBE ATUALIZAÇÕES DO UIMANAGER
-        // ============================================================
-        console.log('[UI] Carregando sistema de interface...');
-        
-        // Função global OBRIGATÓRIA que o UIManager usa para enviar atualizações
-        window.onUIUpdate = function(payload) {
-            console.log('[UI] Recebido payload:', payload.type);
-            
-            // Processar diferentes tipos de atualização
-            switch(payload.type) {
-                case 'LOADING':
-                    handleLoading(payload.data);
-                    break;
-                    
-                case 'TEAM_SELECTION':
-                    handleTeamSelection(payload.data);
-                    break;
-                    
-                case 'DASHBOARD':
-                    handleDashboard(payload.data);
-                    break;
-                    
-                case 'STATUS_UPDATE':
-                    handleStatusUpdate(payload.data);
-                    break;
-                    
-                case 'ERROR':
-                    handleError(payload.data);
-                    break;
-                    
-                case 'USER_GAME':
-                    handleUserGame(payload.data);
-                    break;
-                    
-                case 'HISTORY':
-                    handleHistory(payload.data);
-                    break;
-                    
-                case 'OFFSEASON':
-                    handleOffseason(payload.data);
-                    break;
-                    
-                default:
-                    console.warn('[UI] Tipo de payload desconhecido:', payload.type);
-            }
-        };
-
-        // ============================================================
-        // HANDLERS DE ATUALIZAÇÃO DE UI
-        // ============================================================
-
-        function handleLoading(data) {
-            console.log('[UI] Atualizando loading:', data.percent + '%');
-            
-            // Atualizar barra de progresso
-            const progressFill = document.getElementById('progress-fill');
-            const progressText = document.getElementById('loading-progress');
-            const subtitle = document.querySelector('.loading-subtitle');
-            
-            if (progressFill && data.percent !== undefined) {
-                progressFill.style.width = `${data.percent}%`;
-                progressFill.style.transition = 'width 0.3s ease';
-            }
-            
-            if (progressText && data.message) {
-                progressText.textContent = data.message;
-            }
-            
-            if (subtitle && data.debug) {
-                subtitle.textContent = data.debug;
-            }
-            
-            // Quando carregamento completar
-            if (data.percent >= 100) {
-                setTimeout(() => {
-                    const loadingScreen = document.getElementById('loading-screen');
-                    const app = document.getElementById('app');
-                    if (loadingScreen && app) {
-                        loadingScreen.classList.add('hidden');
-                        app.classList.remove('hidden');
-                        console.log('[UI] Loading screen escondida, app mostrada');
-                    }
-                }, 800);
-            }
-        }
-
-        function handleTeamSelection(data) {
-            console.log('[UI] Mostrando seleção de equipas:', data.teams?.length + ' equipas');
-            
-            // Mostrar modal de seleção de equipas
-            const modal = document.getElementById('team-selection-modal');
-            const overlay = document.getElementById('modal-overlay');
-            const teamsGrid = document.getElementById('team-select');
-            
-            if (teamsGrid && data.teams) {
-                teamsGrid.innerHTML = data.teams.map(team => `
-                    <div class="team-card" data-team-id="${team.id}">
-                        <div class="team-card-header">
-                            <div class="team-card-logo">${getMythologyIcon(team.mythology)}</div>
-                            <div class="team-card-info">
-                                <div class="team-card-name">${team.name}</div>
-                                <div class="team-card-mythology">${team.mythology}</div>
-                            </div>
-                            <div class="team-card-power">${team.teamPower}</div>
-                        </div>
-                        <div class="team-card-body">
-                            <div class="team-card-conference">
-                                <i class="fas fa-${team.conference === 'EAST' ? 'sun' : 'moon'}"></i>
-                                ${team.conference}
-                            </div>
-                            <div class="team-card-style">${team.style}</div>
-                            <div class="team-card-stats">
-                                <small>${team.players?.length || 0} jogadores</small>
-                            </div>
-                        </div>
-                        <button class="btn-control btn-primary select-team-btn" 
-                                data-team-id="${team.id}">
-                            <i class="fas fa-check"></i> Selecionar
-                        </button>
+            <!-- Content Area -->
+            <div class="app-content">
+                <!-- Context Bar -->
+                <div class="context-bar">
+                    <div class="context-title">
+                        <i class="fas fa-chart-line"></i>
+                        <h2 id="context-title-text">Dashboard Principal</h2>
                     </div>
-                `).join('');
-                
-                // Adicionar event listeners aos botões de seleção
-                document.querySelectorAll('.select-team-btn').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
-                        const teamId = parseInt(this.dataset.teamId);
-                        if (window.uiManager && !isNaN(teamId)) {
-                            window.uiManager.handleSelectTeam(teamId);
-                            closeModal('team-selection-modal');
-                        }
-                    });
-                });
-            }
-            
-            // Mostrar modal
-            if (modal && overlay) {
-                modal.classList.add('active');
-                overlay.classList.add('active');
-                
-                // Configurar botão de fechar
-                const closeBtn = modal.querySelector('.modal-close');
-                if (closeBtn) {
-                    closeBtn.onclick = () => closeModal('team-selection-modal');
-                }
-                
-                // Configurar overlay para fechar
-                overlay.onclick = () => closeModal('team-selection-modal');
-            }
-        }
-
-        function handleDashboard(data) {
-            console.log('[UI] Atualizando dashboard:', data.userTeam?.name);
-            
-            // 1. Atualizar equipa do usuário no header
-            if (data.userTeam) {
-                const teamInfo = document.getElementById('user-team-info');
-                if (teamInfo) {
-                    teamInfo.innerHTML = `
-                        <div class="team-logo-large">${getMythologyIcon(data.userTeam.mythology)}</div>
-                        <div class="team-details">
-                            <h2 class="team-name">${data.userTeam.name}</h2>
-                            <div class="team-stats-row">
-                                <span class="team-stat"><i class="fas fa-trophy"></i> REP: ${data.reputation || 50}</span>
-                                <span class="team-stat"><i class="fas fa-basketball-ball"></i> PODER: ${data.userTeam.teamPower || 70}</span>
-                                <span class="team-stat"><i class="fas fa-chart-line"></i> ${data.userTeam.stats?.wins || 0}-${data.userTeam.stats?.losses || 0}</span>
-                                <span class="team-stat"><i class="fas fa-fire"></i> STREAK: ${data.userTeam.stats?.streak || 0}</span>
-                                <span class="team-stat"><i class="fas fa-atom"></i> QUÍMICA: ${data.teamChemistry || 75}</span>
-                            </div>
-                        </div>
-                    `;
-                }
-            }
-            
-            // 2. Atualizar fase e dia
-            const phaseElement = document.getElementById('season-phase');
-            const dayElement = document.getElementById('day-number');
-            
-            if (phaseElement) {
-                phaseElement.innerHTML = `<span class="phase-badge">${getPhaseLabel(data.phase)}</span>`;
-            }
-            if (dayElement) {
-                dayElement.textContent = `${data.currentDay || 1}/${data.totalDays || 82}`;
-            }
-            
-            // 3. Atualizar classificações
-            if (data.standings) {
-                updateStandingsUI('EAST', data.standings.EAST || []);
-                updateStandingsUI('WEST', data.standings.WEST || []);
-            }
-            
-            // 4. Atualizar próximos jogos
-            if (data.upcomingGames) {
-                updateUpcomingGamesUI(data.upcomingGames);
-            }
-            
-            // 5. Atualizar feed em direto
-            if (data.liveFeed) {
-                updateLiveFeedUI(data.liveFeed);
-            }
-            
-            // 6. Atualizar ofertas de emprego
-            if (data.jobOffers) {
-                updateJobOffersUI(data.jobOffers);
-            }
-            
-            // 7. Atualizar jogos em direto
-            if (data.liveGames) {
-                updateLiveGamesUI(data.liveGames);
-            }
-            
-            // 8. Atualizar química
-            if (data.teamChemistry !== undefined) {
-                updateChemistryBarUI(data.teamChemistry);
-            }
-            
-            // 9. Atualizar estatísticas avançadas
-            if (data.advancedStats) {
-                updateAdvancedStatsUI(data.advancedStats);
-            }
-        }
-
-        function handleOffseason(data) {
-            console.log('[UI] Mostrando offseason');
-            // Implementar interface de offseason
-            alert(`🏆 Temporada terminada!\n\nPrémios:\nMVP: ${data.awards?.mvp?.player || 'N/A'}\n\nFree agents disponíveis: ${data.freeAgents?.length || 0}`);
-        }
-
-        function handleStatusUpdate(data) {
-            console.log('[UI] Atualizando status:', data.message?.substring(0, 50));
-            addStatusMessageUI(data.message, data.type || 'info');
-        }
-
-        function handleError(data) {
-            console.error('[UI] Erro recebido:', data.message);
-            addStatusMessageUI(`ERRO: ${data.message || 'Desconhecido'}`, 'error');
-            
-            // Mostrar erro em tela cheia se for crítico
-            if (data.message?.includes('crítico') || data.message?.includes('fatal')) {
-                const loadingScreen = document.getElementById('loading-screen');
-                if (loadingScreen) {
-                    loadingScreen.innerHTML = `
-                        <div style="
-                            position: fixed;
-                            top: 0; left: 0; right: 0; bottom: 0;
-                            background: #0a0a1a;
-                            color: white;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            justify-content: center;
-                            font-family: sans-serif;
-                            padding: 20px;
-                            text-align: center;
-                            z-index: 9999;
-                        ">
-                            <h1 style="color: #ef476f; margin-bottom: 20px;">❌ Erro Crítico</h1>
-                            <pre style="
-                                background: rgba(255,255,255,0.1);
-                                padding: 20px;
-                                border-radius: 8px;
-                                max-width: 800px;
-                                overflow: auto;
-                                text-align: left;
-                                color: #ff6b6b;
-                            ">${data.message || 'Erro desconhecido'}</pre>
-                            <button onclick="location.reload()" style="
-                                margin-top: 20px;
-                                background: #4a1e8c;
-                                color: white;
-                                border: none;
-                                padding: 12px 24px;
-                                border-radius: 8px;
-                                font-size: 16px;
-                                cursor: pointer;
-                            ">Recarregar Página</button>
-                        </div>
-                    `;
-                }
-            }
-        }
-
-        function handleUserGame(data) {
-            console.log('[UI] Iniciando jogo do usuário');
-            // Implementar interface de jogo interativo
-            showUserGameUI(data.gameData);
-        }
-
-        function handleHistory(data) {
-            console.log('[UI] Mostrando histórico:', data.totalGames + ' jogos');
-            showHistoryUI(data);
-        }
-
-        // ============================================================
-        // FUNÇÕES AUXILIARES DE UI
-        // ============================================================
-
-        function updateStandingsUI(conference, teams) {
-            const container = document.getElementById(`standings-${conference.toLowerCase()}`);
-            if (!container) return;
-            
-            if (!teams || teams.length === 0) {
-                container.innerHTML = '<div class="loading-standings"><p>Sem dados disponíveis</p></div>';
-                return;
-            }
-            
-            container.innerHTML = `
-                <div class="standings-table">
-                    <div class="table-header">
-                        <span class="col-rank">#</span>
-                        <span class="col-team">Equipa</span>
-                        <span class="col-wins">V</span>
-                        <span class="col-losses">D</span>
-                        <span class="col-pct">%</span>
-                        <span class="col-streak">Streak</span>
+                    <div class="context-actions">
+                        <button class="btn-small" title="Atualizar"><i class="fas fa-sync-alt"></i></button>
+                        <button class="btn-small" title="Filtros"><i class="fas fa-filter"></i></button>
                     </div>
-                    ${teams.map((team, index) => `
-                        <div class="table-row ${index < 8 ? 'playoff-spot' : ''}">
-                            <span class="col-rank">${team.rank || index + 1}</span>
-                            <span class="col-team">
-                                ${getMythologyIcon(getTeamMythology(team.id))}
-                                ${team.name}
-                            </span>
-                            <span class="col-wins">${team.wins || 0}</span>
-                            <span class="col-losses">${team.losses || 0}</span>
-                            <span class="col-pct">${team.winPct || '.000'}</span>
-                            <span class="col-streak ${(team.streak || '').startsWith('W') ? 'streak-win' : 'streak-loss'}">
-                                ${team.streak || '-'}
-                            </span>
-                        </div>
-                    `).join('')}
                 </div>
-            `;
-        }
 
-        function updateUpcomingGamesUI(games) {
-            const container = document.getElementById('upcoming-games');
-            if (!container) return;
-            
-            if (!games || games.length === 0) {
-                container.innerHTML = `
-                    <div class="no-upcoming">
-                        <i class="fas fa-calendar-plus"></i>
-                        <p>Sem jogos agendados</p>
+                <!-- Content Views -->
+                <div class="content-area">
+                    <!-- Team Selection View -->
+                    <div id="view-team-selection" class="content-view">
+                        <div id="team-selection-container"></div>
                     </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = games.slice(0, 3).map(game => {
-                const teamInfo = getTeamInfoFromUI(game.opponentId);
-                return `
-                    <div class="upcoming-game">
-                        <div class="game-day">Dia ${game.day}</div>
-                        <div class="game-opponent">
-                            <div class="opponent-logo">${getMythologyIcon(teamInfo?.mythology)}</div>
-                            <div class="opponent-info">
-                                <div class="opponent-name">${teamInfo?.name || `Equipa ${game.opponentId}`}</div>
-                                <div class="game-location">
-                                    <i class="fas fa-${game.isHome ? 'home' : 'plane'}"></i>
-                                    ${game.isHome ? 'Casa' : 'Fora'}
+
+                    <!-- Dashboard View -->
+                    <div id="view-dashboard" class="content-view">
+                        <div class="dashboard-grid">
+                            <!-- Coluna Esquerda: Jogos + Feed -->
+                            <div class="dashboard-col">
+                                <!-- Painel de Jogos -->
+                                <div class="dashboard-panel live-games-panel">
+                                    <div class="panel-header">
+                                        <h3><i class="fas fa-basketball-ball"></i> JOGOS DO DIA</h3>
+                                        <div class="day-selector">
+                                            <button class="day-nav" id="btn-prev-day"><i class="fas fa-chevron-left"></i></button>
+                                            <span id="current-day-display" class="current-day">Dia 1</span>
+                                            <button class="day-nav" id="btn-next-day"><i class="fas fa-chevron-right"></i></button>
+                                        </div>
+                                    </div>
+                                    <div id="live-games-container" class="games-timeline"></div>
+                                </div>
+
+                                <!-- Painel de Feed -->
+                                <div class="dashboard-panel feed-panel">
+                                    <div class="panel-header">
+                                        <h3><i class="fas fa-rss"></i> FEED AO VIVO</h3>
+                                        <div class="feed-controls">
+                                            <button class="feed-filter active" data-filter="all">Todos</button>
+                                            <button class="feed-filter" data-filter="user">Equipa</button>
+                                        </div>
+                                    </div>
+                                    <div id="live-feed-container" class="feed-container"></div>
+                                </div>
+                            </div>
+
+                            <!-- Coluna Central: Classificação + Estatísticas -->
+                            <div class="dashboard-col">
+                                <!-- Classificação -->
+                                <div class="dashboard-panel standings-panel">
+                                    <div class="panel-header">
+                                        <h3><i class="fas fa-list-ol"></i> CLASSIFICAÇÃO</h3>
+                                        <div class="conference-tabs">
+                                            <button class="conf-tab active" data-conf="EAST"><i class="fas fa-compass"></i> East</button>
+                                            <button class="conf-tab" data-conf="WEST"><i class="fas fa-compass"></i> West</button>
+                                        </div>
+                                    </div>
+                                    <div id="standings-container" class="standings-table-container"></div>
+                                </div>
+
+                                <!-- Estatísticas -->
+                                <div class="dashboard-panel stats-panel">
+                                    <div class="panel-header">
+                                        <h3><i class="fas fa-chart-bar"></i> ESTATÍSTICAS DA EQUIPA</h3>
+                                    </div>
+                                    <div id="team-stats-container" class="team-stats-grid"></div>
+                                </div>
+                            </div>
+
+                            <!-- Coluna Direita: Próximos + Química -->
+                            <div class="dashboard-col">
+                                <!-- Próximos Jogos -->
+                                <div class="dashboard-panel upcoming-panel">
+                                    <div class="panel-header">
+                                        <h3><i class="fas fa-calendar-week"></i> PRÓXIMOS JOGOS</h3>
+                                        <span class="upcoming-count" id="upcoming-count">0</span>
+                                    </div>
+                                    <div id="upcoming-games-container" class="upcoming-games-list"></div>
+                                </div>
+
+                                <!-- Química -->
+                                <div class="dashboard-panel chemistry-panel">
+                                    <div class="panel-header">
+                                        <h3><i class="fas fa-atom"></i> QUÍMICA DA EQUIPA</h3>
+                                        <span class="chemistry-value" id="chemistry-value">75</span>
+                                    </div>
+                                    <div class="chemistry-meter">
+                                        <div class="chemistry-bar">
+                                            <div id="chemistry-fill" class="chemistry-fill" style="width: 75%; background: linear-gradient(90deg, #4a1e8c, #06d6a0);"></div>
+                                        </div>
+                                        <div class="chemistry-factors">
+                                            <div class="factor">
+                                                <span class="factor-name">Moral</span>
+                                                <span class="factor-value positive">+15</span>
+                                            </div>
+                                            <div class="factor">
+                                                <span class="factor-name">Rotação</span>
+                                                <span class="factor-value neutral">+0</span>
+                                            </div>
+                                            <div class="factor">
+                                                <span class="factor-name">Resultados</span>
+                                                <span class="factor-value positive">+10</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Desenvolvimento -->
+                                <div class="dashboard-panel development-panel">
+                                    <div class="panel-header">
+                                        <h3><i class="fas fa-arrow-up"></i> DESENVOLVIMENTO</h3>
+                                    </div>
+                                    <div id="development-container" class="development-tracker"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                `;
-            }).join('');
-        }
-
-        function updateLiveFeedUI(feed) {
-            const container = document.getElementById('live-feed');
-            if (!container) return;
-            
-            // Mostrar apenas os últimos 10 eventos
-            const recentFeed = Array.isArray(feed) ? feed.slice(-10) : [];
-            
-            if (recentFeed.length === 0) {
-                container.innerHTML = '<div class="feed-entry">Aguardando eventos...</div>';
-                return;
-            }
-            
-            container.innerHTML = recentFeed.map(event => `
-                <div class="feed-entry">
-                    <span class="feed-time">${formatTime(event.timestamp)}</span>
-                    <span>${event.text || event.message || 'Evento'}</span>
                 </div>
-            `).join('');
-        }
+            </div>
+        </main>
 
-        function updateJobOffersUI(offers) {
-            const section = document.getElementById('job-offers-section');
-            const container = document.getElementById('job-offers');
-            
-            if (!section || !container) return;
-            
-            if (!offers || offers.length === 0) {
-                section.style.display = 'none';
-                return;
-            }
-            
-            section.style.display = 'block';
-            container.innerHTML = offers.map(offer => `
-                <div class="job-offer-card">
-                    <div class="offer-header">
-                        <div class="offer-team">
-                            <div class="team-logo">${getMythologyIcon(getTeamMythology(offer.teamId))}</div>
-                            <div class="team-name">${offer.teamName}</div>
-                        </div>
-                        <div class="offer-conference">${offer.conference}</div>
-                    </div>
-                    <div class="offer-body">
-                        <p class="offer-description">${offer.description || 'Oferta de emprego'}</p>
-                        <div class="offer-details">
-                            <div class="detail">
-                                <i class="fas fa-star"></i>
-                                <span>Poder: ${offer.teamPower || 70}</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-trophy"></i>
-                                <span>Rep. mín.: ${offer.reputationRequired || 70}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="offer-footer">
-                        <button class="btn btn-small reject-offer" onclick="rejectJobOffer()">
-                            Recusar
-                        </button>
-                        <button class="btn btn-small btn-primary accept-offer" 
-                                onclick="acceptJobOffer(${offer.teamId})">
-                            Aceitar
-                        </button>
-                    </div>
+        <!-- System Console -->
+        <div class="system-console">
+            <div class="console-header">
+                <h4><i class="fas fa-terminal"></i> CONSOLA DO SISTEMA</h4>
+                <div class="console-controls">
+                    <button class="console-btn" title="Limpar"><i class="fas fa-trash"></i></button>
+                    <button class="console-btn" title="Expandir"><i class="fas fa-expand"></i></button>
                 </div>
-            `).join('');
-        }
+            </div>
+            <div id="console-output" class="console-output">
+                <div class="console-entry info">
+                    <span class="console-time">[00:00:00]</span>
+                    <span>🏀 Sistema MBA iniciado. Aguardando seleção de equipa...</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        function updateLiveGamesUI(liveGames) {
-            const container = document.getElementById('recent-games');
-            if (!container) return;
-            
-            const live = liveGames.live || [];
-            const completed = liveGames.completed || [];
-            
-            if (live.length === 0 && completed.length === 0) {
-                container.innerHTML = `
-                    <div class="no-games">
-                        <i class="fas fa-basketball-ball"></i>
-                        <p>Aguardando jogos...</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            
-            // Jogos em andamento
-            live.forEach(game => {
-                const homeTeam = getTeamInfoFromUI(game.homeTeamId);
-                const awayTeam = getTeamInfoFromUI(game.awayTeamId);
-                
-                html += `
-                    <div class="live-game">
-                        <div class="game-teams">
-                            <div class="team">
-                                <div class="team-logo-small">${getMythologyIcon(homeTeam?.mythology)}</div>
-                                <div class="team-name-small">${homeTeam?.name || `Equipa ${game.homeTeamId}`}</div>
-                            </div>
-                            <div class="vs">VS</div>
-                            <div class="team">
-                                <div class="team-logo-small">${getMythologyIcon(awayTeam?.mythology)}</div>
-                                <div class="team-name-small">${awayTeam?.name || `Equipa ${game.awayTeamId}`}</div>
-                            </div>
-                        </div>
-                        <div class="game-status">
-                            <span class="status-live">● EM DIRETO</span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            // Jogos completados (últimos 3)
-            completed.slice(-3).forEach(game => {
-                const homeTeam = getTeamInfoFromUI(game.homeTeamId);
-                const awayTeam = getTeamInfoFromUI(game.awayTeamId);
-                
-                html += `
-                    <div class="completed-game">
-                        <div class="game-teams">
-                            <div class="team">
-                                <div class="team-logo-small">${getMythologyIcon(homeTeam?.mythology)}</div>
-                                <div class="team-name-small">${homeTeam?.name || `Equipa ${game.homeTeamId}`}</div>
-                            </div>
-                            <div class="score">
-                                ${game.result?.homePoints || 0} - ${game.result?.awayPoints || 0}
-                            </div>
-                            <div class="team">
-                                <div class="team-logo-small">${getMythologyIcon(awayTeam?.mythology)}</div>
-                                <div class="team-name-small">${awayTeam?.name || `Equipa ${game.awayTeamId}`}</div>
-                            </div>
-                        </div>
-                        <div class="game-status">
-                            <span class="status-completed">✓ FINAL</span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
+    <!-- Modal Overlay -->
+    <div id="modal-overlay" class="modal-overlay"></div>
 
-        function updateChemistryBarUI(value) {
-            const fill = document.getElementById('chemistry-fill');
-            if (fill) {
-                fill.style.width = `${value}%`;
-                
-                // Atualizar cor baseada no valor
-                if (value > 80) {
-                    fill.style.background = 'linear-gradient(90deg, #06d6a0, #0af7b6)';
-                } else if (value > 50) {
-                    fill.style.background = 'linear-gradient(90deg, #ffd166, #ffde8a)';
-                } else {
-                    fill.style.background = 'linear-gradient(90deg, #ef476f, #ff6b6b)';
-                }
-            }
-        }
+    <!-- Modal: Team Selection -->
+    <div id="team-selection-modal" class="modal modal-xl">
+        <div class="modal-header">
+            <h3><i class="fas fa-shield-alt"></i> SELECIONE SUA EQUIPA</h3>
+            <button class="modal-close" onclick="window.uiManager?.closeModal('team-selection-modal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-content" id="team-selection-modal-content"></div>
+    </div>
 
-        function updateAdvancedStatsUI(stats) {
-            // Atualizar os valores das estatísticas avançadas
-            const statCards = document.querySelectorAll('.stat-card .stat-value');
-            if (statCards.length >= 4 && stats.team) {
-                statCards[0].textContent = stats.team.offensiveRating.toFixed(1);
-                statCards[1].textContent = stats.team.defensiveRating.toFixed(1);
-                statCards[2].textContent = stats.team.pace.toFixed(1);
-                statCards[3].textContent = stats.team.efficiency.toFixed(1) + '%';
-            }
-        }
+    <!-- Modal: Game Details -->
+    <div id="game-details-modal" class="modal modal-lg">
+        <div class="modal-header">
+            <h3><i class="fas fa-play-circle"></i> JOGO</h3>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-content">
+            <div id="game-details-content" class="game-details-content"></div>
+        </div>
+    </div>
 
-        function addStatusMessageUI(message, type = 'info') {
-            const consoleElement = document.getElementById('status-text');
-            if (!consoleElement) return;
-            
-            const entry = document.createElement('div');
-            entry.className = `console-entry ${type}`;
-            entry.innerHTML = `
-                <span class="console-time">[${new Date().toLocaleTimeString()}]</span>
-                <span>${message}</span>
-            `;
-            
-            // Adicionar no início
-            consoleElement.insertBefore(entry, consoleElement.firstChild);
-            
-            // Manter apenas últimos 5 registros
-            const entries = consoleElement.querySelectorAll('.console-entry');
-            if (entries.length > 5) {
-                consoleElement.removeChild(entries[entries.length - 1]);
-            }
-        }
+    <!-- Modal: Roster Management -->
+    <div id="roster-management-modal" class="modal modal-xl">
+        <div class="modal-header">
+            <h3><i class="fas fa-chess-board"></i> GESTÃO DE PLANTEL</h3>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-content" id="roster-modal-content"></div>
+        <div class="modal-footer">
+            <button class="btn-control" onclick="window.uiManager?.closeModal('roster-management-modal')">Fechar</button>
+        </div>
+    </div>
 
-        function showUserGameUI(gameData) {
-            console.log('[UI] Mostrando interface de jogo');
-            // Aqui seria implementada a interface completa do jogo
-            alert(`🏀 Jogo do usuário iniciado!\n${gameData.homeTeam.name} vs ${gameData.awayTeam.name}\n\nClique em OK para simular o jogo automaticamente.`);
-            
-            // Simular o jogo automaticamente
-            if (window.uiManager) {
-                window.uiManager.handleSimulateGame(gameData);
-            }
-        }
-
-        function showHistoryUI(data) {
-            const modal = document.getElementById('history-modal');
-            const overlay = document.getElementById('modal-overlay');
-            const content = document.querySelector('.history-content');
-            
-            if (!modal || !content) return;
-            
-            let html = '<h4>Seu Histórico de Jogos</h4>';
-            
-            if (!data.userHistory || data.userHistory.length === 0) {
-                html += '<p>Nenhum jogo jogado ainda.</p>';
-            } else {
-                html += `
-                    <div class="history-stats">
-                        <div class="stat">
-                            <span class="stat-value">${data.totalGames || 0}</span>
-                            <span class="stat-label">Jogos</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value">${data.wins || 0}</span>
-                            <span class="stat-label">Vitórias</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value">${(data.totalGames - data.wins) || 0}</span>
-                            <span class="stat-label">Derrotas</span>
-                        </div>
-                    </div>
-                    <div class="history-games">
-                `;
-                
-                data.userHistory.slice(0, 10).forEach(game => {
-                    const isWin = (game.homeTeam.id === window.uiManager?.getGameState()?.playerTeamId && game.result.winner === 'home') ||
-                                  (game.awayTeam.id === window.uiManager?.getGameState()?.playerTeamId && game.result.winner === 'away');
-                    
-                    html += `
-                        <div class="history-game ${isWin ? 'win' : 'loss'}">
-                            <div class="game-date">${game.date}</div>
-                            <div class="game-teams">
-                                <span class="team-name">${game.homeTeam.name}</span>
-                                <span class="score">${game.homeTeam.score} - ${game.awayTeam.score}</span>
-                                <span class="team-name">${game.awayTeam.name}</span>
-                            </div>
-                            <div class="game-result">
-                                <span class="result-badge">${isWin ? 'VITÓRIA' : 'DERROTA'}</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-            }
-            
-            content.innerHTML = html;
-            
-            // Mostrar modal
-            modal.classList.add('active');
-            overlay.classList.add('active');
-            
-            // Configurar botão de fechar
-            const closeBtn = modal.querySelector('.modal-close');
-            if (closeBtn) {
-                closeBtn.onclick = () => closeModal('history-modal');
-            }
-            
-            // Configurar overlay para fechar
-            overlay.onclick = () => closeModal('history-modal');
-        }
-
-        // ============================================================
-        // UTILITÁRIOS
-        // ============================================================
-
-        function getMythologyIcon(mythology) {
-            const icons = {
-                'Grega': '🏛️', 'Romana': '⚔️', 'Nórdica': '⚡',
-                'Egípcia': '🐍', 'Hindu': '🕉️', 'Shinto': '⛩️',
-                'Chinesa': '🐉', 'Celta': '🌳', 'Yorubá': '🌍',
-                'Maia': '🌞', 'Asteca': '🦅', 'Mesopotâmica': '🏺',
-                'Inuit': '❄️', 'Eslava': '🌩️', 'Polinésia': '🌊',
-                'Aborígene Australiana': '🎨', 'Judaica Antiga': '✡️',
-                'Cristã (Arcanjos)': '😇', 'Islâmica (Anjos)': '☪️',
-                'Persa': '🔥'
-            };
-            return icons[mythology] || '👑';
-        }
-
-        function getPhaseLabel(phase) {
-            const labels = {
-                'INIT': 'INICIALIZANDO',
-                'TEAM_SELECTION': 'SELECIONE EQUIPA',
-                'REGULAR_SEASON': 'ÉPOCA REGULAR',
-                'PLAYOFFS': 'PLAYOFFS',
-                'FINALS': 'FINAIS',
-                'OFFSEASON': 'FORA DE ÉPOCA',
-                'OFFSEASON_ACTIVITIES': 'ATIVIDADES FORA DE ÉPOCA',
-                'DRAFT': 'DRAFT',
-                'FREE_AGENCY': 'FREE AGENCY',
-                'FINISHED': 'CONCLUÍDO'
-            };
-            return labels[phase] || phase;
-        }
-
-        function getTeamInfoFromUI(teamId) {
-            // Tenta obter informações da equipa através do UIManager
-            if (window.uiManager && window.uiManager.getGameEngine) {
-                try {
-                    const engine = window.uiManager.getGameEngine();
-                    if (engine && engine.getTeamInfo) {
-                        return engine.getTeamInfo(teamId);
-                    }
-                } catch (e) {
-                    console.warn('[UI] Erro ao obter info da equipa:', e);
-                }
-            }
-            return null;
-        }
-
-        function getTeamMythology(teamId) {
-            const team = getTeamInfoFromUI(teamId);
-            return team?.mythology || 'Desconhecida';
-        }
-
-        function formatTime(timestamp) {
-            if (!timestamp) return '--:--';
-            try {
-                const date = new Date(timestamp);
-                return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            } catch {
-                return '--:--';
-            }
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            const overlay = document.getElementById('modal-overlay');
-            
-            if (modal) modal.classList.remove('active');
-            if (overlay) overlay.classList.remove('active');
-        }
-
-        // ============================================================
-        // FUNÇÕES GLOBAIS PARA INTERAÇÃO
-        // ============================================================
-
-        window.acceptJobOffer = function(teamId) {
-            if (window.uiManager) {
-                window.uiManager.handleAcceptJobOffer(teamId);
-                document.getElementById('job-offers-section').style.display = 'none';
-                addStatusMessageUI('✅ Oferta de emprego aceita!', 'success');
-            }
-        };
-
-        window.rejectJobOffer = function() {
-            document.getElementById('job-offers-section').style.display = 'none';
-            addStatusMessageUI('❌ Oferta de emprego recusada.', 'info');
-        };
-
-        window.selectTeam = function(teamId) {
-            if (window.uiManager) {
-                window.uiManager.handleSelectTeam(teamId);
-            }
-        };
-
-        // ============================================================
-        // INICIALIZAÇÃO DA UI
-        // ============================================================
-
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('[UI] DOM carregado, configurando event listeners...');
-            
-            // Configurar controles de velocidade
-            document.querySelectorAll('.speed-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const speed = parseInt(this.dataset.speed);
-                    if (window.uiManager && !isNaN(speed)) {
-                        window.uiManager.handleSetSpeed(speed);
-                        
-                        // Atualizar estado visual
-                        document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
-                        this.classList.add('active');
-                        
-                        addStatusMessageUI(`⚡ Velocidade alterada para ${speed}x`, 'info');
-                    }
-                });
-            });
-            
-            // Configurar botão de simular dia
-            const btnSimulateDay = document.getElementById('btn-simulate-day');
-            if (btnSimulateDay) {
-                btnSimulateDay.addEventListener('click', function() {
-                    if (window.uiManager) {
-                        window.uiManager.handleSimulateDay();
-                        addStatusMessageUI('⏩ Simulando próximo dia...', 'info');
-                    }
-                });
-            }
-            
-            // Configurar botão de alternar modo automático
-            const btnAutoToggle = document.getElementById('btn-auto-toggle');
-            if (btnAutoToggle) {
-                btnAutoToggle.addEventListener('click', function() {
-                    if (window.uiManager) {
-                        window.uiManager.handleToggleAuto();
-                        this.classList.toggle('active');
-                        const isAuto = this.classList.contains('active');
-                        addStatusMessageUI(
-                            isAuto ? '🤖 Modo automático ATIVADO' : '👤 Modo manual ATIVADO',
-                            'info'
-                        );
-                    }
-                });
-            }
-            
-            // Configurar botão de seleção de equipa
-            const btnTeamSelect = document.getElementById('btn-team-select');
-            if (btnTeamSelect) {
-                btnTeamSelect.addEventListener('click', function() {
-                    if (window.uiManager) {
-                        const gameState = window.uiManager.getGameState();
-                        if (gameState?.phase === 'TEAM_SELECTION') {
-                            window.onUIUpdate({
-                                type: 'TEAM_SELECTION',
-                                data: { teams: gameState.teams }
-                            });
-                        } else {
-                            addStatusMessageUI('⚠️ Não está na fase de seleção de equipas', 'warning');
-                        }
-                    }
-                });
-            }
-            
-            // Configurar botão de histórico
-            const btnViewHistory = document.getElementById('btn-view-history');
-            if (btnViewHistory) {
-                btnViewHistory.addEventListener('click', function() {
-                    if (window.uiManager) {
-                        window.uiManager.handleViewHistory();
-                    }
-                });
-            }
-            
-            // Configurar tabs das conferências
-            document.querySelectorAll('.conf-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const conference = this.dataset.conference;
-                    document.querySelectorAll('.conf-tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.standings-conference').forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
-                    document.getElementById(`standings-${conference.toLowerCase()}`)?.classList.add('active');
-                });
-            });
-            
-            // Configurar botão de mudar equipa
-            const btnSwitchTeam = document.getElementById('btn-switch-team');
-            if (btnSwitchTeam) {
-                btnSwitchTeam.addEventListener('click', function() {
-                    if (window.uiManager && confirm('Mudar de equipa reduz reputação. Continuar?')) {
-                        const gameState = window.uiManager.getGameState();
-                        if (gameState) {
-                            gameState.phase = 'TEAM_SELECTION';
-                            gameState.playerTeamId = null;
-                            window.uiManager.render();
-                            addStatusMessageUI('🔄 Modo de seleção de equipas ativado', 'info');
-                        }
-                    }
-                });
-            }
-            
-            // Configurar botão para mostrar/ocultar estatísticas avançadas
-            const toggleBtn = document.getElementById('btn-toggle-advanced');
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', function() {
-                    const statsPanel = document.querySelector('.advanced-stats-panel');
-                    const details = statsPanel.querySelector('.advanced-stats-grid');
-                    if (details.style.display === 'none') {
-                        details.style.display = 'grid';
-                        this.innerHTML = '<i class="fas fa-sliders-h"></i> Ocultar';
-                    } else {
-                        details.style.display = 'none';
-                        this.innerHTML = '<i class="fas fa-sliders-h"></i> Detalhes';
-                    }
-                });
-            }
-            
-            // Adicionar efeitos de hover aos cartões de estatísticas
-            document.querySelectorAll('.stat-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.3)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = 'none';
-                });
-            });
-            
-            console.log('[UI] Event listeners configurados com sucesso');
-        });
-
-        // ============================================================
-        // SISTEMA DE DIAGNÓSTICO
-        // ============================================================
-
-        window.mbaDiagnoseUI = function() {
-            return {
-                timestamp: Date.now(),
-                onUIUpdate: typeof window.onUIUpdate,
-                uiManager: !!window.uiManager,
-                elements: {
-                    loadingScreen: !!document.getElementById('loading-screen'),
-                    app: !!document.getElementById('app'),
-                    progressFill: !!document.getElementById('progress-fill'),
-                    statusText: !!document.getElementById('status-text'),
-                    standingsEast: !!document.getElementById('standings-east'),
-                    standingsWest: !!document.getElementById('standings-west'),
-                    upcomingGames: !!document.getElementById('upcoming-games'),
-                    liveFeed: !!document.getElementById('live-feed')
-                }
-            };
-        };
-
-        console.log('[UI] Sistema de interface carregado e pronto');
-    </script>
-
-    <!-- Sistema de diagnóstico MBA -->
-    <script>
-        // Sistema de diagnóstico MBA
-        (function() {
-            console.log('[MBA-DIAG] Sistema de diagnóstico inicializado');
-            
-            // Variáveis de diagnóstico
-            const diagnosis = {
-                started: Date.now(),
-                events: [],
-                errors: [],
-                uiUpdates: []
-            };
-            
-            // Registrar eventos importantes
-            ['DOMContentLoaded', 'load', 'mba:uimanager-ready', 'mba:ui-update'].forEach(eventName => {
-                document.addEventListener(eventName, (e) => {
-                    diagnosis.events.push({
-                        event: eventName,
-                        timestamp: Date.now(),
-                        detail: e.detail || 'N/A'
-                    });
-                    console.log(`[MBA-DIAG] Evento: ${eventName}`, e.detail || '');
-                });
-            });
-            
-            // Capturar erros
-            window.addEventListener('error', (e) => {
-                diagnosis.errors.push({
-                    message: e.message,
-                    filename: e.filename,
-                    lineno: e.lineno,
-                    colno: e.colno,
-                    timestamp: Date.now()
-                });
-            });
-            
-            // Função global para diagnóstico
-            window.mbaGetDiagnosis = function() {
-                return {
-                    ...diagnosis,
-                    duration: Date.now() - diagnosis.started,
-                    dom: {
-                        loadingScreen: !!document.getElementById('loading-screen'),
-                        app: !!document.getElementById('app'),
-                        progressFill: !!document.getElementById('progress-fill')
-                    },
-                    window: {
-                        uiManager: !!window.uiManager,
-                        onUIUpdate: typeof window.onUIUpdate,
-                        gameEngine: !!window.gameEngine,
-                        mbaDiagnoseUI: typeof window.mbaDiagnoseUI
-                    }
-                };
-            };
-            
-            // Exibir diagnóstico no console após 3 segundos
-            setTimeout(() => {
-                console.log('[MBA-DIAG] Diagnóstico automático (3s):', window.mbaGetDiagnosis());
-            }, 3000);
-            
-            console.log('[MBA-DIAG] Sistema pronto');
-        })();
-    </script>
+    <!-- Scripts -->
+    <script type="module" src="main.js"></script>
 </body>
 </html>

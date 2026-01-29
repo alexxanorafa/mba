@@ -1,1529 +1,1510 @@
-// game.js - MOTOR PURO (ZERO HTML/CSS) - VERSÃO MELHORADA
+// game.js - MOTOR OTIMIZADO COM MELHORIAS
 // ============================================================
-// ARQUITETURA SÉRIA: Máquina de estados, turn-based, estado único
+// VERSÃO 2.0: Home Court, Energia Real, Bónus Mitologia, Emojis
 // ============================================================
 
 export const GAME_PHASES = {
-  INIT: 'INIT',
-  TEAM_SELECTION: 'TEAM_SELECTION',
-  REGULAR_SEASON: 'REGULAR_SEASON',
-  PLAYOFFS: 'PLAYOFFS',
-  FINALS: 'FINALS',
-  OFFSEASON: 'OFFSEASON',
-  OFFSEASON_ACTIVITIES: 'OFFSEASON_ACTIVITIES',
-  DRAFT: 'DRAFT',
-  FREE_AGENCY: 'FREE_AGENCY',
-  FINISHED: 'FINISHED'
+    INIT: 'INIT',
+    TEAM_SELECTION: 'TEAM_SELECTION',
+    REGULAR_SEASON: 'REGULAR_SEASON',
+    PLAYOFFS: 'PLAYOFFS',
+    FINALS: 'FINALS',
+    OFFSEASON: 'OFFSEASON',
+    OFFSEASON_ACTIVITIES: 'OFFSEASON_ACTIVITIES',
+    DRAFT: 'DRAFT',
+    FREE_AGENCY: 'FREE_AGENCY',
+    FINISHED: 'FINISHED',
+    ALL_STAR_WEEKEND: 'ALL_STAR_WEEKEND'
 };
 
 export const ACTION_TYPES = {
-  SELECT_TEAM: 'SELECT_TEAM',
-  SIMULATE_DAY: 'SIMULATE_DAY',
-  PLAYER_GAME: 'PLAYER_GAME',
-  SET_SPEED: 'SET_SPEED',
-  TOGGLE_AUTO: 'TOGGLE_AUTO',
-  CHANGE_TACTICS: 'CHANGE_TACTICS',
-  ACCEPT_JOB_OFFER: 'ACCEPT_JOB_OFFER',
-  REJECT_JOB_OFFER: 'REJECT_JOB_OFFER',
-  MANAGE_ROSTER: 'MANAGE_ROSTER',
-  SET_LINEUP: 'SET_LINEUP',
-  TRAIN_PLAYER: 'TRAIN_PLAYER',
-  TRADE_PLAYER: 'TRADE_PLAYER',
-  SIGN_FREE_AGENT: 'SIGN_FREE_AGENT',
-  DRAFT_PLAYER: 'DRAFT_PLAYER'
+    SELECT_TEAM: 'SELECT_TEAM',
+    SIMULATE_DAY: 'SIMULATE_DAY',
+    PLAYER_GAME: 'PLAYER_GAME',
+    SET_SPEED: 'SET_SPEED',
+    TOGGLE_AUTO: 'TOGGLE_AUTO',
+    CHANGE_TACTICS: 'CHANGE_TACTICS',
+    ACCEPT_JOB_OFFER: 'ACCEPT_JOB_OFFER',
+    REJECT_JOB_OFFER: 'REJECT_JOB_OFFER',
+    MANAGE_ROSTER: 'MANAGE_ROSTER',
+    SET_LINEUP: 'SET_LINEUP',
+    TRAIN_PLAYER: 'TRAIN_PLAYER',
+    TRADE_PLAYER: 'TRADE_PLAYER',
+    SIGN_FREE_AGENT: 'SIGN_FREE_AGENT',
+    DRAFT_PLAYER: 'DRAFT_PLAYER',
+    NEGOTIATE_CONTRACT: 'NEGOTIATE_CONTRACT',
+    SAVE_GAME: 'SAVE_GAME',
+    LOAD_GAME: 'LOAD_GAME',
+    ADVANCE_SEASON: 'ADVANCE_SEASON',
+    TRADE_PROPOSAL: 'TRADE_PROPOSAL',
+    ACCEPT_TRADE: 'ACCEPT_TRADE',
+    REJECT_TRADE: 'REJECT_TRADE'
 };
 
-// Sistema de cache para otimização
+// ============================================================
+// SUGESTÃO 3: BÓNUS PASSIVOS POR MITOLOGIA (LOW CODE)
+// ============================================================
+const MYTHOLOGY_BONUS = {
+    'Grega': { tecnica: 2, disciplina: 1 },
+    'Romana': { disciplina: 2, forca: 1 },
+    'Nórdica': { forca: 2, disciplina: 1 },
+    'Egípcia': { aura: 3, disciplina: 1 },
+    'Celta': { velocidade: 2, criatividade: 1 },
+    'Hindu': { criatividade: 2, aura: 2 },
+    'Asteca': { forca: 2, velocidade: 1 },
+    'Chinesa': { disciplina: 2, tecnica: 1 },
+    'Maia': { forca: 2, aura: 1 },
+    'Africana': { velocidade: 2, forca: 1 },
+    'Mesopotâmica': { disciplina: 2, aura: 1 },
+    'Persa': { tecnica: 2, velocidade: 1 }
+};
+
+// ============================================================
+// SUGESTÃO 5: EMOJIS POR ARQUÉTIPO (VISUAL FEEDBACK)
+// ============================================================
+const ARCHETYPE_EMOJI = {
+    'Força': '💪',
+    'Sabedoria': '🧠',
+    'Velocidade': '⚡',
+    'Magia': '✨',
+    'Proteção': '🛡️',
+    'Natureza': '🌿',
+    'Luz': '☀️',
+    'Sombra': '🌑',
+    'Ordem': '📐',
+    'Fogo': '🔥',
+    'Caos': '💫'
+};
+
+// ============================================================
+// UTILITÁRIOS (REFATORAÇÃO: Centralizar lógica)
+// ============================================================
+const chance = (probability) => Math.random() < probability;
+const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+// Sistema de cache otimizado
+// Sistema de cache otimizado
 class GameCache {
-  constructor() {
-    this.teamPowerCache = new Map();
-    this.matchupCache = new Map();
-    this.standingsCache = null;
-    this.playerPowerCache = new Map();
-    this.cacheTTL = 30000; // 30 segundos
-  }
-  
-  getTeamPower(teamId) {
-    const cached = this.teamPowerCache.get(teamId);
-    if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
-      return cached.value;
+    constructor() {
+        this.teamPowerCache = new Map();
+        this.playerPowerCache = new Map();
+        this.teamInfoCache = new Map();
+        this.standingsCache = null;
+        this.scheduleCache = null;
+        this.cacheTTL = 30000; // 30 segundos
+        this.hits = 0;
+        this.misses = 0;
     }
-    return null;
-  }
-  
-  setTeamPower(teamId, power) {
-    this.teamPowerCache.set(teamId, {
-      value: power,
-      timestamp: Date.now()
-    });
-  }
-  
-  getPlayerPower(playerId) {
-    const cached = this.playerPowerCache.get(playerId);
-    if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
-      return cached.value;
+
+    getTeamPower(teamId) {
+        const cached = this.teamPowerCache.get(teamId);
+        if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
+            this.hits++;
+            return cached.value;
+        }
+        this.misses++;
+        return null;
     }
-    return null;
-  }
-  
-  setPlayerPower(playerId, power) {
-    this.playerPowerCache.set(playerId, {
-      value: power,
-      timestamp: Date.now()
-    });
-  }
-  
-  invalidateCache() {
-    this.teamPowerCache.clear();
-    this.matchupCache.clear();
-    this.playerPowerCache.clear();
-    this.standingsCache = null;
-  }
+
+    setTeamPower(teamId, power) {
+        this.teamPowerCache.set(teamId, { value: power, timestamp: Date.now() });
+    }
+
+    getPlayerPower(playerId) {
+        const cached = this.playerPowerCache.get(playerId);
+        if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
+            this.hits++;
+            return cached.value;
+        }
+        this.misses++;
+        return null;
+    }
+
+    setPlayerPower(playerId, power) {
+        this.playerPowerCache.set(playerId, { value: power, timestamp: Date.now() });
+    }
+
+    getTeamInfo(teamId) {
+        const cached = this.teamInfoCache.get(teamId);
+        if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
+            this.hits++;
+            return cached.value;
+        }
+        this.misses++;
+        return null;
+    }
+
+    setTeamInfo(teamId, info) {
+        this.teamInfoCache.set(teamId, { value: info, timestamp: Date.now() });
+    }
+
+    getStandings() {
+        if (this.standingsCache && Date.now() - this.standingsCache.timestamp < this.cacheTTL) {
+            this.hits++;
+            return this.standingsCache.value;
+        }
+        this.misses++;
+        return null;
+    }
+
+    setStandings(standings) {
+        this.standingsCache = { value: standings, timestamp: Date.now() };
+    }
+
+    getSchedule() {
+        if (this.scheduleCache && Date.now() - this.scheduleCache.timestamp < this.cacheTTL) {
+            this.hits++;
+            return this.scheduleCache.value;
+        }
+        this.misses++;
+        return null;
+    }
+
+    setSchedule(schedule) {
+        this.scheduleCache = { value: schedule, timestamp: Date.now() };
+    }
+
+    getStats() {
+        return {
+            hits: this.hits,
+            misses: this.misses,
+            hitRate: this.hits / (this.hits + this.misses) || 0
+        };
+    }
+
+    invalidateCache() {
+        this.teamPowerCache.clear();
+        this.playerPowerCache.clear();
+        this.teamInfoCache.clear();
+        this.standingsCache = null;
+        this.scheduleCache = null;
+    }
 }
 
-export class GameEngine {
-  constructor(gameData) {
-    this.cache = new GameCache();
-    
-    this.state = {
-      phase: GAME_PHASES.INIT,
-      seasonYear: gameData?.seasonYear || 2026,
-      currentDay: 1,
-      totalDays: 82,
-      
-      teams: [],
-      playerTeamId: null,
-      userReputation: 50,
-      userRole: 'Head Coach',
-      
-      conferences: { EAST: [], WEST: [] },
-      standings: { EAST: [], WEST: [] },
-      schedule: [],
-      
-      simulationSpeed: 1,
-      autoSimulate: true,
-      isSimulationRunning: false,
-      
-      gameHistory: [],
-      userGameHistory: [],
-      transactionLog: [],
-      liveFeed: [],
-      jobOffers: [],
-      
-      pendingActions: [],
-      lastError: null,
-      
-      // NOVOS: Sistema avançado
-      depthChart: {},
-      playerDevelopment: {},
-      teamChemistry: 75,
-      fanSupport: 50,
-      salaryCap: 109000000,
-      luxuryTaxThreshold: 132000000,
-      draftPicks: [],
-      freeAgents: [],
-      injuryList: [],
-      teamFinances: {},
-      playerMorale: {},
-      teamTactics: {
-        offense: 'balanced',
-        defense: 'man',
-        pace: 'normal',
-        focus: 'balanced'
-      },
-      
-      // Sistema de prémios
-      seasonAwards: null,
-      statLeaders: null,
-      
-      // Cache interno
-      _lastUpdate: Date.now(),
-      _dirtyFlags: {
-        standings: true,
-        teamPower: true,
-        schedule: true
-      }
-    };
-    
-    if (gameData) this.init(gameData);
-  }
-
-  // ==================== INICIALIZAÇÃO ====================
-  init(gameData) {
-    if (!gameData?.teams) {
-      this.state.lastError = 'Dados inválidos';
-      return false;
+// Sistema de salvamento
+class SaveSystem {
+    constructor() {
+        this.saveSlots = 5;
+        this.currentSlot = 1;
     }
 
-    this.state.teams = this.createTeams(gameData);
-    this.organizeConferences();
-    this.generateSchedule();
-    this.updateStandings();
-    this.initializeAdvancedSystems();
-    this.state.phase = GAME_PHASES.TEAM_SELECTION;
-    
-    return true;
-  }
-
-  // ADICIONE ESTA FUNÇÃO QUE ESTAVA FALTANDO:
-  organizeConferences() {
-    this.state.conferences = { EAST: [], WEST: [] };
-    this.state.teams.forEach(team => {
-      if (team.conference && this.state.conferences[team.conference]) {
-        this.state.conferences[team.conference].push(team.id);
-      }
-    });
-  }
-
-  // ==================== NOVOS SISTEMAS ====================
-  initializeAdvancedSystems() {
-    // Inicializar sistemas avançados
-    this.state.teams.forEach(team => {
-      this.state.depthChart[team.id] = this.getOptimalRotation(team.players);
-      this.state.teamFinances[team.id] = {
-        salaryTotal: team.players.reduce((sum, p) => sum + (p.salary || 5000000), 0),
-        luxuryTax: 0,
-        budget: 150000000,
-        revenue: 0
-      };
-      
-      // Inicializar moral dos jogadores
-      team.players.forEach(player => {
-        this.state.playerMorale[player.id] = player.morale || 70;
-      });
-    });
-    
-    // Gerar free agents iniciais
-    this.generateFreeAgents();
-    
-    // Preparar draft
-    this.prepareDraft();
-  }
-
-  generateFreeAgents() {
-    const freeAgents = [];
-    const archetypes = ['Força', 'Sabedoria', 'Velocidade', 'Magia', 'Proteção', 'Natureza', 'Luz', 'Sombra', 'Ordem', 'Fogo', 'Caos'];
-    const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
-    
-    for (let i = 0; i < 50; i++) {
-      const archetype = archetypes[Math.floor(Math.random() * archetypes.length)];
-      const position = positions[Math.floor(Math.random() * positions.length)];
-      const age = 20 + Math.floor(Math.random() * 12);
-      
-      freeAgents.push({
-        id: `fa-${i + 1}`,
-        name: `Free Agent ${i + 1}`,
-        position,
-        archetype,
-        age,
-        attributes: this.generateAttributes(archetype, {}),
-        salaryDemand: 2000000 + Math.random() * 10000000,
-        yearsDemand: 1 + Math.floor(Math.random() * 4),
-        rating: 60 + Math.random() * 30
-      });
-    }
-    
-    this.state.freeAgents = freeAgents;
-  }
-
-  prepareDraft() {
-    const draftPicks = [];
-    for (let round = 1; round <= 2; round++) {
-      for (let pick = 1; pick <= 30; pick++) {
-        draftPicks.push({
-          round,
-          pick,
-          originalTeam: pick,
-          currentTeam: pick,
-          player: null
-        });
-      }
-    }
-    this.state.draftPicks = draftPicks;
-  }
-
-  // ==================== MÁQUINA DE ESTADOS ====================
-  dispatch(action) {
-    try {
-      console.log(`[ENGINE] Action: ${action.type}`, action.payload);
-      
-      switch (action.type) {
-        case ACTION_TYPES.SELECT_TEAM:
-          return this.handleSelectTeam(action.payload);
-        case ACTION_TYPES.SIMULATE_DAY:
-          return this.handleSimulateDay(action.payload);
-        case ACTION_TYPES.PLAYER_GAME:
-          return this.handlePlayerGame(action.payload);
-        case ACTION_TYPES.SET_SPEED:
-          return this.handleSetSpeed(action.payload);
-        case ACTION_TYPES.TOGGLE_AUTO:
-          return this.handleToggleAuto(action.payload);
-        case ACTION_TYPES.ACCEPT_JOB_OFFER:
-          return this.handleAcceptJobOffer(action.payload);
-        case ACTION_TYPES.MANAGE_ROSTER:
-          return this.handleManageRoster(action.payload);
-        case ACTION_TYPES.TRAIN_PLAYER:
-          return this.handleTrainPlayer(action.payload);
-        case ACTION_TYPES.SET_LINEUP:
-          return this.handleSetLineup(action.payload);
-        default:
-          throw new Error(`Ação desconhecida: ${action.type}`);
-      }
-    } catch (error) {
-      this.state.lastError = error.message;
-      return { success: false, error: error.message };
-    }
-  }
-
-  // ==================== HANDLERS AVANÇADOS ====================
-  handleManageRoster(payload) {
-    const { teamId, action, playerId, targetId } = payload;
-    const team = this.state.teams.find(t => t.id === teamId);
-    
-    if (!team) {
-      throw new Error('Equipa não encontrada');
-    }
-    
-    switch (action) {
-      case 'move_player':
-        // Mover jogador na depth chart
-        const player = team.players.find(p => p.id === playerId);
-        if (player) {
-          // Implementar lógica de movimento
-          this.cache.invalidateCache();
-          return { success: true, message: 'Jogador movido' };
+    saveGame(state, slot = 1) {
+        try {
+            const saveData = {
+                state: JSON.parse(JSON.stringify(state)),
+                timestamp: Date.now(),
+                version: '2.0',
+                metadata: {
+                    seasonYear: state.seasonYear,
+                    day: state.currentDay,
+                    userTeam: state.playerTeamId ? state.teams.find(t => t.id === state.playerTeamId)?.name : 'Nenhuma',
+                    reputation: state.userReputation
+                }
+            };
+            localStorage.setItem(`mba_save_${slot}`, JSON.stringify(saveData));
+            return { success: true, slot, metadata: saveData.metadata };
+        } catch (error) {
+            return { success: false, error: error.message };
         }
-        break;
-        
-      case 'bench_player':
-        // Colocar jogador no banco
-        return { success: true, message: 'Jogador no banco' };
-        
-      case 'start_player':
-        // Colocar jogador a titular
-        return { success: true, message: 'Jogador a titular' };
-        
-      default:
-        throw new Error('Ação de gestão desconhecida');
-    }
-    
-    return { success: false, error: 'Operação falhou' };
-  }
-
-  handleTrainPlayer(payload) {
-    const { playerId, trainingType } = payload;
-    
-    // Encontrar jogador
-    let targetPlayer = null;
-    let targetTeam = null;
-    
-    for (const team of this.state.teams) {
-      const player = team.players.find(p => p.id === playerId);
-      if (player) {
-        targetPlayer = player;
-        targetTeam = team;
-        break;
-      }
-    }
-    
-    if (!targetPlayer) {
-      throw new Error('Jogador não encontrado');
-    }
-    
-    // Verificar energia
-    if (targetPlayer.energy < 30) {
-      return { 
-        success: false, 
-        error: 'Jogador sem energia suficiente para treinar' 
-      };
-    }
-    
-    // Efeitos do treino
-    const trainingEffects = {
-      'strength': { forca: [2, 5], stamina: [1, 3] },
-      'shooting': { tecnica: [3, 6], disciplina: [1, 2] },
-      'playmaking': { criatividade: [3, 6], tecnica: [1, 3] },
-      'defense': { disciplina: [3, 6], forca: [1, 3] },
-      'speed': { velocidade: [3, 7], stamina: [1, 2] },
-      'mental': { aura: [2, 5], criatividade: [1, 3] }
-    };
-    
-    const effect = trainingEffects[trainingType];
-    if (!effect) {
-      throw new Error('Tipo de treino inválido');
-    }
-    
-    const improvements = {};
-    
-    // Aplicar melhorias
-    Object.keys(effect).forEach(attr => {
-      const [min, max] = effect[attr];
-      const improvement = Math.floor(Math.random() * (max - min + 1)) + min;
-      targetPlayer.attributes[attr] = Math.min(99, 
-        (targetPlayer.attributes[attr] || 50) + improvement
-      );
-      improvements[attr] = improvement;
-    });
-    
-    // Consumir energia
-    targetPlayer.energy -= 30;
-    
-    // Chance de melhorar moral
-    if (Math.random() > 0.7) {
-      targetPlayer.morale = Math.min(100, targetPlayer.morale + 5);
-    }
-    
-    // Atualizar cache
-    this.cache.invalidateCache();
-    this.state._dirtyFlags.teamPower = true;
-    
-    // Registar no histórico
-    this.state.transactionLog.push({
-      type: 'player_training',
-      player: targetPlayer.name,
-      team: targetTeam.name,
-      training: trainingType,
-      improvements,
-      timestamp: new Date().toISOString()
-    });
-    
-    return {
-      success: true,
-      improvements,
-      newAttributes: { ...targetPlayer.attributes },
-      energy: targetPlayer.energy,
-      morale: targetPlayer.morale
-    };
-  }
-
-  handleSetLineup(payload) {
-    const { teamId, starters, rotationOrder } = payload;
-    const team = this.state.teams.find(t => t.id === teamId);
-    
-    if (!team) {
-      throw new Error('Equipa não encontrada');
-    }
-    
-    // Validar que todos os jogadores são da equipa
-    const allPlayers = [...starters, ...rotationOrder];
-    const invalidPlayer = allPlayers.find(playerId => 
-      !team.players.some(p => p.id === playerId)
-    );
-    
-    if (invalidPlayer) {
-      throw new Error('Jogador não pertence à equipa');
-    }
-    
-    // Atualizar depth chart
-    this.state.depthChart[teamId] = {
-      starters,
-      rotation: rotationOrder,
-      bench: team.players
-        .filter(p => !allPlayers.includes(p.id))
-        .map(p => p.id)
-    };
-    
-    // Atualizar química da equipa
-    this.updateTeamChemistry(teamId);
-    
-    // Invalida cache
-    this.cache.invalidateCache();
-    this.state._dirtyFlags.teamPower = true;
-    
-    return {
-      success: true,
-      depthChart: this.state.depthChart[teamId],
-      teamChemistry: this.state.teamChemistry
-    };
-  }
-
-  // ==================== HANDLERS EXISTENTES (MELHORADOS) ====================
-  handleSelectTeam(payload) {
-    if (this.state.phase !== GAME_PHASES.TEAM_SELECTION) {
-      throw new Error('Não é possível selecionar equipa nesta fase');
     }
 
-    const team = this.state.teams.find(t => t.id === payload.teamId);
-    if (!team) throw new Error('Equipa não encontrada');
-
-    this.state.playerTeamId = team.id;
-    this.state.userReputation = this.calculateInitialReputation(team);
-    this.state.phase = GAME_PHASES.REGULAR_SEASON;
-    
-    // Inicializar sistemas específicos da equipa do usuário
-    this.initializeUserTeamSystems(team.id);
-    
-    return {
-      success: true,
-      team: this.getTeamInfo(team.id),
-      reputation: this.state.userReputation,
-      chemistry: this.state.teamChemistry,
-      finances: this.state.teamFinances[team.id]
-    };
-  }
-
-  initializeUserTeamSystems(teamId) {
-    // Garantir que a depth chart existe
-    if (!this.state.depthChart[teamId]) {
-      const team = this.state.teams.find(t => t.id === teamId);
-      this.state.depthChart[teamId] = {
-        starters: team.players.slice(0, 5).map(p => p.id),
-        rotation: team.players.slice(5, 10).map(p => p.id),
-        bench: team.players.slice(10).map(p => p.id)
-      };
-    }
-    
-    // Inicializar moral dos jogadores
-    const team = this.state.teams.find(t => t.id === teamId);
-    team.players.forEach(player => {
-      if (!this.state.playerMorale[player.id]) {
-        this.state.playerMorale[player.id] = player.morale || 70;
-      }
-    });
-    
-    // Calcular química inicial
-    this.updateTeamChemistry(teamId);
-  }
-
-  handleSimulateDay(payload) {
-    const day = payload.day || this.state.currentDay;
-    const result = this.simulateDay(day);
-    
-    if (result.success && !result.userGame) {
-      this.state.currentDay++;
-      
-      // Verificar lesões
-      if (Math.random() < 0.1) { // 10% de chance por dia
-        this.checkInjuries();
-      }
-      
-      // Atualizar energia dos jogadores
-      this.updatePlayerEnergy();
-      
-      // Atualizar moral baseada em desempenho
-      this.updatePlayerMorale();
-      
-      if (this.state.currentDay > this.state.totalDays && this.state.phase === GAME_PHASES.REGULAR_SEASON) {
-        this.state.phase = GAME_PHASES.PLAYOFFS;
-        this.setupPlayoffs();
-      }
-    }
-    
-    return result;
-  }
-
-  // ==================== LÓGICA DO JOGO AVANÇADA ====================
-  simulateDay(dayNumber) {
-    const daySchedule = this.state.schedule.find(d => d.day === dayNumber);
-    if (!daySchedule) return { success: false, error: `Dia ${dayNumber} não encontrado` };
-
-    const results = [];
-    let userGame = null;
-
-    for (const game of daySchedule.games) {
-      if (game.played) continue;
-
-      const homeTeam = this.state.teams.find(t => t.id === game.homeTeamId);
-      const awayTeam = this.state.teams.find(t => t.id === game.awayTeamId);
-      const isUserGame = this.state.playerTeamId && 
-                        (game.homeTeamId === this.state.playerTeamId || game.awayTeamId === this.state.playerTeamId);
-
-      if (isUserGame && !this.state.autoSimulate) {
-        userGame = { game, homeTeam, awayTeam, day: dayNumber };
-        continue;
-      }
-
-      // Usar simulação detalhada se disponível
-      const gameResult = this.simulateDetailedGame(homeTeam, awayTeam);
-      game.played = true;
-      game.result = gameResult.result;
-      game.events = gameResult.events;
-      game.detailedStats = gameResult.detailedStats;
-
-      this.updateTeamsAfterGame(homeTeam, awayTeam, gameResult);
-      this.recordGameInHistory(gameResult, homeTeam, awayTeam, dayNumber, isUserGame);
-
-      results.push(gameResult);
-    }
-
-    daySchedule.completed = !userGame;
-    this.updateStandings();
-    this.checkJobOffers();
-    
-    // Atualizar química após jogos
-    if (this.state.playerTeamId) {
-      this.updateTeamChemistry(this.state.playerTeamId);
-    }
-
-    return {
-      success: true,
-      day: dayNumber,
-      results,
-      userGame,
-      standings: this.state.standings,
-      chemistry: this.state.teamChemistry,
-      injuries: this.state.injuryList.filter(i => i.returnDate === `Day ${dayNumber + 1}`)
-    };
-  }
-
-  simulateDetailedGame(homeTeam, awayTeam) {
-    // Calcular poder com cache
-    const homePower = this.calculateTeamPowerWithCache(homeTeam);
-    const awayPower = this.calculateTeamPowerWithCache(awayTeam);
-    
-    // Fatores de modificação
-    const homeAdvantage = 1.05;
-    const formFactor = (homeTeam.formFactor || 1.0) / (awayTeam.formFactor || 1.0);
-    const chemistryFactor = 1.0 + ((this.state.teamChemistry || 50) - 50) * 0.002;
-    
-    // Simulação por quartos
-    const quarters = [];
-    let homeScore = 0, awayScore = 0;
-    
-    for (let q = 1; q <= 4; q++) {
-      // Base score ajustada por poder
-      const baseScore = 20 + Math.random() * 10;
-      const powerDiff = (homePower - awayPower) * 0.1;
-      
-      const homeQuarter = Math.round(
-        baseScore * homeAdvantage * formFactor * chemistryFactor + 
-        powerDiff + (Math.random() * 5)
-      );
-      
-      const awayQuarter = Math.round(
-        baseScore + (Math.random() * 5) - powerDiff
-      );
-      
-      quarters.push({ quarter: q, home: homeQuarter, away: awayQuarter });
-      homeScore += homeQuarter;
-      awayScore += awayQuarter;
-    }
-    
-    // Overtime se necessário
-    let overtime = null;
-    if (homeScore === awayScore) {
-      const otHome = Math.round(5 + Math.random() * 8);
-      const otAway = Math.round(5 + Math.random() * 8);
-      homeScore += otHome;
-      awayScore += otAway;
-      overtime = { home: otHome, away: otAway };
-    }
-    
-    // Gerar estatísticas detalhadas
-    const stats = this.generateGameStats(homeTeam, awayTeam, homeScore, awayScore);
-    
-    // Gerar highlights
-    const highlights = this.generateHighlights(homeTeam, awayTeam);
-    
-    const result = {
-      homePoints: homeScore,
-      awayPoints: awayScore,
-      winner: homeScore > awayScore ? 'home' : 'away',
-      quarters: 4,
-      isOvertime: !!overtime,
-      overtime
-    };
-
-    return { 
-      result, 
-      events: highlights,
-      detailedStats: {
-        quarters,
-        playerStats: stats,
-        teamStats: {
-          home: { points: homeScore, rebounds: Math.floor(Math.random() * 50) + 30 },
-          away: { points: awayScore, rebounds: Math.floor(Math.random() * 50) + 30 }
+    loadGame(slot = 1) {
+        try {
+            const saveData = JSON.parse(localStorage.getItem(`mba_save_${slot}`));
+            if (!saveData) {
+                return { success: false, error: 'Save não encontrado' };
+            }
+            if (saveData.version !== '2.0') {
+                return { success: false, error: 'Versão de save incompatível' };
+            }
+            return { success: true, state: saveData.state, metadata: saveData.metadata };
+        } catch (error) {
+            return { success: false, error: error.message };
         }
-      }
-    };
-  }
-
-  calculateTeamPowerWithCache(team) {
-    // Tentar obter do cache primeiro
-    const cachedPower = this.cache.getTeamPower(team.id);
-    if (cachedPower !== null) {
-      return cachedPower;
     }
-    
-    // Calcular se não estiver em cache
-    const power = this.calculateTeamPower(team);
-    this.cache.setTeamPower(team.id, power);
-    return power;
-  }
 
-  generateGameStats(homeTeam, awayTeam, homeScore, awayScore) {
-    const stats = {
-      home: [],
-      away: []
-    };
-    
-    // Gerar stats para jogadores titulares
-    const homeStarters = this.state.depthChart[homeTeam.id]?.starters?.slice(0, 5) || 
-                        homeTeam.players.slice(0, 5);
-    const awayStarters = this.state.depthChart[awayTeam.id]?.starters?.slice(0, 5) || 
-                        awayTeam.players.slice(0, 5);
-    
-    homeStarters.forEach(playerId => {
-      const player = homeTeam.players.find(p => p.id === playerId);
-      if (player) {
-        stats.home.push(this.generatePlayerStats(player, homeScore > awayScore));
-      }
-    });
-    
-    awayStarters.forEach(playerId => {
-      const player = awayTeam.players.find(p => p.id === playerId);
-      if (player) {
-        stats.away.push(this.generatePlayerStats(player, awayScore > homeScore));
-      }
-    });
-    
-    return stats;
-  }
-
-  generatePlayerStats(player, teamWon) {
-    const basePoints = 5 + Math.random() * 25;
-    const multiplier = (this.calculatePlayerPower(player) / 100) * (teamWon ? 1.2 : 0.9);
-    
-    return {
-      player: player.name,
-      points: Math.round(basePoints * multiplier),
-      rebounds: Math.round(2 + Math.random() * 12),
-      assists: Math.round(1 + Math.random() * 10),
-      steals: Math.round(Math.random() * 4),
-      blocks: Math.round(Math.random() * 3),
-      turnovers: Math.round(Math.random() * 5),
-      minutes: Math.round(20 + Math.random() * 28),
-      rating: Math.round(50 + Math.random() * 40)
-    };
-  }
-
-  generateHighlights(homeTeam, awayTeam) {
-    const highlights = [];
-    const events = [
-      `${homeTeam.players[0]?.name || 'Jogador'} marca um triple!`,
-      `${awayTeam.players[0]?.name || 'Jogador'} com uma enterrada poderosa!`,
-      `Excelente passe de ${homeTeam.players[1]?.name || 'Jogador'}`,
-      `Defesa impressionante de ${awayTeam.players[1]?.name || 'Jogador'}`,
-      `Cesto no último segundo!`
-    ];
-    
-    // Gerar 3-5 highlights por jogo
-    const numHighlights = 3 + Math.floor(Math.random() * 3);
-    for (let i = 0; i < numHighlights; i++) {
-      highlights.push({
-        quarter: Math.floor(Math.random() * 4) + 1,
-        time: `${Math.floor(Math.random() * 12)}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
-        text: events[Math.floor(Math.random() * events.length)]
-      });
-    }
-    
-    return highlights;
-  }
-
-  // ==================== SISTEMA DE LESIÕES ====================
-  checkInjuries() {
-    const injuryChance = 0.02; // 2% por jogo
-    
-    this.state.teams.forEach(team => {
-      team.players.forEach(player => {
-        if (player.injury) {
-          // Reduzir tempo de lesão
-          player.injury.gamesRemaining--;
-          if (player.injury.gamesRemaining <= 0) {
-            delete player.injury;
-          }
-          return;
+    getSaveSlots() {
+        const slots = [];
+        for (let i = 1; i <= this.saveSlots; i++) {
+            const saveData = localStorage.getItem(`mba_save_${i}`);
+            if (saveData) {
+                try {
+                    const parsed = JSON.parse(saveData);
+                    slots.push({
+                        slot: i,
+                        timestamp: parsed.timestamp,
+                        metadata: parsed.metadata,
+                        date: new Date(parsed.timestamp).toLocaleString()
+                    });
+                } catch (e) {
+                    slots.push({ slot: i, corrupted: true });
+                }
+            } else {
+                slots.push({ slot: i, empty: true });
+            }
         }
-        
-        if (Math.random() < injuryChance) {
-          const injuryTypes = [
-            { type: 'Leve', gamesOut: 1, severity: 1 },
-            { type: 'Moderada', gamesOut: 5, severity: 2 },
-            { type: 'Grave', gamesOut: 15, severity: 3 }
-          ];
-          const injury = injuryTypes[Math.floor(Math.random() * injuryTypes.length)];
-          player.injury = { 
-            ...injury, 
-            gamesRemaining: injury.gamesOut 
-          };
-          
-          this.state.injuryList.push({
-            player: player.name,
-            team: team.name,
-            injury: injury.type,
-            returnDate: `Day ${this.state.currentDay + injury.gamesOut}`,
-            timestamp: new Date().toISOString()
-          });
-          
-          // Adicionar ao feed
-          this.state.liveFeed.push({
-            timestamp: new Date().toISOString(),
-            text: `🚑 ${player.name} lesionou-se! (${injury.type})`,
-            type: 'injury'
-          });
-        }
-      });
-    });
-  }
-
-  updatePlayerEnergy() {
-    this.state.teams.forEach(team => {
-      team.players.forEach(player => {
-        // Recuperar energia (5-15% por dia)
-        const recovery = 5 + Math.random() * 10;
-        player.energy = Math.min(100, player.energy + recovery);
-      });
-    });
-  }
-
-  updatePlayerMorale() {
-    this.state.teams.forEach(team => {
-      const winPct = team.stats.wins / (team.stats.games || 1);
-      
-      team.players.forEach(player => {
-        // Base morale change based on team performance
-        let moraleChange = 0;
-        
-        if (winPct > 0.6) {
-          moraleChange = 1 + Math.random() * 2;
-        } else if (winPct < 0.4) {
-          moraleChange = -2 - Math.random() * 2;
-        }
-        
-        // Playing time effect
-        const isStarter = this.state.depthChart[team.id]?.starters?.includes(player.id);
-        if (isStarter) {
-          moraleChange += 1;
-        }
-        
-        // Apply morale change
-        player.morale = Math.max(20, Math.min(100, player.morale + moraleChange));
-        this.state.playerMorale[player.id] = player.morale;
-      });
-    });
-  }
-
-  updateTeamChemistry(teamId) {
-    const team = this.state.teams.find(t => t.id === teamId);
-    if (!team) return;
-    
-    let chemistry = 50;
-    
-    // Fatores que afetam a química:
-    
-    // 1. Desempenho da equipa
-    const winPct = team.stats.wins / (team.stats.games || 1);
-    chemistry += (winPct - 0.5) * 20;
-    
-    // 2. Moral média dos jogadores
-    const avgMorale = team.players.reduce((sum, p) => sum + (p.morale || 70), 0) / team.players.length;
-    chemistry += (avgMorale - 70) * 0.5;
-    
-    // 3. Streak atual
-    if (team.stats.streak > 3) chemistry += 5;
-    if (team.stats.streak < -3) chemistry -= 5;
-    
-    // 4. Variação aleatória
-    chemistry += (Math.random() * 10) - 5;
-    
-    // Limitar entre 0 e 100
-    chemistry = Math.max(0, Math.min(100, chemistry));
-    
-    this.state.teamChemistry = Math.round(chemistry);
-  }
-
-  // ==================== FIM DA TEMPORADA ====================
-  startOffseason() {
-    this.state.phase = GAME_PHASES.OFFSEASON_ACTIVITIES;
-    
-    // Processar contractos
-    this.processContracts();
-    
-    // Gerar lista de free agents
-    this.generateFreeAgents();
-    
-    // Preparar draft
-    this.prepareDraft();
-    
-    // Atualizar reputação baseada no desempenho
-    this.updateEndOfSeasonReputation();
-    
-    // Calcular prémios
-    this.calculateSeasonAwards();
-    
-    return {
-      awards: this.state.seasonAwards,
-      statLeaders: this.state.statLeaders,
-      freeAgents: this.state.freeAgents.slice(0, 20),
-      playerTeam: this.getUserTeamInfo()
-    };
-  }
-
-  calculateSeasonAwards() {
-    // Coletar estatísticas de todos os jogadores
-    const allPlayers = [];
-    this.state.teams.forEach(team => {
-      team.players.forEach(player => {
-        allPlayers.push({
-          ...player,
-          teamName: team.name,
-          teamWins: team.stats.wins
-        });
-      });
-    });
-    
-    // MVP - Maior poder + vitórias da equipa
-    const mvp = allPlayers
-      .sort((a, b) => {
-        const aPower = this.calculatePlayerPower(a) * (a.teamWins / 41);
-        const bPower = this.calculatePlayerPower(b) * (b.teamWins / 41);
-        return bPower - aPower;
-      })[0];
-    
-    // Rookie do Ano - Jogadores mais jovens com bom desempenho
-    const rookies = allPlayers.filter(p => p.age < 22);
-    const rookieOfTheYear = rookies
-      .sort((a, b) => this.calculatePlayerPower(b) - this.calculatePlayerPower(a))[0];
-    
-    this.state.seasonAwards = {
-      mvp: {
-        player: mvp?.name || 'N/A',
-        team: mvp?.teamName || 'N/A',
-        rating: mvp ? Math.round(this.calculatePlayerPower(mvp)) : 0
-      },
-      rookieOfTheYear: {
-        player: rookieOfTheYear?.name || 'N/A',
-        team: rookieOfTheYear?.teamName || 'N/A',
-        rating: rookieOfTheYear ? Math.round(this.calculatePlayerPower(rookieOfTheYear)) : 0
-      },
-      defensivePlayer: {
-        player: allPlayers
-          .sort((a, b) => (b.attributes.disciplina || 50) - (a.attributes.disciplina || 50))[0]?.name || 'N/A',
-        team: allPlayers
-          .sort((a, b) => (b.attributes.disciplina || 50) - (a.attributes.disciplina || 50))[0]?.teamName || 'N/A'
-      },
-      coachOfTheYear: {
-        coach: 'Treinador do Ano',
-        team: this.state.teams
-          .sort((a, b) => b.stats.wins - a.stats.wins)[0]?.name || 'N/A'
-      }
-    };
-    
-    return this.state.seasonAwards;
-  }
-
-  updateEndOfSeasonReputation() {
-    if (!this.state.playerTeamId) return;
-    
-    const userTeam = this.state.teams.find(t => t.id === this.state.playerTeamId);
-    if (!userTeam) return;
-    
-    const winPct = userTeam.stats.wins / (userTeam.stats.games || 1);
-    
-    let repChange = 0;
-    
-    // Baseado em vitórias
-    if (winPct > 0.6) repChange += 15;
-    else if (winPct > 0.5) repChange += 5;
-    else if (winPct < 0.3) repChange -= 10;
-    
-    // Playoffs
-    if (this.state.phase === GAME_PHASES.PLAYOFFS || this.state.phase === GAME_PHASES.FINALS) {
-      repChange += 20;
-    }
-    
-    this.state.userReputation = Math.max(0, Math.min(100, 
-      this.state.userReputation + repChange
-    ));
-  }
-
-  processContracts() {
-    this.state.teams.forEach(team => {
-      team.players.forEach(player => {
-        if (player.contractYears > 0) {
-          player.contractYears--;
-          
-          // Se contrato terminou, tornar free agent
-          if (player.contractYears === 0) {
-            this.state.freeAgents.push({
-              id: player.id,
-              name: player.name,
-              position: player.pos,
-              archetype: player.archetype,
-              attributes: player.attributes,
-              salaryDemand: (player.salary || 5000000) * 1.1,
-              yearsDemand: 3,
-              rating: this.calculatePlayerPower(player),
-              previousTeam: team.name
-            });
-          }
-        }
-      });
-    });
-  }
-
-  // ==================== FUNÇÕES AUXILIARES (OTIMIZADAS) ====================
-  calculateTeamPower(team) {
-    // Usar cache se disponível
-    if (!this.state._dirtyFlags.teamPower) {
-      const cached = this.cache.getTeamPower(team.id);
-      if (cached !== null) return cached;
-    }
-    
-    if (!team.rotation || team.rotation.length === 0) {
-      const power = 50;
-      this.cache.setTeamPower(team.id, power);
-      this.state._dirtyFlags.teamPower = false;
-      return power;
-    }
-    
-    // Calcular poder considerando lesões e moral
-    let total = 0;
-    let count = 0;
-    
-    const rotation = this.state.depthChart[team.id]?.starters || team.rotation;
-    
-    rotation.forEach(player => {
-      const playerObj = team.players.find(p => p.id === player) || player;
-      const playerPower = this.calculatePlayerPowerWithCache(playerObj);
-      
-      // Penalização por lesão
-      const injuryPenalty = playerObj.injury ? 0.7 : 1.0;
-      
-      // Bonus/penalty por moral
-      const moraleFactor = 0.8 + (playerObj.morale * 0.004);
-      
-      total += playerPower * injuryPenalty * moraleFactor;
-      count++;
-    });
-    
-    const power = count > 0 ? total / count : 50;
-    
-    // Aplicar fator de química
-    const chemistryBonus = 1.0 + ((this.state.teamChemistry || 50) - 50) * 0.005;
-    
-    const finalPower = power * chemistryBonus;
-    
-    // Armazenar em cache
-    this.cache.setTeamPower(team.id, finalPower);
-    this.state._dirtyFlags.teamPower = false;
-    
-    return finalPower;
-  }
-
-  calculatePlayerPowerWithCache(player) {
-    const cached = this.cache.getPlayerPower(player.id);
-    if (cached !== null) return cached;
-    
-    const power = this.calculatePlayerPower(player);
-    this.cache.setPlayerPower(player.id, power);
-    return power;
-  }
-
-  calculatePlayerPower(player) {
-    const attrs = player.attributes || {};
-    const sum = (attrs.forca || 50) * 1.2 +
-                (attrs.tecnica || 50) * 1.1 +
-                (attrs.velocidade || 50) * 1.1 +
-                (attrs.criatividade || 50) +
-                (attrs.disciplina || 50) * 0.9 +
-                (attrs.aura || 50) * 0.8;
-    return sum / 6.1;
-  }
-
-  updateTeamsAfterGame(homeTeam, awayTeam, gameResult) {
-    const { homePoints, awayPoints, winner } = gameResult.result;
-    
-    homeTeam.stats.games++;
-    awayTeam.stats.games++;
-    homeTeam.stats.pointsFor += homePoints;
-    homeTeam.stats.pointsAgainst += awayPoints;
-    awayTeam.stats.pointsFor += awayPoints;
-    awayTeam.stats.pointsAgainst += homePoints;
-
-    if (winner === 'home') {
-      homeTeam.stats.wins++;
-      homeTeam.stats.homeWins++;
-      awayTeam.stats.losses++;
-      homeTeam.form.push('W');
-      awayTeam.form.push('L');
-      homeTeam.stats.streak = homeTeam.stats.streak >= 0 ? homeTeam.stats.streak + 1 : 1;
-      awayTeam.stats.streak = awayTeam.stats.streak <= 0 ? awayTeam.stats.streak - 1 : -1;
-      
-      // Bonus de moral para vencedores
-      homeTeam.players.forEach(p => {
-        p.morale = Math.min(100, p.morale + 1);
-      });
-      awayTeam.players.forEach(p => {
-        p.morale = Math.max(20, p.morale - 2);
-      });
-    } else {
-      awayTeam.stats.wins++;
-      awayTeam.stats.awayWins++;
-      homeTeam.stats.losses++;
-      awayTeam.form.push('W');
-      homeTeam.form.push('L');
-      awayTeam.stats.streak = awayTeam.stats.streak >= 0 ? awayTeam.stats.streak + 1 : 1;
-      homeTeam.stats.streak = homeTeam.stats.streak <= 0 ? homeTeam.stats.streak - 1 : -1;
-      
-      // Bonus/penalty de moral
-      awayTeam.players.forEach(p => {
-        p.morale = Math.min(100, p.morale + 1);
-      });
-      homeTeam.players.forEach(p => {
-        p.morale = Math.max(20, p.morale - 2);
-      });
+        return slots;
     }
 
-    if (homeTeam.form.length > 10) homeTeam.form.shift();
-    if (awayTeam.form.length > 10) awayTeam.form.shift();
-    
-    // Reduzir energia dos jogadores
-    homeTeam.players.forEach(p => {
-      p.energy = Math.max(0, p.energy - (5 + Math.random() * 10));
-    });
-    awayTeam.players.forEach(p => {
-      p.energy = Math.max(0, p.energy - (5 + Math.random() * 10));
-    });
-    
-    // Invalidar cache
-    this.cache.invalidateCache();
-    this.state._dirtyFlags.teamPower = true;
-    this.state._dirtyFlags.standings = true;
-  }
-
-  updateStandings() {
-    // Usar cache se disponível
-    if (!this.state._dirtyFlags.standings && this.state.standingsCache) {
-      return;
+    deleteSave(slot) {
+        localStorage.removeItem(`mba_save_${slot}`);
+        return { success: true };
     }
-    
-    ['EAST', 'WEST'].forEach(conf => {
-      const teams = this.state.teams.filter(t => t.conference === conf);
-      
-      teams.sort((a, b) => {
-        const winPctA = a.stats.wins / (a.stats.games || 1);
-        const winPctB = b.stats.wins / (b.stats.games || 1);
-        if (Math.abs(winPctB - winPctA) > 0.001) return winPctB - winPctA;
-        
-        // Desempate: confronto direto
-        const headToHead = this.calculateHeadToHead(a.id, b.id);
-        if (headToHead !== 0) return headToHead;
-        
-        const diffA = a.stats.pointsFor - a.stats.pointsAgainst;
-        const diffB = b.stats.pointsFor - b.stats.pointsAgainst;
-        return diffB - diffA;
-      });
+}
 
-      this.state.standings[conf] = teams.map((t, index) => ({
-        rank: index + 1,
-        id: t.id,
-        name: t.name,
-        wins: t.stats.wins,
-        losses: t.stats.losses,
-        winPct: t.stats.games ? (t.stats.wins / t.stats.games).toFixed(3) : '.000',
-        pointsFor: t.stats.pointsFor,
-        pointsAgainst: t.stats.pointsAgainst,
-        diff: t.stats.pointsFor - t.stats.pointsAgainst,
-        streak: t.stats.streak > 0 ? `W${t.stats.streak}` : `L${Math.abs(t.stats.streak)}`,
-        last10: t.form.join(''),
-        teamPower: Math.round(this.calculateTeamPower(t)),
-        gamesBehind: this.calculateGamesBehind(teams[0], t)
-      }));
-    });
-    
-    this.state.standingsCache = true;
-    this.state._dirtyFlags.standings = false;
-  }
-
-  calculateHeadToHead(teamAId, teamBId) {
-    // Simplificado - em implementação real, verificar jogos entre as equipas
-    return 0;
-  }
-
-  calculateGamesBehind(leader, team) {
-    const leaderWins = leader.stats.wins;
-    const leaderLosses = leader.stats.losses;
-    const teamWins = team.stats.wins;
-    const teamLosses = team.stats.losses;
-    
-    return ((leaderWins - teamWins) + (teamLosses - leaderLosses)) / 2;
-  }
-
-  // ==================== API PÚBLICA EXPANDIDA ====================
-  getState() {
-    return JSON.parse(JSON.stringify(this.state));
-  }
-
-  getTeamInfo(teamId) {
-    const team = this.state.teams.find(t => t.id === teamId);
-    if (!team) return null;
-    
-    const finances = this.state.teamFinances[teamId] || {};
-    const depthChart = this.state.depthChart[teamId] || {};
-    
-    return {
-      id: team.id,
-      name: team.name,
-      mythology: team.mythology,
-      conference: team.conference,
-      division: team.division,
-      teamPower: Math.round(this.calculateTeamPowerWithCache(team)),
-      stats: team.stats,
-      upcomingGames: this.getUpcomingGames(teamId),
-      finances: {
-        salaryTotal: finances.salaryTotal || 0,
-        budget: finances.budget || 150000000,
-        luxuryTax: finances.luxuryTax || 0,
-        capSpace: (finances.budget || 150000000) - (finances.salaryTotal || 0)
-      },
-      roster: {
-        players: team.players.map(p => ({
-          id: p.id,
-          name: p.name,
-          position: p.pos,
-          archetype: p.archetype,
-          rating: Math.round(this.calculatePlayerPowerWithCache(p)),
-          salary: p.salary,
-          contractYears: p.contractYears,
-          injury: p.injury,
-          morale: p.morale,
-          energy: p.energy,
-          isStarter: depthChart.starters?.includes(p.id) || false
-        })),
-        starters: depthChart.starters || [],
-        rotation: depthChart.rotation || []
-      }
-    };
-  }
-
-  getUserTeamInfo() {
-    if (!this.state.playerTeamId) return null;
-    const info = this.getTeamInfo(this.state.playerTeamId);
-    
-    if (info) {
-      info.chemistry = this.state.teamChemistry;
-      info.injuries = this.state.injuryList.filter(i => 
-        i.team === info.name && i.returnDate > `Day ${this.state.currentDay}`
-      );
-      info.development = this.state.playerDevelopment[this.state.playerTeamId] || {};
-    }
-    
-    return info;
-  }
-
-  getPlayerDetails(playerId) {
-    for (const team of this.state.teams) {
-      const player = team.players.find(p => p.id === playerId);
-      if (player) {
-        return {
-          ...player,
-          teamName: team.name,
-          teamId: team.id,
-          rating: Math.round(this.calculatePlayerPower(player)),
-          attributes: player.attributes || {},
-          development: this.state.playerDevelopment[playerId] || {},
-          injury: player.injury,
-          morale: this.state.playerMorale[playerId] || player.morale,
-          isUserTeam: team.id === this.state.playerTeamId
+// Sistema de conquistas
+class AchievementSystem {
+    constructor() {
+        this.achievements = {
+            FIRST_WIN: { id: 'FIRST_WIN', name: 'Primeira Vitória', description: 'Ganhar o primeiro jogo', unlocked: false },
+            WINNING_STREAK_5: { id: 'WINNING_STREAK_5', name: 'Em Fogo', description: 'Conseguir uma streak de 5 vitórias', unlocked: false },
+            PLAYOFF_BERTH: { id: 'PLAYOFF_BERTH', name: 'Classificado', description: 'Classificar-se para os playoffs', unlocked: false },
+            PLAYOFF_WIN: { id: 'PLAYOFF_WIN', name: 'Vencedor de Playoffs', description: 'Ganhar uma série de playoffs', unlocked: false },
+            CHAMPIONSHIP: { id: 'CHAMPIONSHIP', name: 'Campeão', description: 'Ganhar o campeonato', unlocked: false },
+            MVP_SEASON: { id: 'MVP_SEASON', name: 'MVP', description: 'Ter um jogador eleito MVP da temporada', unlocked: false },
+            TEAM_CHEMISTRY_90: { id: 'TEAM_CHEMISTRY_90', name: 'Química Perfeita', description: 'Alcançar 90 de química de equipa', unlocked: false },
+            REPUTATION_90: { id: 'REPUTATION_90', name: 'Lenda', description: 'Alcançar 90 de reputação', unlocked: false },
+            TRADE_MASTER: { id: 'TRADE_MASTER', name: 'Mestre das Trocas', description: 'Concluir uma troca vantajosa', unlocked: false },
+            DRAFT_STEAL: { id: 'DRAFT_STEAL', name: 'Roubo no Draft', description: 'Selecionar um jogador com rating >80 após o 20º pick', unlocked: false }
         };
-      }
+        this.unlockedAchievements = [];
+        this.load();
     }
-    
-    // Verificar free agents
-    const freeAgent = this.state.freeAgents.find(fa => fa.id === playerId);
-    if (freeAgent) {
-      return {
-        ...freeAgent,
-        teamName: 'Free Agent',
-        teamId: null,
-        rating: freeAgent.rating || Math.round(this.calculatePlayerPower(freeAgent))
-      };
+
+    load() {
+        const saved = localStorage.getItem('mba_achievements');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                this.unlockedAchievements = data.unlocked || [];
+                this.unlockedAchievements.forEach(id => {
+                    if (this.achievements[id]) {
+                        this.achievements[id].unlocked = true;
+                    }
+                });
+            } catch (e) {
+                console.warn('Erro ao carregar achievements:', e);
+            }
+        }
     }
-    
-    return null;
-  }
 
-  // ==================== FUNÇÕES PRIVADAS ====================
-  createTeams(gameData) {
-    return gameData.teams.map((teamData, index) => {
-      const players = teamData.players.map((player, idx) => ({
-        ...player,
-        id: `${teamData.id}-${player.name.toLowerCase().replace(/\s+/g, '-')}-${idx}`,
-        attributes: player.attributes || this.generateAttributes(player.archetype, gameData.archetypes),
-        morale: 70 + Math.floor(Math.random() * 20),
-        energy: 100,
-        salary: player.salary || 5000000,
-        contractYears: player.contractYears || 3,
-        age: 22 + Math.floor(Math.random() * 10),
-        potential: 50 + Math.floor(Math.random() * 50)
-      }));
-
-      const team = {
-        id: teamData.id || index + 1,
-        name: teamData.name,
-        mythology: teamData.mythology,
-        style: teamData.style,
-        dominantArchetype: teamData.dominantArchetype,
-        conference: teamData.conference || (index % 2 === 0 ? 'EAST' : 'WEST'),
-        division: teamData.division || 'Divisão',
-        players,
-        rotation: this.getOptimalRotation(players),
-        stats: { games: 0, wins: 0, losses: 0, pointsFor: 0, pointsAgainst: 0, streak: 0, homeWins: 0, awayWins: 0 },
-        form: [],
-        formFactor: 1.0,
-        tactics: { offense: 'balanced', defense: 'man', pace: 'normal' }
-      };
-
-      team.teamPower = this.calculateTeamPower(team);
-      return team;
-    });
-  }
-
-  getOptimalRotation(players) {
-    const playersByPos = { PG: [], SG: [], SF: [], PF: [], C: [] };
-    players.forEach(player => {
-      if (playersByPos[player.pos]) playersByPos[player.pos].push(player);
-    });
-
-    Object.keys(playersByPos).forEach(pos => {
-      playersByPos[pos].sort((a, b) => this.calculatePlayerPower(b) - this.calculatePlayerPower(a));
-    });
-
-    const rotation = [];
-    ['PG', 'SG', 'SF', 'PF', 'C'].forEach(pos => {
-      if (playersByPos[pos].length > 0) rotation.push(playersByPos[pos][0]);
-    });
-
-    const allPlayers = players.filter(p => !rotation.includes(p))
-      .sort((a, b) => this.calculatePlayerPower(b) - this.calculatePlayerPower(a));
-    
-    rotation.push(...allPlayers.slice(0, 3));
-    return rotation.slice(0, 8);
-  }
-
-  generateAttributes(archetype, archetypeData) {
-    if (archetypeData && archetypeData[archetype]) {
-      return { ...archetypeData[archetype] };
+    save() {
+        localStorage.setItem('mba_achievements', JSON.stringify({
+            unlocked: this.unlockedAchievements
+        }));
     }
-    return {
-      forca: 50, tecnica: 50, velocidade: 50,
-      criatividade: 50, disciplina: 50, aura: 50
-    };
-  }
 
-  calculateInitialReputation(team) {
-    return Math.min(80, 50 + (team.teamPower - 70));
-  }
-
-  setupPlayoffs() {
-    this.state.playoffs = {
-      bracket: [],
-      currentRound: 1,
-      finals: null
-    };
-    
-    // Criar bracket das playoffs
-    const eastPlayoffs = this.state.standings.EAST.slice(0, 8);
-    const westPlayoffs = this.state.standings.WEST.slice(0, 8);
-    
-    this.state.playoffs.bracket = {
-      east: this.createPlayoffMatchups(eastPlayoffs),
-      west: this.createPlayoffMatchups(westPlayoffs)
-    };
-  }
-
-  createPlayoffMatchups(teams) {
-    return [
-      { highSeed: teams[0], lowSeed: teams[7], games: [], winner: null },
-      { highSeed: teams[1], lowSeed: teams[6], games: [], winner: null },
-      { highSeed: teams[2], lowSeed: teams[5], games: [], winner: null },
-      { highSeed: teams[3], lowSeed: teams[4], games: [], winner: null }
-    ];
-  }
-
-  // Método para performance: processar batch de atualizações
-  batchUpdate(updates) {
-    this.cache.invalidateCache();
-    
-    updates.forEach(update => {
-      try {
-        this.dispatch(update);
-      } catch (error) {
-        console.warn('Batch update failed:', error);
-      }
-    });
-    
-    // Forçar atualização de standings se necessário
-    if (updates.some(u => u.type === ACTION_TYPES.SIMULATE_DAY)) {
-      this.state._dirtyFlags.standings = true;
-      this.updateStandings();
+    unlock(achievementId) {
+        if (this.achievements[achievementId] && !this.achievements[achievementId].unlocked) {
+            this.achievements[achievementId].unlocked = true;
+            this.unlockedAchievements.push(achievementId);
+            this.save();
+            return { success: true, achievement: this.achievements[achievementId], total: this.unlockedAchievements.length };
+        }
+        return { success: false };
     }
-  }
 
-  // ==================== FUNÇÕES DE UTILITÁRIO ====================
-  generateSchedule() {
-    const schedule = [];
-    const eastTeams = this.state.teams.filter(t => t.conference === 'EAST');
-    const westTeams = this.state.teams.filter(t => t.conference === 'WEST');
-    
-    for (let day = 1; day <= 82; day++) {
-      const dayGames = [];
-      
-      for (let i = 0; i < 10; i++) {
-        let homeTeam, awayTeam;
+    checkAchievements(gameState) {
+        const newlyUnlocked = [];
         
-        if (Math.random() > 0.7) {
-          homeTeam = eastTeams[Math.floor(Math.random() * eastTeams.length)];
-          awayTeam = westTeams[Math.floor(Math.random() * westTeams.length)];
-        } else {
-          const conference = Math.random() > 0.5 ? 'EAST' : 'WEST';
-          const teams = conference === 'EAST' ? eastTeams : westTeams;
-          
-          homeTeam = teams[Math.floor(Math.random() * teams.length)];
-          awayTeam = teams[Math.floor(Math.random() * teams.length)];
-          
-          while (awayTeam.id === homeTeam.id) {
-            awayTeam = teams[Math.floor(Math.random() * teams.length)];
-          }
+        if (gameState.playerTeamId) {
+            const team = gameState.teams.find(t => t.id === gameState.playerTeamId);
+            
+            if (team) {
+                // Vitórias
+                if (team.stats.wins === 1) {
+                    const result = this.unlock('FIRST_WIN');
+                    if (result.success) newlyUnlocked.push(result.achievement);
+                }
+                
+                if (team.stats.streak >= 5) {
+                    const result = this.unlock('WINNING_STREAK_5');
+                    if (result.success) newlyUnlocked.push(result.achievement);
+                }
+                
+                // Química
+                if (gameState.teamChemistry >= 90) {
+                    const result = this.unlock('TEAM_CHEMISTRY_90');
+                    if (result.success) newlyUnlocked.push(result.achievement);
+                }
+                
+                // Reputação
+                if (gameState.userReputation >= 90) {
+                    const result = this.unlock('REPUTATION_90');
+                    if (result.success) newlyUnlocked.push(result.achievement);
+                }
+            }
         }
         
-        dayGames.push({
-          homeTeamId: homeTeam.id,
-          awayTeamId: awayTeam.id,
-          conference: homeTeam.conference === awayTeam.conference ? homeTeam.conference : 'INTER',
-          played: false,
-          result: null,
-          events: [],
-          date: `Day ${day}`
+        return newlyUnlocked;
+    }
+
+    getProgress() {
+        const total = Object.keys(this.achievements).length;
+        const unlocked = this.unlockedAchievements.length;
+        return {
+            total,
+            unlocked,
+            percentage: Math.round((unlocked / total) * 100),
+            achievements: Object.values(this.achievements)
+        };
+    }
+}
+
+// ============================================================
+// GAME ENGINE PRINCIPAL
+// ============================================================
+export class GameEngine {
+    constructor(gameData) {
+        this.cache = new GameCache();
+        this.saveSystem = new SaveSystem();
+        this.achievementSystem = new AchievementSystem();
+        
+        this.state = {
+            phase: GAME_PHASES.INIT,
+            seasonYear: gameData?.seasonYear || 2026,
+            currentDay: 1,
+            totalDays: 82,
+            daysInMonth: 30,
+            teams: [],
+            playerTeamId: null,
+            userReputation: 50,
+            userRole: 'Head Coach',
+            userName: 'Coach',
+            conferences: { EAST: [], WEST: [] },
+            standings: { EAST: [], WEST: [] },
+            schedule: [],
+            simulationSpeed: 1,
+            autoSimulate: true,
+            isSimulationRunning: false,
+            gameHistory: [],
+            userGameHistory: [],
+            transactionLog: [],
+            liveFeed: [],
+            jobOffers: [],
+            tradeOffers: [],
+            pendingActions: [],
+            lastError: null,
+            depthChart: {},
+            playerDevelopment: {},
+            teamChemistry: 75,
+            fanSupport: 50,
+            salaryCap: 109000000,
+            luxuryTaxThreshold: 132000000,
+            draftPicks: [],
+            freeAgents: [],
+            injuryList: [],
+            teamFinances: {},
+            playerMorale: {},
+            teamTactics: {
+                offense: 'balanced',
+                defense: 'man',
+                pace: 'normal',
+                focus: 'balanced'
+            },
+            seasonAwards: null,
+            statLeaders: null,
+            hallOfFame: [],
+            seasonHistory: [],
+            allStarWeekend: null,
+            specialEvents: [],
+            lastUpdate: Date.now(),
+            dirtyFlags: {
+                standings: true,
+                teamPower: true,
+                schedule: true
+            },
+            advancedStats: {
+                teamStats: {},
+                playerStats: {},
+                leagueStats: {
+                    avgPoints: 110.5,
+                    avgPace: 98.2,
+                    avgEfficiency: 54.3
+                }
+            },
+            achievements: this.achievementSystem.getProgress()
+        };
+
+        if (gameData) {
+            this.init(gameData);
+        }
+    }
+
+    // ============================================================
+    // INICIALIZAÇÃO
+    // ============================================================
+    init(gameData) {
+        if (!gameData?.teams) {
+            this.state.lastError = 'Dados inválidos';
+            return false;
+        }
+
+        this.state.teams = this.createTeams(gameData);
+        this.organizeConferences();
+        this.generateSchedule();
+        this.updateStandings();
+        this.initializeAdvancedSystems();
+        this.state.phase = GAME_PHASES.TEAM_SELECTION;
+        return true;
+    }
+
+    createTeams(gameData) {
+        return gameData.teams.map((teamData, index) => {
+            const players = teamData.players.map(playerData => ({
+                id: `${teamData.id}-${playerData.name.replace(/\s/g, '-')}`,
+                name: playerData.name,
+                position: playerData.pos,
+                attributes: playerData.attributes || this.generateAttributes(playerData.archetype, gameData.archetypes),
+                rating: this.calculatePlayerRating(playerData.attributes || {}),
+                potential: 75 + Math.random() * 20,
+                age: 22 + Math.floor(Math.random() * 10),
+                salary: playerData.salary || 5000000,
+                contractYears: playerData.contractYears || 2,
+                morale: 70 + Math.random() * 20,
+                energy: 100,
+                injury: null,
+                isStarter: false,
+                archetype: playerData.archetype || 'Balanced'
+            }));
+
+            const team = {
+                id: teamData.id || index + 1,
+                name: teamData.name,
+                mythology: teamData.mythology,
+                style: teamData.style,
+                dominantArchetype: teamData.dominantArchetype,
+                conference: teamData.conference || (index % 2 === 0 ? 'EAST' : 'WEST'),
+                division: teamData.division || 'Divisão',
+                players,
+                stats: {
+                    games: 0,
+                    wins: 0,
+                    losses: 0,
+                    pointsFor: 0,
+                    pointsAgainst: 0,
+                    streak: 0,
+                    homeWins: 0,
+                    awayWins: 0
+                },
+                form: [],
+                tactics: {
+                    offense: teamData.style === 'Ofensivo' ? 'fast' : 'balanced',
+                    defense: teamData.style === 'Defensivo' ? 'zone' : 'man',
+                    pace: 'normal',
+                    focus: 'balanced'
+                }
+            };
+
+            team.teamPower = this.calculateTeamPower(team);
+            return team;
         });
-      }
-      
-      schedule.push({ day, games: dayGames, completed: false });
     }
-    
-    this.state.schedule = schedule;
-  }
 
-  getUpcomingGames(teamId) {
-    const upcoming = [];
-    for (let day = this.state.currentDay; day <= this.state.currentDay + 5; day++) {
-      const daySchedule = this.state.schedule.find(d => d.day === day);
-      if (daySchedule) {
-        const game = daySchedule.games.find(g => 
-          g.homeTeamId === teamId || g.awayTeamId === teamId
-        );
-        if (game) {
-          upcoming.push({
-            day,
-            opponentId: game.homeTeamId === teamId ? game.awayTeamId : game.homeTeamId,
-            isHome: game.homeTeamId === teamId
-          });
+    organizeConferences() {
+        this.state.conferences = { EAST: [], WEST: [] };
+        this.state.teams.forEach(team => {
+            if (team.conference) {
+                this.state.conferences[team.conference].push(team.id);
+            }
+        });
+    }
+
+    initializeAdvancedSystems() {
+        this.state.teams.forEach(team => {
+            // Depth chart
+            this.state.depthChart[team.id] = this.getOptimalRotation(team.players);
+            
+            // Finanças
+            this.state.teamFinances[team.id] = {
+                salaryTotal: team.players.reduce((sum, p) => sum + (p.salary || 5000000), 0),
+                luxuryTax: 0,
+                budget: 150000000,
+                revenue: 100000000,
+                expenses: team.players.reduce((sum, p) => sum + (p.salary || 5000000), 0) + 50000000,
+                profit: 0,
+                capSpace: 150000000 - team.players.reduce((sum, p) => sum + (p.salary || 5000000), 0),
+                ticketSales: 50000000,
+                merchandise: 20000000,
+                tvRevenue: 30000000
+            };
+            
+            // Moral dos jogadores
+            team.players.forEach(player => {
+                this.state.playerMorale[player.id] = player.morale || 70;
+                this.state.playerDevelopment[player.id] = {
+                    potential: player.potential || 75,
+                    growthRate: 0.8 + Math.random() * 0.4,
+                    developmentFocus: null,
+                    trainedAttributes: {}
+                };
+            });
+            
+            // Stats avançadas
+            this.state.advancedStats.teamStats[team.id] = {
+                offensiveRating: 100 + Math.random() * 15,
+                defensiveRating: 100 + Math.random() * 15,
+                pace: 95 + Math.random() * 10,
+                efficiency: 50 + Math.random() * 20,
+                reboundRate: 0.5 + Math.random() * 0.2,
+                assistRate: 0.6 + Math.random() * 0.2,
+                turnoverRate: 0.12 + Math.random() * 0.06
+            };
+        });
+        
+        // Gerar free agents
+        this.generateFreeAgents();
+        
+        // Preparar draft
+        this.prepareDraft();
+    }
+
+    generateFreeAgents() {
+        const freeAgents = [];
+        const archetypes = ['Força', 'Sabedoria', 'Velocidade', 'Magia', 'Proteção', 'Natureza', 'Luz', 'Sombra', 'Ordem', 'Fogo', 'Caos'];
+        const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
+        const firstNames = ['Leandro', 'Miguel', 'João', 'Pedro', 'Rui', 'André', 'Carlos', 'Diogo', 'Filipe', 'Gonalo'];
+        const lastNames = ['Silva', 'Santos', 'Costa', 'Pereira', 'Oliveira', 'Martins', 'Ferreira', 'Rodrigues', 'Sousa', 'Gomes'];
+        
+        for (let i = 0; i < 50; i++) {
+            const archetype = archetypes[randomInt(0, archetypes.length - 1)];
+            const position = positions[randomInt(0, positions.length - 1)];
+            const age = 20 + randomInt(0, 11);
+            const firstName = firstNames[randomInt(0, firstNames.length - 1)];
+            const lastName = lastNames[randomInt(0, lastNames.length - 1)];
+            
+            freeAgents.push({
+                id: `fa-${i + 1}`,
+                name: `${firstName} ${lastName}`,
+                position,
+                archetype,
+                age,
+                attributes: this.generateAttributes(archetype),
+                salaryDemand: 2000000 + Math.random() * 10000000,
+                yearsDemand: 1 + randomInt(0, 3),
+                rating: 60 + Math.random() * 30,
+                potential: 60 + Math.random() * 30,
+                preferredRole: ['Starter', 'Rotation', 'Bench'][randomInt(0, 2)]
+            });
         }
-      }
-    }
-    return upcoming;
-  }
-
-  getStandings(conference) {
-    if (conference) return this.state.standings[conference] || [];
-    return this.state.standings;
-  }
-
-  getLiveGames() {
-    const daySchedule = this.state.schedule.find(d => d.day === this.state.currentDay);
-    if (!daySchedule) return { live: [], completed: [] };
-    
-    const live = daySchedule.games.filter(g => !g.played);
-    const completed = daySchedule.games.filter(g => g.played);
-    
-    return { live, completed };
-  }
-
-  getLiveFeed() {
-    return this.state.liveFeed.slice(-20);
-  }
-
-  getGameHistory(filters = {}) {
-    let history = filters.userOnly ? [...this.state.userGameHistory] : [...this.state.gameHistory];
-    
-    if (filters.teamId) {
-      history = history.filter(game => 
-        game.homeTeam.id === filters.teamId || game.awayTeam.id === filters.teamId
-      );
-    }
-    
-    if (filters.limit) history = history.slice(0, filters.limit);
-    return history;
-  }
-
-  checkJobOffers() {
-    if (!this.state.playerTeamId || this.state.userReputation < 70) {
-      this.state.jobOffers = [];
-      return;
+        
+        this.state.freeAgents = freeAgents;
     }
 
-    const currentTeam = this.state.teams.find(t => t.id === this.state.playerTeamId);
-    if (!currentTeam) return;
-
-    const betterTeams = this.state.teams.filter(t => 
-      t.id !== this.state.playerTeamId &&
-      this.calculateTeamPower(t) > this.calculateTeamPower(currentTeam) &&
-      t.conference !== currentTeam.conference
-    );
-
-    this.state.jobOffers = betterTeams.slice(0, 3).map(team => ({
-      teamId: team.id,
-      teamName: team.name,
-      conference: team.conference,
-      teamPower: Math.round(this.calculateTeamPower(team)),
-      reputationRequired: 70,
-      description: `${team.name} quer-te como treinador!`
-    }));
-  }
-
-  updateUserReputation(homeTeam, awayTeam, result) {
-    if (!this.state.playerTeamId) return;
-    
-    const isHome = homeTeam.id === this.state.playerTeamId;
-    const userTeam = isHome ? homeTeam : awayTeam;
-    const opponent = isHome ? awayTeam : homeTeam;
-    const userWon = (isHome && result.winner === 'home') || (!isHome && result.winner === 'away');
-    
-    let repChange = userWon ? 5 : -3;
-    const opponentPower = this.calculateTeamPower(opponent);
-    const userPower = this.calculateTeamPower(userTeam);
-    
-    if (userWon && opponentPower > userPower) {
-      repChange += Math.floor((opponentPower - userPower) / 5);
-    } else if (!userWon && opponentPower < userPower) {
-      repChange -= Math.floor((userPower - opponentPower) / 5);
+    prepareDraft() {
+        const draftPicks = [];
+        for (let round = 1; round <= 2; round++) {
+            for (let pick = 1; pick <= 30; pick++) {
+                draftPicks.push({
+                    round,
+                    pick,
+                    originalTeam: pick,
+                    currentTeam: pick,
+                    player: null
+                });
+            }
+        }
+        this.state.draftPicks = draftPicks;
+        this.generateDraftProspects();
     }
-    
-    this.state.userReputation = Math.max(0, Math.min(100, this.state.userReputation + repChange));
-  }
 
-  recordGameInHistory(gameResult, homeTeam, awayTeam, day, isUserGame) {
-    const gameRecord = {
-      id: `game-${homeTeam.id}-${awayTeam.id}-${day}-${Date.now()}`,
-      date: `Day ${day}`,
-      season: this.state.seasonYear,
-      phase: this.state.phase,
-      homeTeam: { id: homeTeam.id, name: homeTeam.name, score: gameResult.result.homePoints },
-      awayTeam: { id: awayTeam.id, name: awayTeam.name, score: gameResult.result.awayPoints },
-      result: gameResult.result,
-      isUserGame
-    };
-    
-    this.state.gameHistory.push(gameRecord);
-    if (isUserGame) this.state.userGameHistory.push(gameRecord);
-    
-    this.state.liveFeed.push({
-      timestamp: new Date().toISOString(),
-      text: `${homeTeam.name} ${gameResult.result.homePoints} - ${gameResult.result.awayPoints} ${awayTeam.name}`,
-      type: 'game_end'
-    });
-    
-    if (this.state.liveFeed.length > 50) this.state.liveFeed.shift();
-  }
+    generateDraftProspects() {
+        const prospects = [];
+        const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
+        const firstNames = ['Alex', 'Bruno', 'Daniel', 'Eduardo', 'Fábio', 'Gabriel', 'Hugo', 'Ivo', 'Jorge', 'Kevin'];
+        const lastNames = ['Lopes', 'Marques', 'Neves', 'Pinto', 'Queirós', 'Ramos', 'Teixeira', 'Vieira', 'Xavier', 'Zé'];
+        
+        for (let i = 0; i < 60; i++) {
+            const position = positions[randomInt(0, positions.length - 1)];
+            const age = 19 + randomInt(0, 2);
+            const firstName = firstNames[randomInt(0, firstNames.length - 1)];
+            const lastName = lastNames[randomInt(0, lastNames.length - 1)];
+            const potential = 60 + randomInt(0, 34);
+            const currentRating = potential - 15 - randomInt(0, 9);
+            
+            prospects.push({
+                id: `prospect-${i + 1}`,
+                name: `${firstName} ${lastName}`,
+                position,
+                age,
+                rating: currentRating,
+                potential,
+                attributes: this.generateDraftAttributes(potential),
+                college: ['Kentucky', 'Duke', 'UNC', 'UCLA', 'Kansas'][randomInt(0, 4)],
+                projection: Math.min(30, Math.floor(i / 2) + 1),
+                strengths: ['Arremesso', 'Defesa', 'Passe', 'Atletismo'][randomInt(0, 3)],
+                weaknesses: ['Consistência', 'Força', 'QI'][randomInt(0, 2)]
+            });
+        }
+        
+        this.state.draftProspects = prospects;
+    }
+
+    generateDraftAttributes(potential) {
+        const base = {
+            forca: 40 + Math.random() * 40,
+            tecnica: 40 + Math.random() * 40,
+            velocidade: 40 + Math.random() * 40,
+            criatividade: 40 + Math.random() * 40,
+            disciplina: 40 + Math.random() * 40,
+            aura: 40 + Math.random() * 40
+        };
+        
+        // Ajustar baseado no potencial
+        Object.keys(base).forEach(key => {
+            base[key] = Math.min(99, base[key] + (potential - 80));
+        });
+        
+        return base;
+    }
+
+    getOptimalRotation(players) {
+        if (!players || players.length === 0) {
+            return { starters: [], rotation: [], bench: [] };
+        }
+
+        const playersByPos = { PG: [], SG: [], SF: [], PF: [], C: [] };
+        players.forEach(player => {
+            const pos = player.position || player.pos;
+            if (playersByPos[pos]) playersByPos[pos].push(player);
+        });
+
+        Object.keys(playersByPos).forEach(pos => {
+            playersByPos[pos].sort((a, b) => this.calculatePlayerPower(b) - this.calculatePlayerPower(a));
+        });
+
+        const starters = [];
+        ['PG', 'SG', 'SF', 'PF', 'C'].forEach(pos => {
+            if (playersByPos[pos].length > 0) starters.push(playersByPos[pos][0].id);
+        });
+
+        const allPlayers = players
+            .filter(p => !starters.includes(p.id))
+            .sort((a, b) => this.calculatePlayerPower(b) - this.calculatePlayerPower(a));
+
+        const rotation = allPlayers.slice(0, 5).map(p => p.id);
+        const bench = allPlayers.slice(5).map(p => p.id);
+
+        return {
+            starters: starters.slice(0, 5),
+            rotation: rotation.slice(0, 5),
+            bench: bench
+        };
+    }
+
+    generateAttributes(archetype, archetypeData) {
+        if (archetypeData && archetypeData[archetype]) {
+            return { ...archetypeData[archetype] };
+        }
+
+        const baseValues = {
+            'Força': { forca: 80, tecnica: 50, velocidade: 40, criatividade: 40, disciplina: 60, aura: 50 },
+            'Sabedoria': { forca: 40, tecnica: 80, velocidade: 50, criatividade: 70, disciplina: 60, aura: 60 },
+            'Velocidade': { forca: 50, tecnica: 60, velocidade: 80, criatividade: 60, disciplina: 50, aura: 50 },
+            'Magia': { forca: 40, tecnica: 70, velocidade: 50, criatividade: 80, disciplina: 50, aura: 70 },
+            'Proteção': { forca: 70, tecnica: 50, velocidade: 40, criatividade: 40, disciplina: 80, aura: 50 },
+            'Natureza': { forca: 60, tecnica: 60, velocidade: 60, criatividade: 60, disciplina: 60, aura: 70 },
+            'Luz': { forca: 50, tecnica: 70, velocidade: 60, criatividade: 60, disciplina: 70, aura: 80 },
+            'Sombra': { forca: 60, tecnica: 60, velocidade: 70, criatividade: 70, disciplina: 40, aura: 60 },
+            'Ordem': { forca: 60, tecnica: 60, velocidade: 50, criatividade: 50, disciplina: 80, aura: 60 },
+            'Fogo': { forca: 70, tecnica: 60, velocidade: 70, criatividade: 60, disciplina: 40, aura: 60 },
+            'Caos': { forca: 60, tecnica: 50, velocidade: 80, criatividade: 70, disciplina: 30, aura: 50 }
+        };
+
+        const base = baseValues[archetype] || {
+            forca: 50, tecnica: 50, velocidade: 50,
+            criatividade: 50, disciplina: 50, aura: 50
+        };
+
+        // Adicionar variação
+        Object.keys(base).forEach(key => {
+            base[key] = clamp(base[key] + (Math.random() * 20 - 10), 30, 85);
+        });
+
+        return base;
+    }
+
+    calculatePlayerRating(attributes) {
+        const sum = Object.values(attributes).reduce((acc, val) => acc + val, 0);
+        return Math.round(sum / Object.keys(attributes).length);
+    }
+
+    // ============================================================
+    // SUGESTÃO 2: ENERGIA AFETA PODER (FORÇA ROTAÇÃO)
+    // SUGESTÃO 3: BÓNUS DE MITOLOGIA APLICADO
+    // ============================================================
+    calculatePlayerPower(player, teamMythology = null) {
+        const cached = this.cache.getPlayerPower(player.id);
+        if (cached) return cached;
+
+        let attrs = { ...player.attributes };
+
+        // SUGESTÃO 3: Aplicar bónus de mitologia
+        if (teamMythology && MYTHOLOGY_BONUS[teamMythology]) {
+            Object.entries(MYTHOLOGY_BONUS[teamMythology]).forEach(([attr, bonus]) => {
+                attrs[attr] = (attrs[attr] || 50) + bonus;
+            });
+        }
+
+        const { forca = 50, tecnica = 50, velocidade = 50, criatividade = 50, disciplina = 50, aura = 50 } = attrs;
+
+        let power = (
+            forca * 1.2 +
+            tecnica * 1.1 +
+            velocidade * 1.0 +
+            criatividade * 0.9 +
+            disciplina * 0.8 +
+            aura * 0.7
+        ) / 5.7;
+
+        // SUGESTÃO 2: Multiplicador de energia
+        const energyMultiplier = (player.energy || 100) / 100;
+        power *= energyMultiplier;
+
+        // Penalidade por lesão
+        if (player.injury) power *= 0;
+
+        power = clamp(power, 30, 99);
+
+        this.cache.setPlayerPower(player.id, power);
+        return power;
+    }
+
+    // ============================================================
+    // SUGESTÃO 1: HOME COURT ADVANTAGE (+5%)
+    // SUGESTÃO 2: ENERGIA INTEGRADA
+    // ============================================================
+    calculateTeamPower(team, isHome = false) {
+        const cached = this.cache.getTeamPower(team.id);
+        if (cached && !isHome) return cached;
+
+        const activePlayers = team.players.filter(p => !p.injury && (p.energy || 100) > 20);
+
+        if (activePlayers.length === 0) return 50;
+
+        // Programação funcional (refatoração)
+        const totalPower = activePlayers.reduce((sum, p) => {
+            return sum + this.calculatePlayerPower(p, team.mythology);
+        }, 0);
+
+        let avgPower = totalPower / activePlayers.length;
+
+        // SUGESTÃO 1: Vantagem de casa (+5%)
+        const homeBonus = isHome ? 1.05 : 1.0;
+        avgPower *= homeBonus;
+
+        avgPower = clamp(avgPower, 40, 99);
+
+        if (!isHome) {
+            this.cache.setTeamPower(team.id, avgPower);
+        }
+
+        return avgPower;
+    }
+
+    // ============================================================
+    // SIMULAÇÃO DE JOGO (COM EMOJIS - SUGESTÃO 5)
+    // ============================================================
+    simulateDetailedGame(gameData) {
+        const homeTeam = this.state.teams.find(t => t.id === gameData.homeTeamId);
+        const awayTeam = this.state.teams.find(t => t.id === gameData.awayTeamId);
+
+        if (!homeTeam || !awayTeam) {
+            return { success: false, error: 'Equipas não encontradas' };
+        }
+
+        // SUGESTÃO 1: Home court advantage aplicado
+        const homePower = this.calculateTeamPower(homeTeam, true); // ← VANTAGEM DE CASA
+        const awayPower = this.calculateTeamPower(awayTeam, false);
+
+        const homeScore = Math.round(95 + (homePower / 2) + (Math.random() * 20));
+        const awayScore = Math.round(95 + (awayPower / 2) + (Math.random() * 20));
+
+        const winner = homeScore > awayScore ? 'home' : 'away';
+        const margin = Math.abs(homeScore - awayScore);
+
+        // Atualizar stats
+        homeTeam.stats.games++;
+        awayTeam.stats.games++;
+        homeTeam.stats.pointsFor += homeScore;
+        homeTeam.stats.pointsAgainst += awayScore;
+        awayTeam.stats.pointsFor += awayScore;
+        awayTeam.stats.pointsAgainst += homeScore;
+
+        if (winner === 'home') {
+            homeTeam.stats.wins++;
+            homeTeam.stats.homeWins++;
+            homeTeam.stats.streak = homeTeam.stats.streak >= 0 ? homeTeam.stats.streak + 1 : 1;
+            awayTeam.stats.losses++;
+            awayTeam.stats.streak = awayTeam.stats.streak <= 0 ? awayTeam.stats.streak - 1 : -1;
+        } else {
+            awayTeam.stats.wins++;
+            awayTeam.stats.awayWins++;
+            awayTeam.stats.streak = awayTeam.stats.streak >= 0 ? awayTeam.stats.streak + 1 : 1;
+            homeTeam.stats.losses++;
+            homeTeam.stats.streak = homeTeam.stats.streak <= 0 ? homeTeam.stats.streak - 1 : -1;
+        }
+
+        // Atualizar energia após jogo (SUGESTÃO 2)
+        this.updateEnergyAfterGame(homeTeam);
+        this.updateEnergyAfterGame(awayTeam);
+
+        // SUGESTÃO 5: Gerar eventos com emojis
+        const events = this.generateGameEventsWithEmojis(homeTeam, awayTeam, winner);
+
+        // Adicionar ao liveFeed
+        const emoji = winner === 'home' ? '🏠' : '✈️';
+        this.state.liveFeed.unshift({
+            timestamp: new Date().toISOString(),
+            text: `${emoji} ${homeTeam.name} ${homeScore} - ${awayScore} ${awayTeam.name}`,
+            type: 'game_result',
+            winner: winner === 'home' ? homeTeam.name : awayTeam.name
+        });
+
+        // Invalidar cache
+        this.cache.invalidateCache();
+        this.state.dirtyFlags.standings = true;
+        this.state.dirtyFlags.teamPower = true;
+
+        return {
+            success: true,
+            result: {
+                homeScore,
+                awayScore,
+                winner,
+                margin,
+                events
+            },
+            homeTeam: this.getTeamInfo(homeTeam.id),
+            awayTeam: this.getTeamInfo(awayTeam.id)
+        };
+    }
+
+    // SUGESTÃO 5: Eventos com emojis contextuais por arquétipo
+    generateGameEventsWithEmojis(homeTeam, awayTeam, winner) {
+        const events = [];
+        const quarters = [1, 2, 3, 4];
+
+        quarters.forEach(quarter => {
+            const team = chance(0.5) ? homeTeam : awayTeam;
+            const player = team.players[randomInt(0, Math.min(4, team.players.length - 1))];
+
+            if (player) {
+                const emoji = ARCHETYPE_EMOJI[player.archetype] || '⭐';
+                const eventTypes = [
+                    `${emoji} ${player.name} marca um triplo sensacional!`,
+                    `${emoji} ${player.name} completa uma enterrada poderosa!`,
+                    `${emoji} Passe extraordinário de ${player.name}!`,
+                    `${emoji} Defesa impressionante de ${player.name}!`,
+                    `${emoji} Roubo de bola de ${player.name}!`
+                ];
+
+                events.push({
+                    quarter,
+                    time: `${randomInt(0, 11)}:${randomInt(0, 59).toString().padStart(2, '0')}`,
+                    text: eventTypes[randomInt(0, eventTypes.length - 1)],
+                    emoji,
+                    archetype: player.archetype,
+                    team: team.name
+                });
+            }
+        });
+
+        return events;
+    }
+
+    // SUGESTÃO 2: Atualizar energia após jogo
+    updateEnergyAfterGame(team) {
+        const depthChart = this.state.depthChart[team.id];
+        if (!depthChart) return;
+
+        team.players.forEach(player => {
+            if (depthChart.starters.includes(player.id)) {
+                player.energy = Math.max(30, player.energy - 25); // Titulares perdem mais
+            } else if (depthChart.rotation.includes(player.id)) {
+                player.energy = Math.max(40, player.energy - 15); // Rotação perde médio
+            } else {
+                player.energy = Math.min(100, player.energy + 10); // Banco recupera
+            }
+        });
+    }
+
+    updatePlayerEnergy() {
+        this.state.teams.forEach(team => {
+            team.players.forEach(player => {
+                // Recuperação natural (1% por dia)
+                player.energy = Math.min(100, player.energy + 1);
+            });
+        });
+    }
+
+    // ============================================================
+    // CALENDÁRIO E SIMULAÇÃO
+    // ============================================================
+    generateSchedule() {
+        const schedule = [];
+        const eastTeams = this.state.teams.filter(t => t.conference === 'EAST');
+        const westTeams = this.state.teams.filter(t => t.conference === 'WEST');
+
+        for (let day = 1; day <= 82; day++) {
+            const dayGames = [];
+            const gamesToday = day % 3 === 0 ? 8 : 10;
+
+            for (let i = 0; i < gamesToday; i++) {
+                let homeTeam, awayTeam;
+
+                if (day < 60 && chance(0.6)) {
+                    homeTeam = eastTeams[randomInt(0, eastTeams.length - 1)];
+                    awayTeam = westTeams[randomInt(0, westTeams.length - 1)];
+                } else {
+                    const conference = chance(0.5) ? 'EAST' : 'WEST';
+                    const teams = conference === 'EAST' ? eastTeams : westTeams;
+                    homeTeam = teams[randomInt(0, teams.length - 1)];
+                    awayTeam = teams[randomInt(0, teams.length - 1)];
+
+                    let attempts = 0;
+                    while (awayTeam.id === homeTeam.id && attempts < 10) {
+                        awayTeam = teams[randomInt(0, teams.length - 1)];
+                        attempts++;
+                    }
+                }
+
+                dayGames.push({
+                    homeTeamId: homeTeam.id,
+                    awayTeamId: awayTeam.id,
+                    conference: homeTeam.conference === awayTeam.conference ? homeTeam.conference : 'INTER',
+                    played: false,
+                    result: null,
+                    events: [],
+                    detailedStats: null,
+                    date: `Day ${day}`,
+                    time: `${19 + randomInt(0, 2)}:${randomInt(0, 3) * 15}`
+                });
+            }
+
+            schedule.push({ day, games: dayGames, completed: false });
+        }
+
+        this.state.schedule = schedule;
+        
+        // CORREÇÃO: Verificação segura antes de chamar setSchedule
+        if (this.cache && typeof this.cache.setSchedule === 'function') {
+            this.cache.setSchedule(schedule);
+        } else {
+            // Fallback para garantir que o cache seja atualizado
+            if (this.cache) {
+                this.cache.scheduleCache = { value: schedule, timestamp: Date.now() };
+            }
+        }
+    }
+
+    simulateDay(dayNumber = null) {
+        const day = dayNumber || this.state.currentDay;
+        const daySchedule = this.state.schedule.find(d => d.day === day);
+
+        if (!daySchedule) {
+            return { success: false, error: 'Dia não encontrado no calendário' };
+        }
+
+        if (daySchedule.completed) {
+            return { success: false, error: 'Este dia já foi simulado' };
+        }
+
+        let userGame = null;
+
+        daySchedule.games.forEach(game => {
+            if (!game.played) {
+                const isUserGame = game.homeTeamId === this.state.playerTeamId || game.awayTeamId === this.state.playerTeamId;
+
+                if (isUserGame) {
+                    userGame = game;
+                } else {
+                    const result = this.simulateDetailedGame(game);
+                    if (result.success) {
+                        game.played = true;
+                        game.result = result.result;
+                    }
+                }
+            }
+        });
+
+        // Atualizar energia
+        this.updatePlayerEnergy();
+
+        // Atualizar standings
+        this.updateStandings();
+
+        // Verificar conquistas
+        const newAchievements = this.achievementSystem.checkAchievements(this.state);
+
+        daySchedule.completed = !userGame;
+
+        return {
+            success: true,
+            day,
+            userGame,
+            newAchievements,
+            daySchedule
+        };
+    }
+
+    updateStandings() {
+        const standings = { EAST: [], WEST: [] };
+
+        ['EAST', 'WEST'].forEach(conf => {
+            const teams = this.state.teams
+                .filter(t => t.conference === conf)
+                .map(t => ({
+                    id: t.id,
+                    name: t.name,
+                    mythology: t.mythology,
+                    wins: t.stats.wins,
+                    losses: t.stats.losses,
+                    games: t.stats.games,
+                    pct: t.stats.games > 0 ? (t.stats.wins / t.stats.games).toFixed(3) : '.000',
+                    diff: t.stats.pointsFor - t.stats.pointsAgainst,
+                    streak: t.stats.streak,
+                    homeWins: t.stats.homeWins,
+                    awayWins: t.stats.awayWins
+                }))
+                .sort((a, b) => {
+                    if (b.wins !== a.wins) return b.wins - a.wins;
+                    return b.diff - a.diff;
+                })
+                .map((team, index) => ({ ...team, rank: index + 1 }));
+
+            standings[conf] = teams;
+        });
+
+        this.state.standings = standings;
+        this.cache.setStandings(standings);
+        this.state.dirtyFlags.standings = false;
+    }
+
+    // ============================================================
+    // DISPATCH (MÁQUINA DE ESTADOS)
+    // ============================================================
+    dispatch(action) {
+        try {
+            console.log('[ENGINE] Action:', action.type, action.payload);
+
+            switch (action.type) {
+                case ACTION_TYPES.SELECT_TEAM:
+                    return this.handleSelectTeam(action.payload);
+                case ACTION_TYPES.SIMULATE_DAY:
+                    return this.handleSimulateDay(action.payload);
+                case ACTION_TYPES.PLAYER_GAME:
+                    return this.handlePlayerGame(action.payload);
+                case ACTION_TYPES.SET_SPEED:
+                    return this.handleSetSpeed(action.payload);
+                case ACTION_TYPES.TOGGLE_AUTO:
+                    return this.handleToggleAuto(action.payload);
+                case ACTION_TYPES.TRAIN_PLAYER:
+                    return this.handleTrainPlayer(action.payload);
+                case ACTION_TYPES.SET_LINEUP:
+                    return this.handleSetLineup(action.payload);
+                case ACTION_TYPES.SIGN_FREE_AGENT:
+                    return this.handleSignFreeAgent(action.payload);
+                case ACTION_TYPES.SAVE_GAME:
+                    return this.handleSaveGame(action.payload);
+                case ACTION_TYPES.LOAD_GAME:
+                    return this.handleLoadGame(action.payload);
+                default:
+                    throw new Error(`Ação desconhecida: ${action.type}`);
+            }
+        } catch (error) {
+            this.state.lastError = error.message;
+            return { success: false, error: error.message };
+        }
+    }
+
+    handleSelectTeam(payload) {
+        if (this.state.phase !== GAME_PHASES.TEAM_SELECTION) {
+            throw new Error('Não é possível selecionar equipa nesta fase');
+        }
+
+        const team = this.state.teams.find(t => t.id === payload.teamId || t.id === payload);
+
+        if (!team) {
+            throw new Error('Equipa não encontrada');
+        }
+
+        this.state.playerTeamId = team.id;
+        this.state.userReputation = 50 + (team.teamPower - 70) * 1.5 + (Math.random() * 10 - 5);
+        this.state.userReputation = clamp(this.state.userReputation, 20, 80);
+        this.state.phase = GAME_PHASES.REGULAR_SEASON;
+        this.state.userName = payload.userName || 'Coach';
+
+        // Inicializar sistemas da equipa
+        this.initializeUserTeamSystems(team.id);
+
+        this.state.liveFeed.unshift({
+            timestamp: new Date().toISOString(),
+            text: `${this.state.userName} assumiu o comando de ${team.name}!`,
+            type: 'teamselection'
+        });
+
+        return {
+            success: true,
+            team: this.getTeamInfo(team.id),
+            reputation: this.state.userReputation,
+            chemistry: this.state.teamChemistry,
+            finances: this.state.teamFinances[team.id]
+        };
+    }
+
+    initializeUserTeamSystems(teamId) {
+        if (!this.state.depthChart[teamId]) {
+            const team = this.state.teams.find(t => t.id === teamId);
+            this.state.depthChart[teamId] = {
+                starters: team.players.slice(0, 5).map(p => p.id),
+                rotation: team.players.slice(5, 10).map(p => p.id),
+                bench: team.players.slice(10).map(p => p.id)
+            };
+        }
+
+        // Inicializar moral
+        const team = this.state.teams.find(t => t.id === teamId);
+        team.players.forEach(player => {
+            if (!this.state.playerMorale[player.id]) {
+                this.state.playerMorale[player.id] = player.morale || 70;
+            }
+        });
+
+        this.updateTeamChemistry(teamId);
+    }
+
+    updateTeamChemistry(teamId) {
+        const team = this.state.teams.find(t => t.id === teamId);
+        if (!team) return;
+
+        let chemistry = 50;
+
+        // Moral média
+        const avgMorale = team.players.reduce((sum, p) => sum + (this.state.playerMorale[p.id] || 70), 0) / team.players.length;
+        chemistry += (avgMorale - 70) * 0.5;
+
+        // Forma recente
+        if (team.stats.streak >= 3) chemistry += 15;
+        else if (team.stats.streak <= -3) chemistry -= 15;
+
+        this.state.teamChemistry = clamp(chemistry, 0, 100);
+    }
+
+    handleSimulateDay(payload) {
+        const day = payload?.day || this.state.currentDay;
+        const result = this.simulateDay(day);
+
+        if (result.success && !result.userGame) {
+            this.state.currentDay++;
+        }
+
+        return result;
+    }
+
+    handlePlayerGame(payload) {
+        const gameData = payload.gameData || payload;
+        const result = this.simulateDetailedGame(gameData);
+
+        if (result.success) {
+            const game = this.state.schedule
+                .find(d => d.day === this.state.currentDay)
+                ?.games.find(g => g.homeTeamId === gameData.homeTeamId && g.awayTeamId === gameData.awayTeamId);
+
+            if (game) {
+                game.played = true;
+                game.result = result.result;
+            }
+
+            this.state.currentDay++;
+        }
+
+        return result;
+    }
+
+    handleSetSpeed(payload) {
+        const speed = payload.speed || payload;
+        this.state.simulationSpeed = clamp(speed, 1, 10);
+        return { success: true, speed: this.state.simulationSpeed };
+    }
+
+    handleToggleAuto(payload) {
+        this.state.autoSimulate = !this.state.autoSimulate;
+        return { success: true, autoSimulate: this.state.autoSimulate };
+    }
+
+    handleTrainPlayer(payload) {
+        const { playerId, trainingType } = payload;
+        
+        let targetPlayer = null;
+        let targetTeam = null;
+        
+        for (const team of this.state.teams) {
+            const player = team.players.find(p => p.id === playerId);
+            if (player) {
+                targetPlayer = player;
+                targetTeam = team;
+                break;
+            }
+        }
+
+        if (!targetPlayer) {
+            throw new Error('Jogador não encontrado');
+        }
+
+        if (targetPlayer.energy < 30) {
+            return { success: false, error: 'Jogador sem energia suficiente para treinar' };
+        }
+
+        const development = this.state.playerDevelopment[playerId];
+        const growthBonus = development?.growthRate || 1.0;
+
+        const trainingEffects = {
+            strength: { forca: [2, 5], disciplina: [1, 2], energyCost: 30 },
+            shooting: { tecnica: [3, 6], disciplina: [1, 2], energyCost: 25 },
+            playmaking: { criatividade: [3, 6], tecnica: [1, 3], energyCost: 25 },
+            defense: { disciplina: [3, 6], forca: [1, 3], energyCost: 30 },
+            speed: { velocidade: [3, 7], energyCost: 35 },
+            mental: { aura: [2, 5], criatividade: [1, 3], energyCost: 20 },
+            balanced: { forca: [1, 3], tecnica: [1, 3], velocidade: [1, 3], energyCost: 25 }
+        };
+
+        const effect = trainingEffects[trainingType] || trainingEffects.balanced;
+        const improvements = {};
+
+        Object.entries(effect).forEach(([attr, range]) => {
+            if (attr === 'energyCost') return;
+            
+            const [min, max] = range;
+            const improvement = Math.floor(Math.random() * (max - min + 1) + min) * growthBonus;
+            const current = targetPlayer.attributes[attr] || 50;
+            const potential = targetPlayer.potential || 85;
+            const maxAllowed = Math.min(potential, 99);
+            
+            targetPlayer.attributes[attr] = Math.min(maxAllowed, current + improvement);
+            improvements[attr] = improvement;
+        });
+
+        const energyCost = effect.energyCost || 25;
+        targetPlayer.energy = Math.max(0, targetPlayer.energy - energyCost);
+
+        if (chance(0.5)) {
+            targetPlayer.morale = Math.min(100, targetPlayer.morale + 3);
+            this.state.playerMorale[playerId] = targetPlayer.morale;
+        }
+
+        this.cache.invalidateCache();
+
+        return {
+            success: true,
+            improvements,
+            newAttributes: { ...targetPlayer.attributes },
+            energy: targetPlayer.energy,
+            morale: targetPlayer.morale
+        };
+    }
+
+    handleSetLineup(payload) {
+        const { teamId, starters, rotationOrder } = payload;
+        const team = this.state.teams.find(t => t.id === teamId);
+
+        if (!team) {
+            throw new Error('Equipa não encontrada');
+        }
+
+        if (starters.length !== 5) {
+            throw new Error('Devem ser selecionados 5 titulares');
+        }
+
+        const allPlayers = [...starters, ...rotationOrder];
+        const invalidPlayer = allPlayers.find(playerId => !team.players.some(p => p.id === playerId));
+
+        if (invalidPlayer) {
+            throw new Error('Jogador não pertence à equipa');
+        }
+
+        this.state.depthChart[teamId] = {
+            starters,
+            rotation: rotationOrder,
+            bench: team.players
+                .filter(p => !allPlayers.includes(p.id))
+                .map(p => p.id)
+        };
+
+        this.updateTeamChemistry(teamId);
+        this.cache.invalidateCache();
+
+        return {
+            success: true,
+            depthChart: this.state.depthChart[teamId],
+            teamChemistry: this.state.teamChemistry
+        };
+    }
+
+    handleSignFreeAgent(payload) {
+        const { teamId, playerId, contractYears, salary } = payload;
+        const team = this.state.teams.find(t => t.id === teamId);
+        const freeAgent = this.state.freeAgents.find(fa => fa.id === playerId);
+
+        if (!team) throw new Error('Equipa não encontrada');
+        if (!freeAgent) throw new Error('Agente livre não encontrado');
+
+        const finances = this.state.teamFinances[teamId];
+        if (finances.capSpace < salary) {
+            return { success: false, error: 'Espaço salarial insuficiente' };
+        }
+
+        const newPlayer = {
+            ...freeAgent,
+            id: `p-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            salary,
+            contractYears,
+            morale: 70 + Math.random() * 20,
+            energy: 100,
+            teamId,
+            injury: null
+        };
+
+        team.players.push(newPlayer);
+        this.state.freeAgents = this.state.freeAgents.filter(fa => fa.id !== playerId);
+
+        finances.salaryTotal += salary;
+        finances.capSpace -= salary;
+
+        this.state.depthChart[teamId] = this.getOptimalRotation(team.players);
+        this.cache.invalidateCache();
+
+        this.state.liveFeed.unshift({
+            timestamp: new Date().toISOString(),
+            text: `${team.name} contratou ${newPlayer.name} (${newPlayer.position})`,
+            type: 'transaction'
+        });
+
+        return {
+            success: true,
+            player: newPlayer,
+            team: this.getTeamInfo(teamId),
+            finances
+        };
+    }
+
+    handleSaveGame(payload) {
+        const slot = payload?.slot || 1;
+        return this.saveSystem.saveGame(this.state, slot);
+    }
+
+    handleLoadGame(payload) {
+        const slot = payload?.slot || 1;
+        const result = this.saveSystem.loadGame(slot);
+
+        if (result.success) {
+            this.state = result.state;
+            this.cache.invalidateCache();
+        }
+
+        return result;
+    }
+
+    // ============================================================
+    // GETTERS PÚBLICOS
+    // ============================================================
+    getState() {
+        return this.state;
+    }
+
+    getTeamInfo(teamId) {
+        const team = this.state.teams.find(t => t.id === teamId);
+        if (!team) return null;
+
+        return {
+            id: team.id,
+            name: team.name,
+            mythology: team.mythology,
+            style: team.style,
+            dominantArchetype: team.dominantArchetype,
+            conference: team.conference,
+            division: team.division,
+            stats: { ...team.stats },
+            teamPower: this.calculateTeamPower(team),
+            roster: {
+                players: team.players.map(p => ({
+                    ...p,
+                    power: this.calculatePlayerPower(p, team.mythology)
+                })),
+                depthChart: this.state.depthChart[teamId]
+            },
+            finances: this.state.teamFinances[teamId],
+            chemistry: teamId === this.state.playerTeamId ? this.state.teamChemistry : null
+        };
+    }
+
+    getUserTeamInfo() {
+        if (!this.state.playerTeamId) return null;
+        return this.getTeamInfo(this.state.playerTeamId);
+    }
+
+    getStandings() {
+        const cached = this.cache.getStandings();
+        if (cached) return cached;
+
+        if (this.state.dirtyFlags.standings) {
+            this.updateStandings();
+        }
+
+        return this.state.standings;
+    }
+
+    getLiveGames() {
+        const daySchedule = this.state.schedule.find(d => d.day === this.state.currentDay);
+        if (!daySchedule) return { live: [], completed: [] };
+
+        const live = daySchedule.games.filter(g => !g.played).map(g => ({
+            homeTeam: this.state.teams.find(t => t.id === g.homeTeamId),
+            awayTeam: this.state.teams.find(t => t.id === g.awayTeamId),
+            time: g.time,
+            isUserGame: g.homeTeamId === this.state.playerTeamId || g.awayTeamId === this.state.playerTeamId
+        }));
+
+        const completed = daySchedule.games.filter(g => g.played).map(g => ({
+            homeTeam: this.state.teams.find(t => t.id === g.homeTeamId),
+            awayTeam: this.state.teams.find(t => t.id === g.awayTeamId),
+            result: g.result
+        }));
+
+        return { live, completed };
+    }
+
+    getUpcomingGames(teamId, count = 5) {
+        const upcoming = [];
+
+        for (let day = this.state.currentDay; day <= Math.min(this.state.currentDay + 20, this.state.totalDays); day++) {
+            const daySchedule = this.state.schedule.find(d => d.day === day);
+            if (daySchedule) {
+                const game = daySchedule.games.find(g =>
+                    g.homeTeamId === teamId || g.awayTeamId === teamId
+                );
+
+                if (game) {
+                    const opponentId = game.homeTeamId === teamId ? game.awayTeamId : game.homeTeamId;
+                    const opponent = this.state.teams.find(t => t.id === opponentId);
+
+                    upcoming.push({
+                        day,
+                        date: game.date,
+                        time: game.time,
+                        opponentId,
+                        opponentName: opponent?.name || `Equipa ${opponentId}`,
+                        opponentMythology: opponent?.mythology || 'Desconhecida',
+                        isHome: game.homeTeamId === teamId,
+                        location: game.homeTeamId === teamId ? 'Casa' : 'Fora'
+                    });
+
+                    if (upcoming.length >= count) break;
+                }
+            }
+        }
+
+        return upcoming;
+    }
 }
